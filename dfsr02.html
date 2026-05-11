@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>DataFrame 정렬·탐색 심화형 5지선다 평가</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#dbeafe,#fef3c7,#fce7f3);color:#0f172a}
+header{text-align:center;padding:40px 20px 30px;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid rgba(148,163,184,.35)}
+h1{margin:0;font-size:34px} header p{font-size:17px;line-height:1.75;color:#475569}
+.layout{display:grid;grid-template-columns:280px 1fr;max-width:1540px;margin:0 auto}
+aside{position:sticky;top:0;height:100vh;overflow:auto;padding:18px;background:#0f172a;color:white}
+aside h2{font-size:18px;margin:8px 0 14px}
+.student{background:rgba(255,255,255,.1);border-radius:18px;padding:14px;margin-bottom:14px}
+.student label{display:block;font-size:13px;color:#cbd5e1;margin:8px 0 4px}
+.student input{width:100%;padding:10px;border:0;border-radius:12px;outline:none}
+.navgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
+.navgrid button{border:0;border-radius:10px;padding:9px 0;background:#e0f2fe;color:#0f172a;font-weight:900;cursor:pointer}
+.action{width:100%;border:0;border-radius:14px;padding:12px 14px;margin-top:10px;font-weight:900;cursor:pointer}
+.grade{background:#22c55e;color:#052e16} .reset{background:#f97316;color:white}
+.result{margin-top:12px;padding:14px;background:rgba(255,255,255,.1);border-radius:16px;line-height:1.6;font-size:14px}
+.legend-box{margin-top:16px;padding:14px;border-radius:18px;background:rgba(255,255,255,.10);line-height:1.8;font-size:14px}
+main{padding:24px}
+.note{background:white;border-left:8px solid #2563eb;border-radius:20px;padding:18px 22px;line-height:1.8;box-shadow:0 14px 30px rgba(15,23,42,.09)}
+.card{background:rgba(255,255,255,.96);border:1px solid rgba(148,163,184,.35);border-radius:28px;overflow:hidden;margin:24px 0;box-shadow:0 20px 42px rgba(15,23,42,.13)}
+.card-head{padding:20px 24px;border-bottom:1px solid #e2e8f0}
+.sort .card-head{background:linear-gradient(90deg,#eff6ff,#dbeafe)} .search .card-head{background:linear-gradient(90deg,#ecfdf5,#dcfce7)} .combo .card-head{background:linear-gradient(90deg,#fff7ed,#fef3c7)}
+.card-head h3{margin:10px 0 8px;font-size:23px} .card-head p{margin:0;color:#475569;line-height:1.65}
+.chip{display:inline-block;background:#2563eb;color:white;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:900;margin-right:6px}
+.search .chip{background:#16a34a} .combo .chip{background:#ea580c}
+.qtype{display:inline-block;background:#7c3aed;color:white;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:900}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:20px}
+.label{font-weight:900;margin-bottom:10px;color:#1e293b}
+pre{margin:0;white-space:pre-wrap;overflow:auto;min-height:360px;max-height:620px;background:#0f172a;color:#e2e8f0;border-radius:20px;padding:18px;line-height:1.55;font-size:14px}
+pre.output{min-height:210px;max-height:360px;background:#111827;border:1px solid #334155}
+.explain{margin-top:16px;padding:18px;border-radius:18px;background:#f8fafc;border:1px solid #e2e8f0;line-height:1.8;color:#334155}
+.quiz{margin:0 20px 20px;padding:20px;background:linear-gradient(135deg,#f8fafc,#eef2ff);border:1px solid #dbeafe;border-radius:22px}
+.quiz-title{font-weight:900;color:#1d4ed8;margin-bottom:8px} .question{font-size:18px;font-weight:800;line-height:1.65}
+.choices{display:grid;gap:10px}
+.choice{display:flex;gap:10px;align-items:flex-start;background:white;border:1px solid #e2e8f0;border-radius:16px;padding:12px;cursor:pointer;line-height:1.55}
+.choice:hover{border-color:#2563eb;box-shadow:0 8px 20px rgba(37,99,235,.12)} .choice input{margin-top:6px}
+.num{min-width:28px;height:28px;border-radius:50%;background:#e0f2fe;color:#0369a1;display:inline-flex;align-items:center;justify-content:center;font-weight:900}
+.solution-btn{border:0;border-radius:14px;padding:12px 16px;margin-top:14px;background:#2563eb;color:white;font-weight:900;cursor:pointer}
+.solution{display:none;margin-top:14px;padding:16px;border-radius:16px;background:#ecfeff;border:1px solid #67e8f9;line-height:1.75}
+code{font-family:Consolas,'Courier New',monospace}
+footer{text-align:center;padding:34px;color:#475569}
+@media(max-width:1050px){.layout{grid-template-columns:1fr} aside{position:relative;height:auto} .grid2{grid-template-columns:1fr} h1{font-size:26px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔎 DataFrame 정렬·탐색 심화형 5지선다 평가</h1>
+  <p>각각의 코드와 출력결과를 모두 보여주고, 코드 관련 심화형 5지선다 25문항과 상세 풀이 포함</p>
+</header>
+<div class="layout">
+<aside>
+  <h2>📝 응시 정보</h2>
+  <div class="student">
+    <label>학번</label><input id="studentId" placeholder="예: 1320">
+    <label>이름</label><input id="studentName" placeholder="예: 김인수">
+  </div>
+  <h2>🔢 문항 이동</h2>
+  <div class="navgrid"><button onclick="goEx(1)">1</button><button onclick="goEx(2)">2</button><button onclick="goEx(3)">3</button><button onclick="goEx(4)">4</button><button onclick="goEx(5)">5</button><button onclick="goEx(6)">6</button><button onclick="goEx(7)">7</button><button onclick="goEx(8)">8</button><button onclick="goEx(9)">9</button><button onclick="goEx(10)">10</button><button onclick="goEx(11)">11</button><button onclick="goEx(12)">12</button><button onclick="goEx(13)">13</button><button onclick="goEx(14)">14</button><button onclick="goEx(15)">15</button><button onclick="goEx(16)">16</button><button onclick="goEx(17)">17</button><button onclick="goEx(18)">18</button><button onclick="goEx(19)">19</button><button onclick="goEx(20)">20</button><button onclick="goEx(21)">21</button><button onclick="goEx(22)">22</button><button onclick="goEx(23)">23</button><button onclick="goEx(24)">24</button><button onclick="goEx(25)">25</button></div>
+  <button class="action grade" onclick="grade()">채점 및 TXT 산출</button>
+  <button class="action reset" onclick="resetAll()">응답 초기화</button>
+  <div class="result" id="resultBox">아직 채점하지 않았습니다.</div>
+  <div class="legend-box">
+    <b>구성</b><br>1~10: 데이터 정렬<br>11~20: 데이터 탐색<br>21~25: 정렬+탐색 조합<br><br>
+    <b>총점</b>: 25문항 × 4점 = 100점<br>
+    <b>산출 파일</b><br>학번_이름_시각화_점수_응시시각.txt
+  </div>
+</aside>
+<main>
+  <section class="note">
+    <b>평가 안내</b><br>
+    각 문항은 실생활 DataFrame 코드와 출력결과를 보고 푸는 심화형 5지선다입니다.
+    채점 후 <b>학번_이름_시각화_점수_응시시각.txt</b> 파일이 자동 다운로드됩니다.
+  </section>
+  
+<section class="card sort" id="ex1">
+  <div class="card-head">
+    <span class="chip">데이터 정렬</span>
+    <span class="qtype">코드해석형</span>
+    <h3>1. 1. 학생 성적 총점 기준 내림차순 정렬</h3>
+    <p><b>핵심 개념:</b> sort_values(), ascending=False, 여러 열 계산</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;이름&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;, &quot;도윤&quot;],
+    &quot;국어&quot;: [88, 92, 75, 95, 81],
+    &quot;수학&quot;: [91, 85, 80, 90, 88],
+    &quot;영어&quot;: [84, 96, 78, 93, 86]
+})
+
+df[&quot;총점&quot;] = df[&quot;국어&quot;] + df[&quot;수학&quot;] + df[&quot;영어&quot;]
+result = df.sort_values(&quot;총점&quot;, ascending=False)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>이름  국어  수학  영어  총점
+3  하은    95    90    93   278
+1  서연    92    85    96   273
+0  민준    88    91    84   263
+4  도윤    81    88    86   255
+2  지후    75    80    78   233</code></pre>
+      <div class="explain"><b>상세 설명</b><br>국어, 수학, 영어 점수를 합산해 총점 열을 만들고 총점이 높은 학생부터 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">이 코드의 실행 결과와 정렬 원리를 가장 정확하게 설명한 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q1" value="0"><span class="num">1</span><span>총점이 높은 순서대로 정렬되며 하은이 첫 번째에 온다.</span></label><label class="choice"><input type="radio" name="q1" value="1"><span class="num">2</span><span>ascending=False이므로 총점이 낮은 지후가 첫 번째에 온다.</span></label><label class="choice"><input type="radio" name="q1" value="2"><span class="num">3</span><span>sort_values는 원본 df의 열 이름을 모두 삭제한다.</span></label><label class="choice"><input type="radio" name="q1" value="3"><span class="num">4</span><span>총점 열은 자동 생성되지 않고 수동 입력해야만 한다.</span></label><label class="choice"><input type="radio" name="q1" value="4"><span class="num">5</span><span>국어 점수만 기준으로 정렬된다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(1)">상세 풀이 보기</button>
+    <div class="solution" id="sol1">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 국어, 수학, 영어 점수를 합산해 총점 열을 만들고 총점이 높은 학생부터 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card sort" id="ex2">
+  <div class="card-head">
+    <span class="chip">데이터 정렬</span>
+    <span class="qtype">개념판단형</span>
+    <h3>2. 2. 상품 가격 오름차순 정렬</h3>
+    <p><b>핵심 개념:</b> sort_values(), 가격 비교</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;상품&quot;: [&quot;노트&quot;, &quot;볼펜&quot;, &quot;파일&quot;, &quot;형광펜&quot;, &quot;스티커&quot;],
+    &quot;가격&quot;: [2500, 900, 1800, 1200, 3000],
+    &quot;재고&quot;: [30, 80, 45, 60, 20]
+})
+
+result = df.sort_values(&quot;가격&quot;)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>상품  가격  재고
+1    볼펜   900    80
+3  형광펜  1200    60
+2    파일  1800    45
+0    노트  2500    30
+4  스티커  3000    20</code></pre>
+      <div class="explain"><b>상세 설명</b><br>가격이 낮은 상품부터 오름차순으로 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">result = df.sort_values(&#x27;가격&#x27;)의 의미로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q2" value="0"><span class="num">1</span><span>가격 열을 기준으로 낮은 값부터 높은 값까지 정렬한다.</span></label><label class="choice"><input type="radio" name="q2" value="1"><span class="num">2</span><span>가격 열을 기준으로 높은 값부터 낮은 값까지 정렬한다.</span></label><label class="choice"><input type="radio" name="q2" value="2"><span class="num">3</span><span>재고가 많은 순으로 정렬한다.</span></label><label class="choice"><input type="radio" name="q2" value="3"><span class="num">4</span><span>상품 이름의 글자 수 기준으로 정렬한다.</span></label><label class="choice"><input type="radio" name="q2" value="4"><span class="num">5</span><span>가격 열을 문자열로 변환한다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(2)">상세 풀이 보기</button>
+    <div class="solution" id="sol2">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 가격이 낮은 상품부터 오름차순으로 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card sort" id="ex3">
+  <div class="card-head">
+    <span class="chip">데이터 정렬</span>
+    <span class="qtype">원리이해형</span>
+    <h3>3. 3. 병원 예약 시간 순서 정렬</h3>
+    <p><b>핵심 개념:</b> 문자열 시간 정렬, 예약표</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;환자&quot;: [&quot;김철수&quot;, &quot;이영희&quot;, &quot;박민수&quot;, &quot;최서아&quot;],
+    &quot;진료과&quot;: [&quot;내과&quot;, &quot;치과&quot;, &quot;안과&quot;, &quot;피부과&quot;],
+    &quot;예약시간&quot;: [&quot;14:30&quot;, &quot;09:20&quot;, &quot;11:00&quot;, &quot;10:10&quot;]
+})
+
+result = df.sort_values(&quot;예약시간&quot;)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>환자  진료과 예약시간
+1  이영희    치과    09:20
+3  최서아  피부과    10:10
+2  박민수    안과    11:00
+0  김철수    내과    14:30</code></pre>
+      <div class="explain"><b>상세 설명</b><br>HH:MM 형식은 문자열이어도 시간 순서대로 정렬될 수 있습니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">예약시간을 문자열로 정렬했는데도 순서가 맞는 이유로 가장 적절한 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q3" value="0"><span class="num">1</span><span>HH:MM처럼 두 자리 시간 형식이면 앞에서부터 비교해도 시간 순서가 유지된다.</span></label><label class="choice"><input type="radio" name="q3" value="1"><span class="num">2</span><span>문자열은 항상 숫자보다 빠르게 정렬된다.</span></label><label class="choice"><input type="radio" name="q3" value="2"><span class="num">3</span><span>sort_values는 모든 문자열을 자동으로 datetime으로 변환한다.</span></label><label class="choice"><input type="radio" name="q3" value="3"><span class="num">4</span><span>예약시간 열은 정렬 기준으로 사용할 수 없다.</span></label><label class="choice"><input type="radio" name="q3" value="4"><span class="num">5</span><span>09:20은 문자열이므로 항상 마지막에 온다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(3)">상세 풀이 보기</button>
+    <div class="solution" id="sol3">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> HH:MM 형식은 문자열이어도 시간 순서대로 정렬될 수 있습니다.
+    </div>
+  </div>
+</section>
+
+<section class="card sort" id="ex4">
+  <div class="card-head">
+    <span class="chip">데이터 정렬</span>
+    <span class="qtype">결과분석형</span>
+    <h3>4. 4. 도서 대출 횟수 기준 인기 도서 정렬</h3>
+    <p><b>핵심 개념:</b> 내림차순 정렬, 상위 인기 항목</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;도서명&quot;: [&quot;수학의 정석&quot;, &quot;어린 왕자&quot;, &quot;파이썬 입문&quot;, &quot;과학 콘서트&quot;, &quot;한국사 이야기&quot;],
+    &quot;분야&quot;: [&quot;수학&quot;, &quot;문학&quot;, &quot;코딩&quot;, &quot;과학&quot;, &quot;역사&quot;],
+    &quot;대출횟수&quot;: [42, 85, 73, 55, 60]
+})
+
+result = df.sort_values(&quot;대출횟수&quot;, ascending=False)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>도서명  분야  대출횟수
+1      어린 왕자  문학        85
+2    파이썬 입문  코딩        73
+4  한국사 이야기  역사        60
+3    과학 콘서트  과학        55
+0    수학의 정석  수학        42</code></pre>
+      <div class="explain"><b>상세 설명</b><br>대출횟수가 많은 책부터 정렬하여 인기 도서를 확인합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">출력 결과의 첫 행에 대한 설명으로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q4" value="0"><span class="num">1</span><span>대출횟수 85인 어린 왕자가 첫 행에 온다.</span></label><label class="choice"><input type="radio" name="q4" value="1"><span class="num">2</span><span>대출횟수 42인 수학의 정석이 첫 행에 온다.</span></label><label class="choice"><input type="radio" name="q4" value="2"><span class="num">3</span><span>분야가 가나다순으로 먼저 정렬된다.</span></label><label class="choice"><input type="radio" name="q4" value="3"><span class="num">4</span><span>ascending=False는 오름차순을 의미한다.</span></label><label class="choice"><input type="radio" name="q4" value="4"><span class="num">5</span><span>도서명 열은 출력되지 않는다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(4)">상세 풀이 보기</button>
+    <div class="solution" id="sol4">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 대출횟수가 많은 책부터 정렬하여 인기 도서를 확인합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card sort" id="ex5">
+  <div class="card-head">
+    <span class="chip">데이터 정렬</span>
+    <span class="qtype">활용판단형</span>
+    <h3>5. 5. 음식 칼로리 낮은 순 정렬</h3>
+    <p><b>핵심 개념:</b> 건강 데이터, 오름차순 정렬</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;음식&quot;: [&quot;김밥&quot;, &quot;라면&quot;, &quot;샐러드&quot;, &quot;비빔밥&quot;, &quot;떡볶이&quot;],
+    &quot;칼로리&quot;: [420, 510, 180, 650, 480],
+    &quot;단백질&quot;: [12, 10, 8, 20, 9]
+})
+
+result = df.sort_values(&quot;칼로리&quot;, ascending=True)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>음식  칼로리  단백질
+2  샐러드     180       8
+0    김밥     420      12
+4  떡볶이     480       9
+1    라면     510      10
+3  비빔밥     650      20</code></pre>
+      <div class="explain"><b>상세 설명</b><br>칼로리가 낮은 음식부터 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">이 코드가 식단 관리에 유용한 이유로 가장 적절한 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q5" value="0"><span class="num">1</span><span>칼로리가 낮은 음식부터 확인할 수 있기 때문이다.</span></label><label class="choice"><input type="radio" name="q5" value="1"><span class="num">2</span><span>단백질이 높은 음식부터 자동으로 정렬되기 때문이다.</span></label><label class="choice"><input type="radio" name="q5" value="2"><span class="num">3</span><span>샐러드가 항상 모든 DataFrame에서 첫 행이 되기 때문이다.</span></label><label class="choice"><input type="radio" name="q5" value="3"><span class="num">4</span><span>ascending=True는 결측치를 제거한다.</span></label><label class="choice"><input type="radio" name="q5" value="4"><span class="num">5</span><span>sort_values는 음식명을 모두 숫자로 바꾼다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(5)">상세 풀이 보기</button>
+    <div class="solution" id="sol5">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 칼로리가 낮은 음식부터 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card sort" id="ex6">
+  <div class="card-head">
+    <span class="chip">데이터 정렬</span>
+    <span class="qtype">실생활연계형</span>
+    <h3>6. 6. 버스 도착 예정 시간 정렬</h3>
+    <p><b>핵심 개념:</b> 교통 데이터, 분 단위 정렬</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;버스번호&quot;: [&quot;101&quot;, &quot;165&quot;, &quot;72&quot;, &quot;5001&quot;, &quot;3-1&quot;],
+    &quot;정류장&quot;: [&quot;전북대&quot;, &quot;전주역&quot;, &quot;객사&quot;, &quot;한옥마을&quot;, &quot;시청&quot;],
+    &quot;도착예정분&quot;: [12, 5, 18, 3, 9]
+})
+
+result = df.sort_values(&quot;도착예정분&quot;)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>버스번호    정류장  도착예정분
+3     5001  한옥마을           3
+1      165    전주역           5
+4      3-1      시청           9
+0      101    전북대          12
+2       72      객사          18</code></pre>
+      <div class="explain"><b>상세 설명</b><br>가장 빨리 도착하는 버스부터 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">실시간 버스 앱에서 이 코드와 가장 관련 깊은 기능은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q6" value="0"><span class="num">1</span><span>가장 빨리 도착하는 버스를 위에 보여주는 기능</span></label><label class="choice"><input type="radio" name="q6" value="1"><span class="num">2</span><span>버스번호를 모두 삭제하는 기능</span></label><label class="choice"><input type="radio" name="q6" value="2"><span class="num">3</span><span>정류장 이름을 무작위로 섞는 기능</span></label><label class="choice"><input type="radio" name="q6" value="3"><span class="num">4</span><span>도착예정분을 모두 같은 값으로 만드는 기능</span></label><label class="choice"><input type="radio" name="q6" value="4"><span class="num">5</span><span>버스번호를 숫자로 더하는 기능</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(6)">상세 풀이 보기</button>
+    <div class="solution" id="sol6">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 가장 빨리 도착하는 버스부터 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card sort" id="ex7">
+  <div class="card-head">
+    <span class="chip">데이터 정렬</span>
+    <span class="qtype">목적추론형</span>
+    <h3>7. 7. 미세먼지 농도 높은 순 정렬</h3>
+    <p><b>핵심 개념:</b> 환경 데이터, 위험도 정렬</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;지역&quot;: [&quot;서울&quot;, &quot;전주&quot;, &quot;부산&quot;, &quot;대구&quot;, &quot;광주&quot;],
+    &quot;미세먼지&quot;: [42, 35, 29, 50, 38],
+    &quot;초미세먼지&quot;: [21, 18, 15, 27, 20]
+})
+
+result = df.sort_values(&quot;미세먼지&quot;, ascending=False)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>지역  미세먼지  초미세먼지
+3  대구        50          27
+0  서울        42          21
+4  광주        38          20
+1  전주        35          18
+2  부산        29          15</code></pre>
+      <div class="explain"><b>상세 설명</b><br>미세먼지 농도가 높은 지역부터 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">주의가 필요한 지역을 빠르게 찾기 위해 ascending=False를 사용한 이유는?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q7" value="0"><span class="num">1</span><span>미세먼지 값이 큰 지역을 위쪽에 두기 위해서이다.</span></label><label class="choice"><input type="radio" name="q7" value="1"><span class="num">2</span><span>지역명을 가나다순으로 정렬하기 위해서이다.</span></label><label class="choice"><input type="radio" name="q7" value="2"><span class="num">3</span><span>초미세먼지 열을 삭제하기 위해서이다.</span></label><label class="choice"><input type="radio" name="q7" value="3"><span class="num">4</span><span>모든 지역의 미세먼지를 평균으로 바꾸기 위해서이다.</span></label><label class="choice"><input type="radio" name="q7" value="4"><span class="num">5</span><span>결측치를 마지막에 보내기 위해서이다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(7)">상세 풀이 보기</button>
+    <div class="solution" id="sol7">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 미세먼지 농도가 높은 지역부터 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card sort" id="ex8">
+  <div class="card-head">
+    <span class="chip">데이터 정렬</span>
+    <span class="qtype">다중조건형</span>
+    <h3>8. 8. 두 조건 정렬: 학급과 점수</h3>
+    <p><b>핵심 개념:</b> 여러 열 정렬, ascending 리스트</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;학급&quot;: [&quot;1반&quot;, &quot;2반&quot;, &quot;1반&quot;, &quot;2반&quot;, &quot;1반&quot;, &quot;2반&quot;],
+    &quot;이름&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;, &quot;도윤&quot;, &quot;유나&quot;],
+    &quot;점수&quot;: [88, 95, 92, 85, 92, 95]
+})
+
+result = df.sort_values([&quot;학급&quot;, &quot;점수&quot;], ascending=[True, False])
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>학급  이름  점수
+2  1반  지후    92
+4  1반  도윤    92
+0  1반  민준    88
+1  2반  서연    95
+5  2반  유나    95
+3  2반  하은    85</code></pre>
+      <div class="explain"><b>상세 설명</b><br>먼저 학급 오름차순, 같은 학급 안에서는 점수 내림차순으로 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">ascending=[True, False]의 의미로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q8" value="0"><span class="num">1</span><span>학급은 오름차순, 점수는 내림차순이다.</span></label><label class="choice"><input type="radio" name="q8" value="1"><span class="num">2</span><span>학급과 점수 모두 오름차순이다.</span></label><label class="choice"><input type="radio" name="q8" value="2"><span class="num">3</span><span>학급과 점수 모두 내림차순이다.</span></label><label class="choice"><input type="radio" name="q8" value="3"><span class="num">4</span><span>학급은 내림차순, 점수는 오름차순이다.</span></label><label class="choice"><input type="radio" name="q8" value="4"><span class="num">5</span><span>두 열 중 하나만 정렬된다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(8)">상세 풀이 보기</button>
+    <div class="solution" id="sol8">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 먼저 학급 오름차순, 같은 학급 안에서는 점수 내림차순으로 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card sort" id="ex9">
+  <div class="card-head">
+    <span class="chip">데이터 정렬</span>
+    <span class="qtype">자료형이해형</span>
+    <h3>9. 9. 날짜 기준 지출 내역 정렬</h3>
+    <p><b>핵심 개념:</b> 날짜 변환, sort_values()</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;날짜&quot;: [&quot;2026-05-03&quot;, &quot;2026-05-01&quot;, &quot;2026-05-04&quot;, &quot;2026-05-02&quot;],
+    &quot;항목&quot;: [&quot;간식&quot;, &quot;교통&quot;, &quot;도서&quot;, &quot;문구&quot;],
+    &quot;금액&quot;: [8000, 3000, 15000, 5000]
+})
+
+df[&quot;날짜&quot;] = pd.to_datetime(df[&quot;날짜&quot;])
+result = df.sort_values(&quot;날짜&quot;)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>날짜  항목   금액
+1 2026-05-01  교통   3000
+3 2026-05-02  문구   5000
+0 2026-05-03  간식   8000
+2 2026-05-04  도서  15000</code></pre>
+      <div class="explain"><b>상세 설명</b><br>날짜 문자열을 datetime으로 변환한 뒤 날짜 순서대로 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">pd.to_datetime(df[&#x27;날짜&#x27;])를 사용하는 가장 중요한 이유는?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q9" value="0"><span class="num">1</span><span>날짜를 날짜형 데이터로 다루어 시간 순서 정렬을 안정적으로 하기 위해서이다.</span></label><label class="choice"><input type="radio" name="q9" value="1"><span class="num">2</span><span>금액을 문자열로 바꾸기 위해서이다.</span></label><label class="choice"><input type="radio" name="q9" value="2"><span class="num">3</span><span>항목 열을 삭제하기 위해서이다.</span></label><label class="choice"><input type="radio" name="q9" value="3"><span class="num">4</span><span>날짜를 모두 오늘 날짜로 바꾸기 위해서이다.</span></label><label class="choice"><input type="radio" name="q9" value="4"><span class="num">5</span><span>sort_values를 사용할 수 없게 만들기 위해서이다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(9)">상세 풀이 보기</button>
+    <div class="solution" id="sol9">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 날짜 문자열을 datetime으로 변환한 뒤 날짜 순서대로 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card sort" id="ex10">
+  <div class="card-head">
+    <span class="chip">데이터 정렬</span>
+    <span class="qtype">결측치판단형</span>
+    <h3>10. 10. 결측치가 있는 성적 정렬</h3>
+    <p><b>핵심 개념:</b> na_position, 결측치 정렬 위치</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;이름&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;, &quot;도윤&quot;],
+    &quot;과제점수&quot;: [90, None, 75, 88, None]
+})
+
+result = df.sort_values(&quot;과제점수&quot;, ascending=False, na_position=&quot;last&quot;)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>이름  과제점수
+0  민준      90.0
+3  하은      88.0
+2  지후      75.0
+1  서연       NaN
+4  도윤       NaN</code></pre>
+      <div class="explain"><b>상세 설명</b><br>결측치가 있는 과제점수를 정렬하면서 NaN을 마지막에 배치합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">na_position=&#x27;last&#x27;가 필요한 상황으로 가장 적절한 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q10" value="0"><span class="num">1</span><span>미제출 학생을 아래쪽에 두고 제출자 점수 순위를 먼저 보고 싶을 때</span></label><label class="choice"><input type="radio" name="q10" value="1"><span class="num">2</span><span>NaN을 가장 높은 점수로 처리하고 싶을 때</span></label><label class="choice"><input type="radio" name="q10" value="2"><span class="num">3</span><span>과제점수 열을 삭제하고 싶을 때</span></label><label class="choice"><input type="radio" name="q10" value="3"><span class="num">4</span><span>이름을 가나다순으로 정렬하고 싶을 때</span></label><label class="choice"><input type="radio" name="q10" value="4"><span class="num">5</span><span>모든 결측치를 0으로 채우고 싶을 때</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(10)">상세 풀이 보기</button>
+    <div class="solution" id="sol10">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 결측치가 있는 과제점수를 정렬하면서 NaN을 마지막에 배치합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card search" id="ex11">
+  <div class="card-head">
+    <span class="chip">데이터 탐색</span>
+    <span class="qtype">필터링이해형</span>
+    <h3>11. 1. 점수 90점 이상 학생 찾기</h3>
+    <p><b>핵심 개념:</b> 조건 필터링, Boolean indexing</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;이름&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;, &quot;도윤&quot;],
+    &quot;점수&quot;: [88, 95, 72, 91, 84],
+    &quot;반&quot;: [&quot;1반&quot;, &quot;1반&quot;, &quot;2반&quot;, &quot;2반&quot;, &quot;1반&quot;]
+})
+
+result = df[df[&quot;점수&quot;] &gt;= 90]
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>이름  점수   반
+1  서연    95  1반
+3  하은    91  2반</code></pre>
+      <div class="explain"><b>상세 설명</b><br>점수가 90점 이상인 행만 필터링합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">df[df[&#x27;점수&#x27;] &gt;= 90]에 대한 설명으로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q11" value="0"><span class="num">1</span><span>점수 조건을 만족하는 행만 남긴다.</span></label><label class="choice"><input type="radio" name="q11" value="1"><span class="num">2</span><span>점수 열을 삭제한다.</span></label><label class="choice"><input type="radio" name="q11" value="2"><span class="num">3</span><span>점수를 모두 90으로 바꾼다.</span></label><label class="choice"><input type="radio" name="q11" value="3"><span class="num">4</span><span>90점 미만 학생만 남긴다.</span></label><label class="choice"><input type="radio" name="q11" value="4"><span class="num">5</span><span>반 열 기준으로 정렬한다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(11)">상세 풀이 보기</button>
+    <div class="solution" id="sol11">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 점수가 90점 이상인 행만 필터링합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card search" id="ex12">
+  <div class="card-head">
+    <span class="chip">데이터 탐색</span>
+    <span class="qtype">정확일치형</span>
+    <h3>12. 2. 특정 지역 날씨 데이터 찾기</h3>
+    <p><b>핵심 개념:</b> 문자열 일치 조건</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;지역&quot;: [&quot;서울&quot;, &quot;전주&quot;, &quot;부산&quot;, &quot;대구&quot;, &quot;광주&quot;],
+    &quot;기온&quot;: [21, 24, 22, 25, 23],
+    &quot;강수확률&quot;: [20, 40, 30, 10, 35]
+})
+
+result = df[df[&quot;지역&quot;] == &quot;전주&quot;]
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>지역  기온  강수확률
+1  전주    24        40</code></pre>
+      <div class="explain"><b>상세 설명</b><br>지역 열에서 값이 전주인 행만 찾습니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">이 코드의 탐색 조건으로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q12" value="0"><span class="num">1</span><span>지역 값이 정확히 전주인 행만 선택한다.</span></label><label class="choice"><input type="radio" name="q12" value="1"><span class="num">2</span><span>전주보다 기온이 높은 지역을 찾는다.</span></label><label class="choice"><input type="radio" name="q12" value="2"><span class="num">3</span><span>강수확률이 40보다 작은 지역만 찾는다.</span></label><label class="choice"><input type="radio" name="q12" value="3"><span class="num">4</span><span>지역명을 가나다순으로 정렬한다.</span></label><label class="choice"><input type="radio" name="q12" value="4"><span class="num">5</span><span>지역 열의 모든 값을 전주로 바꾼다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(12)">상세 풀이 보기</button>
+    <div class="solution" id="sol12">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 지역 열에서 값이 전주인 행만 찾습니다.
+    </div>
+  </div>
+</section>
+
+<section class="card search" id="ex13">
+  <div class="card-head">
+    <span class="chip">데이터 탐색</span>
+    <span class="qtype">문자열탐색형</span>
+    <h3>13. 3. 상품명에 특정 글자 포함 검색</h3>
+    <p><b>핵심 개념:</b> str.contains(), na=False</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;상품&quot;: [&quot;사과주스&quot;, &quot;바나나우유&quot;, &quot;포도젤리&quot;, None, &quot;딸기라떼&quot;],
+    &quot;가격&quot;: [1800, 1500, 1200, 900, 2500]
+})
+
+result = df[df[&quot;상품&quot;].str.contains(&quot;나&quot;, na=False)]
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>상품  가격
+1  바나나우유  1500</code></pre>
+      <div class="explain"><b>상세 설명</b><br>문자열에 &#x27;나&#x27;가 포함된 상품을 찾습니다. na=False로 None을 안전하게 처리합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">str.contains(&#x27;나&#x27;, na=False)에서 na=False의 역할로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q13" value="0"><span class="num">1</span><span>None 값은 조건 불만족(False)으로 처리하여 오류를 줄인다.</span></label><label class="choice"><input type="radio" name="q13" value="1"><span class="num">2</span><span>None 값을 자동으로 &#x27;나&#x27;로 바꾼다.</span></label><label class="choice"><input type="radio" name="q13" value="2"><span class="num">3</span><span>모든 상품을 선택한다.</span></label><label class="choice"><input type="radio" name="q13" value="3"><span class="num">4</span><span>가격 열을 기준으로 정렬한다.</span></label><label class="choice"><input type="radio" name="q13" value="4"><span class="num">5</span><span>문자열 검색을 비활성화한다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(13)">상세 풀이 보기</button>
+    <div class="solution" id="sol13">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 문자열에 &#x27;나&#x27;가 포함된 상품을 찾습니다. na=False로 None을 안전하게 처리합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card search" id="ex14">
+  <div class="card-head">
+    <span class="chip">데이터 탐색</span>
+    <span class="qtype">논리조건형</span>
+    <h3>14. 4. 여러 조건으로 건강 데이터 탐색</h3>
+    <p><b>핵심 개념:</b> AND 조건, 괄호 사용</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;이름&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;, &quot;도윤&quot;],
+    &quot;걸음수&quot;: [6500, 12000, 8500, 15000, 4000],
+    &quot;수면시간&quot;: [6.5, 7.5, 5.5, 8.0, 6.0]
+})
+
+result = df[(df[&quot;걸음수&quot;] &gt;= 8000) &amp; (df[&quot;수면시간&quot;] &gt;= 7)]
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>이름  걸음수  수면시간
+1  서연   12000       7.5
+3  하은   15000       8.0</code></pre>
+      <div class="explain"><b>상세 설명</b><br>걸음수 8000 이상이면서 수면시간 7시간 이상인 사람을 찾습니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">여러 조건을 &amp;로 연결할 때 괄호가 필요한 이유는?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q14" value="0"><span class="num">1</span><span>각 조건식을 먼저 계산한 뒤 논리 연산을 적용하기 위해서이다.</span></label><label class="choice"><input type="radio" name="q14" value="1"><span class="num">2</span><span>괄호가 없으면 DataFrame을 만들 수 없기 때문이다.</span></label><label class="choice"><input type="radio" name="q14" value="2"><span class="num">3</span><span>괄호는 출력 결과를 숨기는 기능이다.</span></label><label class="choice"><input type="radio" name="q14" value="3"><span class="num">4</span><span>&amp;는 문자열 결합 연산자이기 때문이다.</span></label><label class="choice"><input type="radio" name="q14" value="4"><span class="num">5</span><span>괄호는 정렬 방향을 지정한다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(14)">상세 풀이 보기</button>
+    <div class="solution" id="sol14">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 걸음수 8000 이상이면서 수면시간 7시간 이상인 사람을 찾습니다.
+    </div>
+  </div>
+</section>
+
+<section class="card search" id="ex15">
+  <div class="card-head">
+    <span class="chip">데이터 탐색</span>
+    <span class="qtype">범위탐색형</span>
+    <h3>15. 5. 특정 범위 가격 상품 찾기</h3>
+    <p><b>핵심 개념:</b> between(), 범위 탐색</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;상품&quot;: [&quot;노트&quot;, &quot;가방&quot;, &quot;필통&quot;, &quot;이어폰&quot;, &quot;USB&quot;],
+    &quot;가격&quot;: [2500, 35000, 8000, 29000, 15000]
+})
+
+result = df[df[&quot;가격&quot;].between(5000, 30000)]
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>상품   가격
+2    필통   8000
+3  이어폰  29000
+4     USB  15000</code></pre>
+      <div class="explain"><b>상세 설명</b><br>가격이 5000원 이상 30000원 이하인 상품만 찾습니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">between(5000, 30000)의 의미로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q15" value="0"><span class="num">1</span><span>5000 이상 30000 이하 범위의 값을 찾는다.</span></label><label class="choice"><input type="radio" name="q15" value="1"><span class="num">2</span><span>5000 미만이거나 30000 초과인 값을 찾는다.</span></label><label class="choice"><input type="radio" name="q15" value="2"><span class="num">3</span><span>가격을 5000과 30000으로만 바꾼다.</span></label><label class="choice"><input type="radio" name="q15" value="3"><span class="num">4</span><span>가격을 내림차순으로 정렬한다.</span></label><label class="choice"><input type="radio" name="q15" value="4"><span class="num">5</span><span>상품명을 숫자로 변환한다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(15)">상세 풀이 보기</button>
+    <div class="solution" id="sol15">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 가격이 5000원 이상 30000원 이하인 상품만 찾습니다.
+    </div>
+  </div>
+</section>
+
+<section class="card search" id="ex16">
+  <div class="card-head">
+    <span class="chip">데이터 탐색</span>
+    <span class="qtype">결측탐색형</span>
+    <h3>16. 6. 결측치가 있는 행 찾기</h3>
+    <p><b>핵심 개념:</b> isna(), 결측치 탐색</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;이름&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;],
+    &quot;이메일&quot;: [&quot;min@example.com&quot;, None, &quot;ji@example.com&quot;, None],
+    &quot;연락처&quot;: [&quot;010-1111&quot;, &quot;010-2222&quot;, None, &quot;010-4444&quot;]
+})
+
+result = df[df[&quot;이메일&quot;].isna() | df[&quot;연락처&quot;].isna()]
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>이름          이메일    연락처
+1  서연            None  010-2222
+2  지후  ji@example.com      None
+3  하은            None  010-4444</code></pre>
+      <div class="explain"><b>상세 설명</b><br>이메일 또는 연락처가 비어 있는 행을 찾습니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">조건에서 | 연산자를 사용한 이유로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q16" value="0"><span class="num">1</span><span>이메일이 비었거나 연락처가 비어 있는 행을 찾기 위해서이다.</span></label><label class="choice"><input type="radio" name="q16" value="1"><span class="num">2</span><span>두 열이 모두 숫자일 때만 쓰기 위해서이다.</span></label><label class="choice"><input type="radio" name="q16" value="2"><span class="num">3</span><span>조건을 모두 무시하기 위해서이다.</span></label><label class="choice"><input type="radio" name="q16" value="3"><span class="num">4</span><span>이메일과 연락처를 합치기 위해서이다.</span></label><label class="choice"><input type="radio" name="q16" value="4"><span class="num">5</span><span>결과를 정렬하기 위해서이다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(16)">상세 풀이 보기</button>
+    <div class="solution" id="sol16">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 이메일 또는 연락처가 비어 있는 행을 찾습니다.
+    </div>
+  </div>
+</section>
+
+<section class="card search" id="ex17">
+  <div class="card-head">
+    <span class="chip">데이터 탐색</span>
+    <span class="qtype">결과예측형</span>
+    <h3>17. 7. 인기 동영상 조회수 상위 조건 탐색</h3>
+    <p><b>핵심 개념:</b> 조건 필터링, 조회수</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;제목&quot;: [&quot;과학실험&quot;, &quot;수학풀이&quot;, &quot;코딩입문&quot;, &quot;역사이야기&quot;, &quot;영어회화&quot;],
+    &quot;조회수&quot;: [1200, 850, 3200, 600, 2500],
+    &quot;좋아요&quot;: [150, 90, 410, 45, 300]
+})
+
+result = df[df[&quot;조회수&quot;] &gt;= 2000]
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>제목  조회수  좋아요
+2  코딩입문    3200     410
+4  영어회화    2500     300</code></pre>
+      <div class="explain"><b>상세 설명</b><br>조회수가 2000 이상인 동영상을 찾습니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">출력 결과에 포함되는 동영상으로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q17" value="0"><span class="num">1</span><span>코딩입문과 영어회화</span></label><label class="choice"><input type="radio" name="q17" value="1"><span class="num">2</span><span>과학실험과 수학풀이</span></label><label class="choice"><input type="radio" name="q17" value="2"><span class="num">3</span><span>역사이야기만</span></label><label class="choice"><input type="radio" name="q17" value="3"><span class="num">4</span><span>모든 동영상</span></label><label class="choice"><input type="radio" name="q17" value="4"><span class="num">5</span><span>조회수가 2000 미만인 동영상만</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(17)">상세 풀이 보기</button>
+    <div class="solution" id="sol17">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 조회수가 2000 이상인 동영상을 찾습니다.
+    </div>
+  </div>
+</section>
+
+<section class="card search" id="ex18">
+  <div class="card-head">
+    <span class="chip">데이터 탐색</span>
+    <span class="qtype">다중값탐색형</span>
+    <h3>18. 8. isin으로 여러 값 한 번에 찾기</h3>
+    <p><b>핵심 개념:</b> isin(), 다중 값 탐색</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;학생&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;, &quot;도윤&quot;],
+    &quot;동아리&quot;: [&quot;코딩&quot;, &quot;과학&quot;, &quot;축구&quot;, &quot;코딩&quot;, &quot;밴드&quot;],
+    &quot;학년&quot;: [1, 2, 1, 3, 2]
+})
+
+result = df[df[&quot;동아리&quot;].isin([&quot;코딩&quot;, &quot;과학&quot;])]
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>학생 동아리  학년
+0  민준   코딩     1
+1  서연   과학     2
+3  하은   코딩     3</code></pre>
+      <div class="explain"><b>상세 설명</b><br>동아리가 코딩 또는 과학인 학생을 찾습니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">isin([&#x27;코딩&#x27;,&#x27;과학&#x27;])의 장점으로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q18" value="0"><span class="num">1</span><span>여러 후보 값 중 하나에 해당하는 행을 간단히 찾을 수 있다.</span></label><label class="choice"><input type="radio" name="q18" value="1"><span class="num">2</span><span>동아리 값을 모두 코딩으로 바꾼다.</span></label><label class="choice"><input type="radio" name="q18" value="2"><span class="num">3</span><span>학년을 자동으로 정렬한다.</span></label><label class="choice"><input type="radio" name="q18" value="3"><span class="num">4</span><span>결측치를 모두 제거한다.</span></label><label class="choice"><input type="radio" name="q18" value="4"><span class="num">5</span><span>학생 이름을 숫자로 변환한다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(18)">상세 풀이 보기</button>
+    <div class="solution" id="sol18">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 동아리가 코딩 또는 과학인 학생을 찾습니다.
+    </div>
+  </div>
+</section>
+
+<section class="card search" id="ex19">
+  <div class="card-head">
+    <span class="chip">데이터 탐색</span>
+    <span class="qtype">query해석형</span>
+    <h3>19. 9. query를 이용한 간결한 조건 탐색</h3>
+    <p><b>핵심 개념:</b> query(), 조건식 문자열</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;지역&quot;: [&quot;서울&quot;, &quot;전주&quot;, &quot;부산&quot;, &quot;대구&quot;],
+    &quot;기온&quot;: [21, 24, 22, 26],
+    &quot;습도&quot;: [60, 70, 75, 55]
+})
+
+result = df.query(&quot;기온 &gt;= 23 and 습도 &gt;= 60&quot;)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>지역  기온  습도
+1  전주    24    70</code></pre>
+      <div class="explain"><b>상세 설명</b><br>query()는 조건을 문자열로 작성해 데이터를 탐색합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">query(&#x27;기온 &gt;= 23 and 습도 &gt;= 60&#x27;)의 결과로 전주만 남는 이유는?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q19" value="0"><span class="num">1</span><span>전주는 두 조건을 모두 만족하지만 대구는 습도가 60 미만이다.</span></label><label class="choice"><input type="radio" name="q19" value="1"><span class="num">2</span><span>서울이 가장 높은 기온을 갖기 때문이다.</span></label><label class="choice"><input type="radio" name="q19" value="2"><span class="num">3</span><span>부산은 습도가 낮기 때문이다.</span></label><label class="choice"><input type="radio" name="q19" value="3"><span class="num">4</span><span>query는 항상 첫 행만 남긴다.</span></label><label class="choice"><input type="radio" name="q19" value="4"><span class="num">5</span><span>and는 둘 중 하나만 만족하면 된다는 뜻이다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(19)">상세 풀이 보기</button>
+    <div class="solution" id="sol19">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> query()는 조건을 문자열로 작성해 데이터를 탐색합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card search" id="ex20">
+  <div class="card-head">
+    <span class="chip">데이터 탐색</span>
+    <span class="qtype">loc활용형</span>
+    <h3>20. 10. 특정 열만 선택해서 결과 보기</h3>
+    <p><b>핵심 개념:</b> loc, 조건 + 열 선택</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;이름&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;, &quot;도윤&quot;],
+    &quot;점수&quot;: [88, 95, 72, 91, 84],
+    &quot;출석률&quot;: [98, 100, 85, 96, 92]
+})
+
+result = df.loc[df[&quot;점수&quot;] &gt;= 90, [&quot;이름&quot;, &quot;점수&quot;]]
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>이름  점수
+1  서연    95
+3  하은    91</code></pre>
+      <div class="explain"><b>상세 설명</b><br>조건을 만족하는 행 중 이름과 점수 열만 선택합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">loc 사용의 핵심 장점으로 가장 적절한 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q20" value="0"><span class="num">1</span><span>행 조건과 열 선택을 동시에 지정할 수 있다.</span></label><label class="choice"><input type="radio" name="q20" value="1"><span class="num">2</span><span>DataFrame을 무조건 정렬한다.</span></label><label class="choice"><input type="radio" name="q20" value="2"><span class="num">3</span><span>모든 열을 삭제한다.</span></label><label class="choice"><input type="radio" name="q20" value="3"><span class="num">4</span><span>숫자형 열만 문자열로 바꾼다.</span></label><label class="choice"><input type="radio" name="q20" value="4"><span class="num">5</span><span>결측치를 자동 생성한다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(20)">상세 풀이 보기</button>
+    <div class="solution" id="sol20">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 조건을 만족하는 행 중 이름과 점수 열만 선택합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card combo" id="ex21">
+  <div class="card-head">
+    <span class="chip">정렬과 탐색 조합</span>
+    <span class="qtype">순서판단형</span>
+    <h3>21. 1. 90점 이상 학생을 점수 높은 순으로 정렬</h3>
+    <p><b>핵심 개념:</b> 필터링 후 정렬</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;이름&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;, &quot;도윤&quot;, &quot;유나&quot;],
+    &quot;점수&quot;: [88, 95, 72, 91, 84, 98],
+    &quot;반&quot;: [&quot;1반&quot;, &quot;1반&quot;, &quot;2반&quot;, &quot;2반&quot;, &quot;1반&quot;, &quot;2반&quot;]
+})
+
+filtered = df[df[&quot;점수&quot;] &gt;= 90]
+result = filtered.sort_values(&quot;점수&quot;, ascending=False)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>이름  점수   반
+5  유나    98  2반
+1  서연    95  1반
+3  하은    91  2반</code></pre>
+      <div class="explain"><b>상세 설명</b><br>먼저 90점 이상 학생만 탐색하고, 그 결과를 점수 높은 순으로 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">이 코드의 처리 순서로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q21" value="0"><span class="num">1</span><span>90점 이상을 먼저 필터링한 뒤 점수 내림차순으로 정렬한다.</span></label><label class="choice"><input type="radio" name="q21" value="1"><span class="num">2</span><span>점수 정렬 후 90점 미만만 선택한다.</span></label><label class="choice"><input type="radio" name="q21" value="2"><span class="num">3</span><span>반을 기준으로 먼저 정렬한다.</span></label><label class="choice"><input type="radio" name="q21" value="3"><span class="num">4</span><span>이름순 정렬 후 모든 행을 출력한다.</span></label><label class="choice"><input type="radio" name="q21" value="4"><span class="num">5</span><span>점수를 모두 90으로 바꾼다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(21)">상세 풀이 보기</button>
+    <div class="solution" id="sol21">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 먼저 90점 이상 학생만 탐색하고, 그 결과를 점수 높은 순으로 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card combo" id="ex22">
+  <div class="card-head">
+    <span class="chip">정렬과 탐색 조합</span>
+    <span class="qtype">제외이유형</span>
+    <h3>22. 2. 3만원 이하 상품을 가격 낮은 순으로 정렬</h3>
+    <p><b>핵심 개념:</b> between() + sort_values()</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;상품&quot;: [&quot;노트북가방&quot;, &quot;필통&quot;, &quot;이어폰&quot;, &quot;USB&quot;, &quot;마우스&quot;],
+    &quot;가격&quot;: [42000, 8000, 29000, 15000, 26000],
+    &quot;재고&quot;: [10, 30, 15, 50, 20]
+})
+
+filtered = df[df[&quot;가격&quot;].between(5000, 30000)]
+result = filtered.sort_values(&quot;가격&quot;)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>상품   가격  재고
+1    필통   8000    30
+3     USB  15000    50
+4  마우스  26000    20
+2  이어폰  29000    15</code></pre>
+      <div class="explain"><b>상세 설명</b><br>가격 범위 조건으로 상품을 찾은 뒤 가격 오름차순으로 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">이 코드 결과에서 노트북가방이 제외되는 이유는?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q22" value="0"><span class="num">1</span><span>가격 42000원이 5000~30000 범위를 벗어나기 때문이다.</span></label><label class="choice"><input type="radio" name="q22" value="1"><span class="num">2</span><span>재고가 10개이기 때문이다.</span></label><label class="choice"><input type="radio" name="q22" value="2"><span class="num">3</span><span>상품명이 길기 때문이다.</span></label><label class="choice"><input type="radio" name="q22" value="3"><span class="num">4</span><span>sort_values가 첫 행을 항상 삭제하기 때문이다.</span></label><label class="choice"><input type="radio" name="q22" value="4"><span class="num">5</span><span>between은 문자열만 찾기 때문이다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(22)">상세 풀이 보기</button>
+    <div class="solution" id="sol22">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 가격 범위 조건으로 상품을 찾은 뒤 가격 오름차순으로 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card combo" id="ex23">
+  <div class="card-head">
+    <span class="chip">정렬과 탐색 조합</span>
+    <span class="qtype">환경데이터형</span>
+    <h3>23. 3. 미세먼지 35 이상 지역을 높은 순으로 정렬</h3>
+    <p><b>핵심 개념:</b> 환경 데이터 탐색 + 위험도 정렬</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;지역&quot;: [&quot;서울&quot;, &quot;전주&quot;, &quot;부산&quot;, &quot;대구&quot;, &quot;광주&quot;, &quot;인천&quot;],
+    &quot;미세먼지&quot;: [42, 35, 29, 50, 38, 45],
+    &quot;초미세먼지&quot;: [21, 18, 15, 27, 20, 25]
+})
+
+filtered = df[df[&quot;미세먼지&quot;] &gt;= 35]
+result = filtered.sort_values(&quot;미세먼지&quot;, ascending=False)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>지역  미세먼지  초미세먼지
+3  대구        50          27
+5  인천        45          25
+0  서울        42          21
+4  광주        38          20
+1  전주        35          18</code></pre>
+      <div class="explain"><b>상세 설명</b><br>주의가 필요한 지역만 먼저 찾고, 그중 미세먼지가 높은 지역부터 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">출력 결과에서 부산이 제외되는 이유는?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q23" value="0"><span class="num">1</span><span>미세먼지 29가 35 이상 조건을 만족하지 않기 때문이다.</span></label><label class="choice"><input type="radio" name="q23" value="1"><span class="num">2</span><span>초미세먼지가 15이기 때문에 항상 제외된다.</span></label><label class="choice"><input type="radio" name="q23" value="2"><span class="num">3</span><span>부산은 문자열이라 정렬할 수 없기 때문이다.</span></label><label class="choice"><input type="radio" name="q23" value="3"><span class="num">4</span><span>ascending=False가 부산만 삭제한다.</span></label><label class="choice"><input type="radio" name="q23" value="4"><span class="num">5</span><span>지역 열은 필터링할 수 없기 때문이다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(23)">상세 풀이 보기</button>
+    <div class="solution" id="sol23">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 주의가 필요한 지역만 먼저 찾고, 그중 미세먼지가 높은 지역부터 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card combo" id="ex24">
+  <div class="card-head">
+    <span class="chip">정렬과 탐색 조합</span>
+    <span class="qtype">다중정렬조합형</span>
+    <h3>24. 4. 코딩 동아리 학생을 학년순·이름순 정렬</h3>
+    <p><b>핵심 개념:</b> 조건 + 다중 열 정렬</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;학생&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;, &quot;도윤&quot;, &quot;유나&quot;],
+    &quot;동아리&quot;: [&quot;코딩&quot;, &quot;과학&quot;, &quot;코딩&quot;, &quot;코딩&quot;, &quot;밴드&quot;, &quot;코딩&quot;],
+    &quot;학년&quot;: [2, 1, 1, 3, 2, 1]
+})
+
+filtered = df[df[&quot;동아리&quot;] == &quot;코딩&quot;]
+result = filtered.sort_values([&quot;학년&quot;, &quot;학생&quot;])
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>학생 동아리  학년
+5  유나   코딩     1
+2  지후   코딩     1
+0  민준   코딩     2
+3  하은   코딩     3</code></pre>
+      <div class="explain"><b>상세 설명</b><br>코딩 동아리 학생만 찾은 뒤 학년, 학생 이름 순으로 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">sort_values([&#x27;학년&#x27;,&#x27;학생&#x27;])의 정렬 기준으로 옳은 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q24" value="0"><span class="num">1</span><span>학년을 먼저 정렬하고 같은 학년 안에서 학생 이름을 정렬한다.</span></label><label class="choice"><input type="radio" name="q24" value="1"><span class="num">2</span><span>학생 이름만 정렬한다.</span></label><label class="choice"><input type="radio" name="q24" value="2"><span class="num">3</span><span>동아리 값을 먼저 가나다순으로 정렬한다.</span></label><label class="choice"><input type="radio" name="q24" value="3"><span class="num">4</span><span>학년은 내림차순으로만 정렬된다.</span></label><label class="choice"><input type="radio" name="q24" value="4"><span class="num">5</span><span>코딩이 아닌 학생만 남긴다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(24)">상세 풀이 보기</button>
+    <div class="solution" id="sol24">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 코딩 동아리 학생만 찾은 뒤 학년, 학생 이름 순으로 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card combo" id="ex25">
+  <div class="card-head">
+    <span class="chip">정렬과 탐색 조합</span>
+    <span class="qtype">종합판단형</span>
+    <h3>25. 5. 결측치 없는 회원만 최근 가입순 정렬</h3>
+    <p><b>핵심 개념:</b> notna(), 날짜 변환, 정렬</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 코드</div>
+      <pre><code>import pandas as pd
+
+# Pandas 출력에서 한글/열 너비가 잘 보이도록 설정
+pd.set_option(&quot;display.unicode.east_asian_width&quot;, True)
+pd.set_option(&quot;display.width&quot;, 120)
+pd.set_option(&quot;display.max_columns&quot;, 20)
+
+df = pd.DataFrame({
+    &quot;이름&quot;: [&quot;민준&quot;, &quot;서연&quot;, &quot;지후&quot;, &quot;하은&quot;, &quot;도윤&quot;],
+    &quot;이메일&quot;: [&quot;min@example.com&quot;, None, &quot;ji@example.com&quot;, &quot;ha@example.com&quot;, None],
+    &quot;가입일&quot;: [&quot;2026-05-01&quot;, &quot;2026-05-03&quot;, &quot;2026-04-28&quot;, &quot;2026-05-05&quot;, &quot;2026-05-02&quot;]
+})
+
+df[&quot;가입일&quot;] = pd.to_datetime(df[&quot;가입일&quot;])
+filtered = df[df[&quot;이메일&quot;].notna()]
+result = filtered.sort_values(&quot;가입일&quot;, ascending=False)
+
+print(result)</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 실행 결과</div>
+      <pre class="output"><code>이름           이메일     가입일
+3  하은   ha@example.com 2026-05-05
+0  민준  min@example.com 2026-05-01
+2  지후   ji@example.com 2026-04-28</code></pre>
+      <div class="explain"><b>상세 설명</b><br>이메일이 있는 정상 회원만 탐색하고, 가입일이 최근인 순으로 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">이 코드에 대한 설명으로 가장 적절한 것은?</p>
+    <div class="choices"><label class="choice"><input type="radio" name="q25" value="0"><span class="num">1</span><span>이메일이 있는 회원만 남기고 가입일이 최근인 순으로 정렬한다.</span></label><label class="choice"><input type="radio" name="q25" value="1"><span class="num">2</span><span>이메일이 없는 회원만 남긴다.</span></label><label class="choice"><input type="radio" name="q25" value="2"><span class="num">3</span><span>가입일을 문자열로 유지해야만 날짜 정렬이 가능하다.</span></label><label class="choice"><input type="radio" name="q25" value="3"><span class="num">4</span><span>ascending=False는 가장 오래된 날짜를 먼저 보여준다.</span></label><label class="choice"><input type="radio" name="q25" value="4"><span class="num">5</span><span>notna()는 모든 값을 NaN으로 만든다.</span></label></div>
+    <button class="solution-btn" onclick="toggleSol(25)">상세 풀이 보기</button>
+    <div class="solution" id="sol25">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 이메일이 있는 정상 회원만 탐색하고, 가입일이 최근인 순으로 정렬합니다.
+    </div>
+  </div>
+</section>
+
+  <footer>실생활 DataFrame · Pandas · 정렬 · 탐색 심화 평가</footer>
+</main>
+</div>
+<script>
+const ANSWERS = {"q1": {"answer": 0, "title": "1. 학생 성적 총점 기준 내림차순 정렬", "correct": "총점이 높은 순서대로 정렬되며 하은이 첫 번째에 온다.", "explain": "국어, 수학, 영어 점수를 합산해 총점 열을 만들고 총점이 높은 학생부터 정렬합니다."}, "q2": {"answer": 0, "title": "2. 상품 가격 오름차순 정렬", "correct": "가격 열을 기준으로 낮은 값부터 높은 값까지 정렬한다.", "explain": "가격이 낮은 상품부터 오름차순으로 정렬합니다."}, "q3": {"answer": 0, "title": "3. 병원 예약 시간 순서 정렬", "correct": "HH:MM처럼 두 자리 시간 형식이면 앞에서부터 비교해도 시간 순서가 유지된다.", "explain": "HH:MM 형식은 문자열이어도 시간 순서대로 정렬될 수 있습니다."}, "q4": {"answer": 0, "title": "4. 도서 대출 횟수 기준 인기 도서 정렬", "correct": "대출횟수 85인 어린 왕자가 첫 행에 온다.", "explain": "대출횟수가 많은 책부터 정렬하여 인기 도서를 확인합니다."}, "q5": {"answer": 0, "title": "5. 음식 칼로리 낮은 순 정렬", "correct": "칼로리가 낮은 음식부터 확인할 수 있기 때문이다.", "explain": "칼로리가 낮은 음식부터 정렬합니다."}, "q6": {"answer": 0, "title": "6. 버스 도착 예정 시간 정렬", "correct": "가장 빨리 도착하는 버스를 위에 보여주는 기능", "explain": "가장 빨리 도착하는 버스부터 정렬합니다."}, "q7": {"answer": 0, "title": "7. 미세먼지 농도 높은 순 정렬", "correct": "미세먼지 값이 큰 지역을 위쪽에 두기 위해서이다.", "explain": "미세먼지 농도가 높은 지역부터 정렬합니다."}, "q8": {"answer": 0, "title": "8. 두 조건 정렬: 학급과 점수", "correct": "학급은 오름차순, 점수는 내림차순이다.", "explain": "먼저 학급 오름차순, 같은 학급 안에서는 점수 내림차순으로 정렬합니다."}, "q9": {"answer": 0, "title": "9. 날짜 기준 지출 내역 정렬", "correct": "날짜를 날짜형 데이터로 다루어 시간 순서 정렬을 안정적으로 하기 위해서이다.", "explain": "날짜 문자열을 datetime으로 변환한 뒤 날짜 순서대로 정렬합니다."}, "q10": {"answer": 0, "title": "10. 결측치가 있는 성적 정렬", "correct": "미제출 학생을 아래쪽에 두고 제출자 점수 순위를 먼저 보고 싶을 때", "explain": "결측치가 있는 과제점수를 정렬하면서 NaN을 마지막에 배치합니다."}, "q11": {"answer": 0, "title": "1. 점수 90점 이상 학생 찾기", "correct": "점수 조건을 만족하는 행만 남긴다.", "explain": "점수가 90점 이상인 행만 필터링합니다."}, "q12": {"answer": 0, "title": "2. 특정 지역 날씨 데이터 찾기", "correct": "지역 값이 정확히 전주인 행만 선택한다.", "explain": "지역 열에서 값이 전주인 행만 찾습니다."}, "q13": {"answer": 0, "title": "3. 상품명에 특정 글자 포함 검색", "correct": "None 값은 조건 불만족(False)으로 처리하여 오류를 줄인다.", "explain": "문자열에 '나'가 포함된 상품을 찾습니다. na=False로 None을 안전하게 처리합니다."}, "q14": {"answer": 0, "title": "4. 여러 조건으로 건강 데이터 탐색", "correct": "각 조건식을 먼저 계산한 뒤 논리 연산을 적용하기 위해서이다.", "explain": "걸음수 8000 이상이면서 수면시간 7시간 이상인 사람을 찾습니다."}, "q15": {"answer": 0, "title": "5. 특정 범위 가격 상품 찾기", "correct": "5000 이상 30000 이하 범위의 값을 찾는다.", "explain": "가격이 5000원 이상 30000원 이하인 상품만 찾습니다."}, "q16": {"answer": 0, "title": "6. 결측치가 있는 행 찾기", "correct": "이메일이 비었거나 연락처가 비어 있는 행을 찾기 위해서이다.", "explain": "이메일 또는 연락처가 비어 있는 행을 찾습니다."}, "q17": {"answer": 0, "title": "7. 인기 동영상 조회수 상위 조건 탐색", "correct": "코딩입문과 영어회화", "explain": "조회수가 2000 이상인 동영상을 찾습니다."}, "q18": {"answer": 0, "title": "8. isin으로 여러 값 한 번에 찾기", "correct": "여러 후보 값 중 하나에 해당하는 행을 간단히 찾을 수 있다.", "explain": "동아리가 코딩 또는 과학인 학생을 찾습니다."}, "q19": {"answer": 0, "title": "9. query를 이용한 간결한 조건 탐색", "correct": "전주는 두 조건을 모두 만족하지만 대구는 습도가 60 미만이다.", "explain": "query()는 조건을 문자열로 작성해 데이터를 탐색합니다."}, "q20": {"answer": 0, "title": "10. 특정 열만 선택해서 결과 보기", "correct": "행 조건과 열 선택을 동시에 지정할 수 있다.", "explain": "조건을 만족하는 행 중 이름과 점수 열만 선택합니다."}, "q21": {"answer": 0, "title": "1. 90점 이상 학생을 점수 높은 순으로 정렬", "correct": "90점 이상을 먼저 필터링한 뒤 점수 내림차순으로 정렬한다.", "explain": "먼저 90점 이상 학생만 탐색하고, 그 결과를 점수 높은 순으로 정렬합니다."}, "q22": {"answer": 0, "title": "2. 3만원 이하 상품을 가격 낮은 순으로 정렬", "correct": "가격 42000원이 5000~30000 범위를 벗어나기 때문이다.", "explain": "가격 범위 조건으로 상품을 찾은 뒤 가격 오름차순으로 정렬합니다."}, "q23": {"answer": 0, "title": "3. 미세먼지 35 이상 지역을 높은 순으로 정렬", "correct": "미세먼지 29가 35 이상 조건을 만족하지 않기 때문이다.", "explain": "주의가 필요한 지역만 먼저 찾고, 그중 미세먼지가 높은 지역부터 정렬합니다."}, "q24": {"answer": 0, "title": "4. 코딩 동아리 학생을 학년순·이름순 정렬", "correct": "학년을 먼저 정렬하고 같은 학년 안에서 학생 이름을 정렬한다.", "explain": "코딩 동아리 학생만 찾은 뒤 학년, 학생 이름 순으로 정렬합니다."}, "q25": {"answer": 0, "title": "5. 결측치 없는 회원만 최근 가입순 정렬", "correct": "이메일이 있는 회원만 남기고 가입일이 최근인 순으로 정렬한다.", "explain": "이메일이 있는 정상 회원만 탐색하고, 가입일이 최근인 순으로 정렬합니다."}};
+function goEx(n){document.getElementById("ex"+n).scrollIntoView({behavior:"smooth",block:"start"});}
+function toggleSol(n){const el=document.getElementById("sol"+n);el.style.display=el.style.display==="block"?"none":"block";}
+function stamp(){const d=new Date();const p=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"_"+p(d.getHours())+"-"+p(d.getMinutes())+"-"+p(d.getSeconds());}
+function grade(){
+  const sid=document.getElementById("studentId").value.trim()||"학번미입력";
+  const name=document.getElementById("studentName").value.trim()||"이름미입력";
+  let score=0; let lines=[];
+  lines.push("DataFrame 정렬·탐색 심화형 5지선다 평가 결과");
+  lines.push("학번: "+sid); lines.push("이름: "+name); lines.push("응시시각: "+stamp());
+  lines.push("총 문항: 25문항, 문항당 4점"); lines.push("========================================");
+  for(let i=1;i<=25;i++){
+    const key="q"+i;
+    const selected=document.querySelector('input[name="'+key+'"]:checked');
+    const user=selected?Number(selected.value):-1;
+    const correct=ANSWERS[key].answer;
+    const ok=user===correct;
+    if(ok) score+=4;
+    lines.push("");
+    lines.push(i+"번. "+ANSWERS[key].title);
+    lines.push("나의 답: "+(user>=0?(user+1)+"번":"미응답"));
+    lines.push("정답: "+(correct+1)+"번");
+    lines.push("채점: "+(ok?"정답":"오답"));
+    lines.push("정답 선택지: "+ANSWERS[key].correct);
+    lines.push("상세 설명: "+ANSWERS[key].explain);
+  }
+  lines.push(""); lines.push("========================================"); lines.push("총점: "+score+" / 100점");
+  document.getElementById("resultBox").innerHTML="<b>총점: "+score+" / 100점</b><br>TXT 파일이 생성됩니다.";
+  const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=sid+"_"+name+"_시각화_"+score+"점_"+stamp()+".txt";
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+function resetAll(){document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);document.getElementById("resultBox").textContent="응답이 초기화되었습니다.";}
+</script>
+</body>
+</html>
