@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>정렬과 탐색 OOP 코드 심화형 수행평가</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#f5f3ff,#fff7ed);color:#172033;line-height:1.7}
+header{padding:42px 7vw;color:white;background:linear-gradient(120deg,#1d4ed8,#7c3aed,#db2777);border-bottom-left-radius:42px;border-bottom-right-radius:42px;box-shadow:0 16px 36px rgba(37,99,235,.25)}
+h1{font-size:38px;margin:0 0 10px;letter-spacing:-1px} header p{font-size:18px;margin:0;opacity:.95}
+.layout{display:grid;grid-template-columns:280px 1fr;max-width:1540px;margin:0 auto}
+aside{position:sticky;top:0;height:100vh;overflow:auto;padding:18px;background:#0f172a;color:white}
+aside h2{font-size:18px;margin:8px 0 14px}
+.student{background:rgba(255,255,255,.1);border-radius:18px;padding:14px;margin-bottom:14px}
+.student label{display:block;font-size:13px;color:#cbd5e1;margin:8px 0 4px}
+.student input{width:100%;padding:10px;border:0;border-radius:12px;outline:none}
+.navgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
+.navgrid button{border:0;border-radius:10px;padding:9px 0;background:#dbeafe;color:#0f172a;font-weight:900;cursor:pointer}
+.action{width:100%;border:0;border-radius:14px;padding:12px 14px;margin-top:10px;font-weight:900;cursor:pointer}
+.grade{background:#22c55e;color:#052e16} .reset{background:#f97316;color:white}
+.result{margin-top:12px;padding:14px;background:rgba(255,255,255,.1);border-radius:16px;line-height:1.6;font-size:14px}
+.legend-box{margin-top:16px;padding:14px;border-radius:18px;background:rgba(255,255,255,.10);line-height:1.8;font-size:14px}
+main{padding:24px}
+.note{background:white;border-left:8px solid #2563eb;border-radius:20px;padding:18px 22px;line-height:1.8;box-shadow:0 14px 30px rgba(15,23,42,.09);margin-bottom:22px}
+.card{background:rgba(255,255,255,.97);border:1px solid #dbeafe;border-radius:28px;overflow:hidden;margin:24px 0;box-shadow:0 18px 40px rgba(37,99,235,.12)}
+.card-head{padding:20px 24px;background:linear-gradient(90deg,#eff6ff,#f5f3ff);border-bottom:1px solid #dbeafe}
+.card-head h3{font-size:24px;margin:10px 0 8px;color:#1d4ed8} .card-head p{margin:0;color:#475569}
+.chip{display:inline-block;background:#2563eb;color:white;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:900;margin-right:6px}
+.chip.purple{background:#7c3aed}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:20px}
+.label{font-weight:900;margin-bottom:10px;color:#1e293b}
+pre{margin:0;white-space:pre-wrap;overflow:auto;min-height:350px;max-height:620px;background:#0f172a;color:#e0f2fe;border-radius:20px;padding:20px;line-height:1.62;font-size:15px;border:3px solid #93c5fd}
+pre.output{min-height:190px;max-height:330px;background:#111827;border-color:#334155}
+.explain{margin-top:16px;padding:18px;border-radius:18px;background:#ecfdf5;border-left:8px solid #10b981;line-height:1.8;color:#172033}
+.quiz{margin:0 20px 20px;padding:20px;background:linear-gradient(135deg,#f8fafc,#eef2ff);border:1px solid #dbeafe;border-radius:22px}
+.quiz-title{font-weight:900;color:#1d4ed8;margin-bottom:8px} .question{font-size:18px;font-weight:800;line-height:1.65}
+.choices{display:grid;gap:10px}
+.choice{display:flex;gap:10px;align-items:flex-start;background:white;border:1px solid #dbeafe;border-radius:16px;padding:12px;cursor:pointer;line-height:1.55}
+.choice:hover{border-color:#2563eb;box-shadow:0 8px 20px rgba(37,99,235,.12)} .choice input{margin-top:6px}
+.num{min-width:28px;height:28px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:inline-flex;align-items:center;justify-content:center;font-weight:900}
+.solution-btn{border:0;border-radius:14px;padding:12px 16px;margin-top:14px;background:#2563eb;color:white;font-weight:900;cursor:pointer}
+.solution{display:none;margin-top:14px;padding:16px;border-radius:16px;background:#ecfeff;border:1px solid #67e8f9;line-height:1.75}
+code{font-family:Consolas,Monaco,'Courier New',monospace}
+footer{text-align:center;padding:34px;color:#475569}
+@media(max-width:1050px){.layout{grid-template-columns:1fr} aside{position:relative;height:auto} .grid2{grid-template-columns:1fr} h1{font-size:28px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔎 정렬과 탐색 OOP 코드 심화형 수행평가</h1>
+  <p>각 코드와 출력결과를 모두 보고, 코드 관련 심화형 5지선다형 문제를 해결합니다.</p>
+</header>
+<div class="layout">
+<aside>
+  <h2>📝 응시 정보</h2>
+  <div class="student">
+    <label>학번</label><input id="studentId" placeholder="예: 1320">
+    <label>이름</label><input id="studentName" placeholder="예: 김인수">
+  </div>
+  <h2>🔢 문항 이동</h2>
+  <div class="navgrid"><button onclick="goQ(1)">1</button><button onclick="goQ(2)">2</button><button onclick="goQ(3)">3</button><button onclick="goQ(4)">4</button><button onclick="goQ(5)">5</button><button onclick="goQ(6)">6</button><button onclick="goQ(7)">7</button><button onclick="goQ(8)">8</button><button onclick="goQ(9)">9</button><button onclick="goQ(10)">10</button><button onclick="goQ(11)">11</button><button onclick="goQ(12)">12</button><button onclick="goQ(13)">13</button><button onclick="goQ(14)">14</button><button onclick="goQ(15)">15</button></div>
+  <button class="action grade" onclick="grade()">채점 및 TXT 산출</button>
+  <button class="action reset" onclick="resetAll()">응답 초기화</button>
+  <div class="result" id="resultBox">아직 채점하지 않았습니다.</div>
+  <div class="legend-box">
+    <b>총점</b><br>15문항 × 6점 = 90점<br><br>
+    <b>산출 파일명</b><br>학번_이름_시각화_점수_응시시각.txt
+  </div>
+</aside>
+<main>
+  <section class="note">
+    <b>평가 안내</b><br>
+    모든 문항은 객체지향 프로그래밍 기반 정렬과 탐색 코드입니다.
+    각 문항은 <b>코드 → 출력결과 → 심화 5지선다 → 상세 풀이</b> 순서로 구성되어 있습니다.
+  </section>
+  
+<section class="card" id="q1">
+  <div class="card-head">
+    <span class="chip">기초 개념</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>1. 1. 숫자 리스트 오름차순·내림차순 정렬</h3>
+    <p><b>핵심 개념:</b> sorted(), reverse=True, 원본 보존</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class NumberSorter:
+    def __init__(self, numbers):
+        self.numbers = numbers
+
+    def ascending(self):
+        return sorted(self.numbers)
+
+    def descending(self):
+        return sorted(self.numbers, reverse=True)
+
+sorter = NumberSorter([8, 3, 1, 9, 5])
+
+print(&quot;오름차순:&quot;, sorter.ascending())
+print(&quot;내림차순:&quot;, sorter.descending())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>오름차순: [1, 3, 5, 8, 9]
+내림차순: [9, 8, 5, 3, 1]</code></pre>
+      <div class="explain"><b>상세 설명</b><br>NumberSorter는 숫자 리스트를 객체 내부에 저장하고, sorted()를 이용해 오름차순과 내림차순 결과를 반환합니다. sorted()는 원본 리스트를 직접 바꾸지 않고 새로운 정렬 리스트를 만듭니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">이 코드에 대한 설명으로 가장 적절한 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q1" value="0">
+  <span class="num">1</span>
+  <span>ascending()은 [1, 3, 5, 8, 9]를 반환하고 descending()은 [9, 8, 5, 3, 1]을 반환한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q1" value="1">
+  <span class="num">2</span>
+  <span>ascending()은 원본 리스트를 직접 삭제한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q1" value="2">
+  <span class="num">3</span>
+  <span>reverse=True는 오름차순 정렬을 의미한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q1" value="3">
+  <span class="num">4</span>
+  <span>sorted()는 숫자 리스트에는 사용할 수 없다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q1" value="4">
+  <span class="num">5</span>
+  <span>__init__은 정렬 결과를 출력하는 함수이다.</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(1)">상세 풀이 보기</button>
+    <div class="solution" id="sol1">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> NumberSorter는 숫자 리스트를 객체 내부에 저장하고, sorted()를 이용해 오름차순과 내림차순 결과를 반환합니다. sorted()는 원본 리스트를 직접 바꾸지 않고 새로운 정렬 리스트를 만듭니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q2">
+  <div class="card-head">
+    <span class="chip">기초 개념</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>2. 2. 문자열 알파벳순 정렬</h3>
+    <p><b>핵심 개념:</b> 문자열 정렬, 사전식 순서</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class WordAlphabetSorter:
+    def __init__(self, words):
+        self.words = words
+
+    def sort_words(self):
+        return sorted(self.words)
+
+    def reverse_words(self):
+        return sorted(self.words, reverse=True)
+
+words = WordAlphabetSorter([&quot;banana&quot;, &quot;apple&quot;, &quot;cherry&quot;, &quot;date&quot;])
+
+print(words.sort_words())
+print(words.reverse_words())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>[&#x27;apple&#x27;, &#x27;banana&#x27;, &#x27;cherry&#x27;, &#x27;date&#x27;]
+[&#x27;date&#x27;, &#x27;cherry&#x27;, &#x27;banana&#x27;, &#x27;apple&#x27;]</code></pre>
+      <div class="explain"><b>상세 설명</b><br>문자열 리스트도 sorted()로 정렬할 수 있습니다. 기본 정렬은 사전식 순서이며 reverse=True를 사용하면 역순 정렬이 됩니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">문자열 정렬 결과에 대한 설명으로 옳은 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q2" value="0">
+  <span class="num">1</span>
+  <span>sort_words()의 첫 번째 값은 &#x27;apple&#x27;이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q2" value="1">
+  <span class="num">2</span>
+  <span>reverse_words()의 첫 번째 값은 &#x27;apple&#x27;이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q2" value="2">
+  <span class="num">3</span>
+  <span>문자열은 sorted()로 정렬할 수 없다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q2" value="3">
+  <span class="num">4</span>
+  <span>reverse=True는 중복 제거 기능이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q2" value="4">
+  <span class="num">5</span>
+  <span>sort_words()는 단어 길이 기준으로 정렬한다.</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(2)">상세 풀이 보기</button>
+    <div class="solution" id="sol2">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 문자열 리스트도 sorted()로 정렬할 수 있습니다. 기본 정렬은 사전식 순서이며 reverse=True를 사용하면 역순 정렬이 됩니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q3">
+  <div class="card-head">
+    <span class="chip">기초 개념</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>3. 3. 순차 탐색으로 값 찾기</h3>
+    <p><b>핵심 개념:</b> 순차 탐색, enumerate(), 실패 시 -1</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class LinearSearch:
+    def __init__(self, data):
+        self.data = data
+
+    def find(self, target):
+        for index, value in enumerate(self.data):
+            if value == target:
+                return index
+        return -1
+
+searcher = LinearSearch([10, 20, 30, 40, 50])
+
+print(searcher.find(30))
+print(searcher.find(99))</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>2
+-1</code></pre>
+      <div class="explain"><b>상세 설명</b><br>순차 탐색은 앞에서부터 하나씩 값을 비교합니다. target을 찾으면 해당 인덱스를 반환하고, 끝까지 찾지 못하면 -1을 반환합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">searcher.find(99)가 -1을 출력하는 이유로 가장 적절한 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q3" value="0">
+  <span class="num">1</span>
+  <span>리스트 안에 99가 없기 때문이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q3" value="1">
+  <span class="num">2</span>
+  <span>99는 리스트의 첫 번째 값이기 때문이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q3" value="2">
+  <span class="num">3</span>
+  <span>enumerate()는 항상 -1을 반환하기 때문이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q3" value="3">
+  <span class="num">4</span>
+  <span>find()는 숫자를 탐색할 수 없기 때문이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q3" value="4">
+  <span class="num">5</span>
+  <span>target 값은 자동으로 30으로 바뀌기 때문이다.</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(3)">상세 풀이 보기</button>
+    <div class="solution" id="sol3">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 순차 탐색은 앞에서부터 하나씩 값을 비교합니다. target을 찾으면 해당 인덱스를 반환하고, 끝까지 찾지 못하면 -1을 반환합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q4">
+  <div class="card-head">
+    <span class="chip">기초 개념</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>4. 4. 최댓값과 최솟값 찾기</h3>
+    <p><b>핵심 개념:</b> min(), max(), 탐색</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class MinMaxFinder:
+    def __init__(self, numbers):
+        self.numbers = numbers
+
+    def minimum(self):
+        return min(self.numbers)
+
+    def maximum(self):
+        return max(self.numbers)
+
+finder = MinMaxFinder([42, 17, 88, 23, 65])
+
+print(&quot;최솟값:&quot;, finder.minimum())
+print(&quot;최댓값:&quot;, finder.maximum())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>최솟값: 17
+최댓값: 88</code></pre>
+      <div class="explain"><b>상세 설명</b><br>min()은 가장 작은 값을, max()는 가장 큰 값을 찾습니다. 최댓값과 최솟값 찾기도 탐색의 한 형태입니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">이 코드의 실행 결과로 옳은 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q4" value="0">
+  <span class="num">1</span>
+  <span>최솟값은 17, 최댓값은 88이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q4" value="1">
+  <span class="num">2</span>
+  <span>최솟값은 42, 최댓값은 65이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q4" value="2">
+  <span class="num">3</span>
+  <span>minimum()은 항상 첫 번째 값을 반환한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q4" value="3">
+  <span class="num">4</span>
+  <span>maximum()은 리스트를 내림차순으로 정렬한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q4" value="4">
+  <span class="num">5</span>
+  <span>min()과 max()는 문자열에만 사용할 수 있다.</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(4)">상세 풀이 보기</button>
+    <div class="solution" id="sol4">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> min()은 가장 작은 값을, max()는 가장 큰 값을 찾습니다. 최댓값과 최솟값 찾기도 탐색의 한 형태입니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q5">
+  <div class="card-head">
+    <span class="chip">기초 개념</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>5. 5. 문자열 길이 기준 정렬</h3>
+    <p><b>핵심 개념:</b> key=len, max(key=len)</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class WordLengthSorter:
+    def __init__(self, words):
+        self.words = words
+
+    def sort_by_length(self):
+        return sorted(self.words, key=len)
+
+    def longest(self):
+        return max(self.words, key=len)
+
+words = WordLengthSorter([&quot;AI&quot;, &quot;Python&quot;, &quot;Data&quot;, &quot;Algorithm&quot;])
+
+print(words.sort_by_length())
+print(&quot;가장 긴 단어:&quot;, words.longest())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>[&#x27;AI&#x27;, &#x27;Data&#x27;, &#x27;Python&#x27;, &#x27;Algorithm&#x27;]
+가장 긴 단어: Algorithm</code></pre>
+      <div class="explain"><b>상세 설명</b><br>key=len은 문자열의 길이를 정렬 기준으로 사용합니다. max(..., key=len)은 길이가 가장 긴 단어를 찾습니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">key=len의 역할로 가장 적절한 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q5" value="0">
+  <span class="num">1</span>
+  <span>문자열 자체가 아니라 문자열의 길이를 기준으로 정렬한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q5" value="1">
+  <span class="num">2</span>
+  <span>모든 문자열을 같은 길이로 바꾼다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q5" value="2">
+  <span class="num">3</span>
+  <span>문자열을 알파벳 역순으로만 정렬한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q5" value="3">
+  <span class="num">4</span>
+  <span>리스트에서 중복을 제거한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q5" value="4">
+  <span class="num">5</span>
+  <span>가장 짧은 단어를 무조건 삭제한다.</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(5)">상세 풀이 보기</button>
+    <div class="solution" id="sol5">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> key=len은 문자열의 길이를 정렬 기준으로 사용합니다. max(..., key=len)은 길이가 가장 긴 단어를 찾습니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q6">
+  <div class="card-head">
+    <span class="chip">개념 응용</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>6. 6. 학생 점수 기준 순위 정렬</h3>
+    <p><b>핵심 개념:</b> 딕셔너리 리스트, lambda, 점수 내림차순</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class StudentRanker:
+    def __init__(self, students):
+        self.students = students
+
+    def rank(self):
+        return sorted(self.students, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+    def top_student(self):
+        return self.rank()[0]
+
+students = [
+    {&quot;이름&quot;: &quot;김민수&quot;, &quot;점수&quot;: 88},
+    {&quot;이름&quot;: &quot;이지은&quot;, &quot;점수&quot;: 95},
+    {&quot;이름&quot;: &quot;박서준&quot;, &quot;점수&quot;: 76}
+]
+
+ranker = StudentRanker(students)
+
+print(ranker.rank())
+print(&quot;1등:&quot;, ranker.top_student())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>[{&#x27;이름&#x27;: &#x27;이지은&#x27;, &#x27;점수&#x27;: 95}, {&#x27;이름&#x27;: &#x27;김민수&#x27;, &#x27;점수&#x27;: 88}, {&#x27;이름&#x27;: &#x27;박서준&#x27;, &#x27;점수&#x27;: 76}]
+1등: {&#x27;이름&#x27;: &#x27;이지은&#x27;, &#x27;점수&#x27;: 95}</code></pre>
+      <div class="explain"><b>상세 설명</b><br>딕셔너리 리스트는 key=lambda x: x[&#x27;점수&#x27;]와 같이 특정 key 값을 기준으로 정렬할 수 있습니다. reverse=True이므로 높은 점수 순입니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">top_student()가 반환하는 학생으로 옳은 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q6" value="0">
+  <span class="num">1</span>
+  <span>점수 95점인 이지은</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q6" value="1">
+  <span class="num">2</span>
+  <span>점수 88점인 김민수</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q6" value="2">
+  <span class="num">3</span>
+  <span>점수 76점인 박서준</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q6" value="3">
+  <span class="num">4</span>
+  <span>리스트의 마지막 학생</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q6" value="4">
+  <span class="num">5</span>
+  <span>이름이 가나다순으로 가장 빠른 학생</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(6)">상세 풀이 보기</button>
+    <div class="solution" id="sol6">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 딕셔너리 리스트는 key=lambda x: x[&#x27;점수&#x27;]와 같이 특정 key 값을 기준으로 정렬할 수 있습니다. reverse=True이므로 높은 점수 순입니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q7">
+  <div class="card-head">
+    <span class="chip">개념 응용</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>7. 7. 이진 탐색으로 빠르게 찾기</h3>
+    <p><b>핵심 개념:</b> 이진 탐색, 정렬된 데이터, 탐색 범위 절반 축소</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class BinarySearch:
+    def __init__(self, sorted_data):
+        self.data = sorted_data
+
+    def find(self, target):
+        left = 0
+        right = len(self.data) - 1
+
+        while left &lt;= right:
+            mid = (left + right) // 2
+
+            if self.data[mid] == target:
+                return mid
+            elif self.data[mid] &lt; target:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return -1
+
+searcher = BinarySearch([1, 3, 5, 7, 9, 11, 13])
+
+print(searcher.find(9))
+print(searcher.find(4))</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>4
+-1</code></pre>
+      <div class="explain"><b>상세 설명</b><br>이진 탐색은 정렬된 데이터에서 중간값을 기준으로 탐색 범위를 절반씩 줄입니다. 찾으면 인덱스를 반환하고 없으면 -1을 반환합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">이진 탐색이 올바르게 동작하기 위한 핵심 조건은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q7" value="0">
+  <span class="num">1</span>
+  <span>데이터가 정렬되어 있어야 한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q7" value="1">
+  <span class="num">2</span>
+  <span>데이터에 문자열만 있어야 한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q7" value="2">
+  <span class="num">3</span>
+  <span>데이터 길이가 반드시 10이어야 한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q7" value="3">
+  <span class="num">4</span>
+  <span>target은 항상 첫 번째 값이어야 한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q7" value="4">
+  <span class="num">5</span>
+  <span>while문을 사용하면 안 된다.</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(7)">상세 풀이 보기</button>
+    <div class="solution" id="sol7">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 이진 탐색은 정렬된 데이터에서 중간값을 기준으로 탐색 범위를 절반씩 줄입니다. 찾으면 인덱스를 반환하고 없으면 -1을 반환합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q8">
+  <div class="card-head">
+    <span class="chip">개념 응용</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>8. 8. 상품 가격 정렬과 최저가 탐색</h3>
+    <p><b>핵심 개념:</b> 가격 기준 정렬, 최저가 탐색</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class ProductAnalyzer:
+    def __init__(self, products):
+        self.products = products
+
+    def sort_by_price(self):
+        return sorted(self.products, key=lambda x: x[&quot;가격&quot;])
+
+    def cheapest(self):
+        return self.sort_by_price()[0]
+
+products = [
+    {&quot;상품&quot;: &quot;노트북&quot;, &quot;가격&quot;: 1200000},
+    {&quot;상품&quot;: &quot;마우스&quot;, &quot;가격&quot;: 25000},
+    {&quot;상품&quot;: &quot;키보드&quot;, &quot;가격&quot;: 70000}
+]
+
+analyzer = ProductAnalyzer(products)
+
+print(analyzer.sort_by_price())
+print(&quot;최저가 상품:&quot;, analyzer.cheapest())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>[{&#x27;상품&#x27;: &#x27;마우스&#x27;, &#x27;가격&#x27;: 25000}, {&#x27;상품&#x27;: &#x27;키보드&#x27;, &#x27;가격&#x27;: 70000}, {&#x27;상품&#x27;: &#x27;노트북&#x27;, &#x27;가격&#x27;: 1200000}]
+최저가 상품: {&#x27;상품&#x27;: &#x27;마우스&#x27;, &#x27;가격&#x27;: 25000}</code></pre>
+      <div class="explain"><b>상세 설명</b><br>상품 딕셔너리 리스트를 가격 기준으로 오름차순 정렬합니다. 정렬 결과의 첫 번째 항목이 최저가 상품입니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">cheapest()의 결과로 가장 적절한 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q8" value="0">
+  <span class="num">1</span>
+  <span>가격 25000원인 마우스</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q8" value="1">
+  <span class="num">2</span>
+  <span>가격 1200000원인 노트북</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q8" value="2">
+  <span class="num">3</span>
+  <span>가격 70000원인 키보드</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q8" value="3">
+  <span class="num">4</span>
+  <span>상품명이 가장 긴 항목</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q8" value="4">
+  <span class="num">5</span>
+  <span>리스트의 마지막 상품</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(8)">상세 풀이 보기</button>
+    <div class="solution" id="sol8">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 상품 딕셔너리 리스트를 가격 기준으로 오름차순 정렬합니다. 정렬 결과의 첫 번째 항목이 최저가 상품입니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q9">
+  <div class="card-head">
+    <span class="chip">개념 응용</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>9. 9. 키워드 포함 도서 검색</h3>
+    <p><b>핵심 개념:</b> 문자열 포함 검색, 연도 정렬</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class BookSearch:
+    def __init__(self, books):
+        self.books = books
+
+    def search_keyword(self, keyword):
+        return [book for book in self.books if keyword in book[&quot;제목&quot;]]
+
+    def sort_by_year(self):
+        return sorted(self.books, key=lambda x: x[&quot;연도&quot;])
+
+books = [
+    {&quot;제목&quot;: &quot;파이썬 알고리즘&quot;, &quot;연도&quot;: 2021},
+    {&quot;제목&quot;: &quot;자료구조 입문&quot;, &quot;연도&quot;: 2019},
+    {&quot;제목&quot;: &quot;알고리즘 심화&quot;, &quot;연도&quot;: 2023}
+]
+
+library = BookSearch(books)
+
+print(library.search_keyword(&quot;알고리즘&quot;))
+print(library.sort_by_year())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>[{&#x27;제목&#x27;: &#x27;파이썬 알고리즘&#x27;, &#x27;연도&#x27;: 2021}, {&#x27;제목&#x27;: &#x27;알고리즘 심화&#x27;, &#x27;연도&#x27;: 2023}]
+[{&#x27;제목&#x27;: &#x27;자료구조 입문&#x27;, &#x27;연도&#x27;: 2019}, {&#x27;제목&#x27;: &#x27;파이썬 알고리즘&#x27;, &#x27;연도&#x27;: 2021}, {&#x27;제목&#x27;: &#x27;알고리즘 심화&#x27;, &#x27;연도&#x27;: 2023}]</code></pre>
+      <div class="explain"><b>상세 설명</b><br>keyword in book[&#x27;제목&#x27;]은 제목 안에 특정 키워드가 포함되어 있는지 검사합니다. sort_by_year()는 연도 오름차순 정렬입니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">search_keyword(&#x27;알고리즘&#x27;)의 결과에 포함되는 책은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q9" value="0">
+  <span class="num">1</span>
+  <span>파이썬 알고리즘과 알고리즘 심화</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q9" value="1">
+  <span class="num">2</span>
+  <span>자료구조 입문만</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q9" value="2">
+  <span class="num">3</span>
+  <span>모든 책</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q9" value="3">
+  <span class="num">4</span>
+  <span>연도 2019인 책만</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q9" value="4">
+  <span class="num">5</span>
+  <span>아무 책도 포함되지 않는다.</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(9)">상세 풀이 보기</button>
+    <div class="solution" id="sol9">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> keyword in book[&#x27;제목&#x27;]은 제목 안에 특정 키워드가 포함되어 있는지 검사합니다. sort_by_year()는 연도 오름차순 정렬입니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q10">
+  <div class="card-head">
+    <span class="chip">개념 응용</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>10. 10. 중복 제거 후 정렬</h3>
+    <p><b>핵심 개념:</b> set(), sorted(), 고유값 개수</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class UniqueSorter:
+    def __init__(self, data):
+        self.data = data
+
+    def unique_sorted(self):
+        return sorted(set(self.data))
+
+    def count_unique(self):
+        return len(set(self.data))
+
+numbers = UniqueSorter([3, 1, 2, 3, 2, 5, 1, 4])
+
+print(numbers.unique_sorted())
+print(&quot;고유값 개수:&quot;, numbers.count_unique())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>[1, 2, 3, 4, 5]
+고유값 개수: 5</code></pre>
+      <div class="explain"><b>상세 설명</b><br>set()은 중복을 제거하고 sorted()는 정렬합니다. count_unique()는 중복 제거 후 남은 값의 개수를 반환합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">unique_sorted()의 출력으로 옳은 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q10" value="0">
+  <span class="num">1</span>
+  <span>[1, 2, 3, 4, 5]</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q10" value="1">
+  <span class="num">2</span>
+  <span>[3, 1, 2, 3, 2, 5, 1, 4]</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q10" value="2">
+  <span class="num">3</span>
+  <span>[5, 4, 3, 2, 1]</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q10" value="3">
+  <span class="num">4</span>
+  <span>[1, 1, 2, 2, 3, 3, 4, 5]</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q10" value="4">
+  <span class="num">5</span>
+  <span>5</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(10)">상세 풀이 보기</button>
+    <div class="solution" id="sol10">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> set()은 중복을 제거하고 sorted()는 정렬합니다. count_unique()는 중복 제거 후 남은 값의 개수를 반환합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q11">
+  <div class="card-head">
+    <span class="chip">실생활 심화</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>11. 11. 택배 배송 우선순위 정렬</h3>
+    <p><b>핵심 개념:</b> 튜플 기준 정렬, 1차·2차 기준</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class DeliveryScheduler:
+    def __init__(self, orders):
+        self.orders = orders
+
+    def sort_by_priority(self):
+        return sorted(
+            self.orders,
+            key=lambda x: (x[&quot;긴급도&quot;], x[&quot;거리&quot;]),
+            reverse=False
+        )
+
+    def next_delivery(self):
+        return self.sort_by_priority()[0]
+
+orders = [
+    {&quot;주문번호&quot;: &quot;A01&quot;, &quot;긴급도&quot;: 2, &quot;거리&quot;: 5},
+    {&quot;주문번호&quot;: &quot;B02&quot;, &quot;긴급도&quot;: 1, &quot;거리&quot;: 8},
+    {&quot;주문번호&quot;: &quot;C03&quot;, &quot;긴급도&quot;: 1, &quot;거리&quot;: 3}
+]
+
+scheduler = DeliveryScheduler(orders)
+
+print(scheduler.sort_by_priority())
+print(&quot;다음 배송:&quot;, scheduler.next_delivery())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>[{&#x27;주문번호&#x27;: &#x27;C03&#x27;, &#x27;긴급도&#x27;: 1, &#x27;거리&#x27;: 3}, {&#x27;주문번호&#x27;: &#x27;B02&#x27;, &#x27;긴급도&#x27;: 1, &#x27;거리&#x27;: 8}, {&#x27;주문번호&#x27;: &#x27;A01&#x27;, &#x27;긴급도&#x27;: 2, &#x27;거리&#x27;: 5}]
+다음 배송: {&#x27;주문번호&#x27;: &#x27;C03&#x27;, &#x27;긴급도&#x27;: 1, &#x27;거리&#x27;: 3}</code></pre>
+      <div class="explain"><b>상세 설명</b><br>정렬 기준이 (긴급도, 거리)이므로 먼저 긴급도 오름차순, 긴급도가 같으면 거리 오름차순으로 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">다음 배송으로 C03이 선택되는 이유로 가장 적절한 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q11" value="0">
+  <span class="num">1</span>
+  <span>긴급도 1로 가장 높고, 같은 긴급도 안에서 거리가 B02보다 짧기 때문이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q11" value="1">
+  <span class="num">2</span>
+  <span>주문번호가 알파벳순으로 가장 뒤이기 때문이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q11" value="2">
+  <span class="num">3</span>
+  <span>거리가 가장 길기 때문이다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q11" value="3">
+  <span class="num">4</span>
+  <span>reverse=False는 무조건 마지막 항목을 선택한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q11" value="4">
+  <span class="num">5</span>
+  <span>긴급도 2가 긴급도 1보다 우선이기 때문이다.</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(11)">상세 풀이 보기</button>
+    <div class="solution" id="sol11">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 정렬 기준이 (긴급도, 거리)이므로 먼저 긴급도 오름차순, 긴급도가 같으면 거리 오름차순으로 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q12">
+  <div class="card-head">
+    <span class="chip">실생활 심화</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>12. 12. 병원 환자 대기열 정렬</h3>
+    <p><b>핵심 개념:</b> 복합 기준, -위급도, 도착순서</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class PatientQueue:
+    def __init__(self, patients):
+        self.patients = patients
+
+    def sort_by_severity(self):
+        return sorted(
+            self.patients,
+            key=lambda x: (-x[&quot;위급도&quot;], x[&quot;도착순서&quot;])
+        )
+
+    def next_patient(self):
+        return self.sort_by_severity()[0]
+
+patients = [
+    {&quot;이름&quot;: &quot;환자A&quot;, &quot;위급도&quot;: 3, &quot;도착순서&quot;: 1},
+    {&quot;이름&quot;: &quot;환자B&quot;, &quot;위급도&quot;: 5, &quot;도착순서&quot;: 2},
+    {&quot;이름&quot;: &quot;환자C&quot;, &quot;위급도&quot;: 5, &quot;도착순서&quot;: 1}
+]
+
+queue = PatientQueue(patients)
+
+print(queue.sort_by_severity())
+print(&quot;다음 진료:&quot;, queue.next_patient())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>[{&#x27;이름&#x27;: &#x27;환자C&#x27;, &#x27;위급도&#x27;: 5, &#x27;도착순서&#x27;: 1}, {&#x27;이름&#x27;: &#x27;환자B&#x27;, &#x27;위급도&#x27;: 5, &#x27;도착순서&#x27;: 2}, {&#x27;이름&#x27;: &#x27;환자A&#x27;, &#x27;위급도&#x27;: 3, &#x27;도착순서&#x27;: 1}]
+다음 진료: {&#x27;이름&#x27;: &#x27;환자C&#x27;, &#x27;위급도&#x27;: 5, &#x27;도착순서&#x27;: 1}</code></pre>
+      <div class="explain"><b>상세 설명</b><br>-x[&#x27;위급도&#x27;]를 사용해 위급도가 높은 환자가 먼저 오게 합니다. 위급도가 같으면 도착순서가 빠른 환자가 먼저입니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">정렬 기준 key=lambda x: (-x[&#x27;위급도&#x27;], x[&#x27;도착순서&#x27;])의 의미로 옳은 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q12" value="0">
+  <span class="num">1</span>
+  <span>위급도는 높은 순, 도착순서는 빠른 순으로 정렬한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q12" value="1">
+  <span class="num">2</span>
+  <span>위급도와 도착순서 모두 높은 순으로 정렬한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q12" value="2">
+  <span class="num">3</span>
+  <span>도착순서만 기준으로 정렬한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q12" value="3">
+  <span class="num">4</span>
+  <span>위급도가 낮은 환자를 먼저 진료한다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q12" value="4">
+  <span class="num">5</span>
+  <span>환자 이름을 기준으로 정렬한다.</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(12)">상세 풀이 보기</button>
+    <div class="solution" id="sol12">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> -x[&#x27;위급도&#x27;]를 사용해 위급도가 높은 환자가 먼저 오게 합니다. 위급도가 같으면 도착순서가 빠른 환자가 먼저입니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q13">
+  <div class="card-head">
+    <span class="chip">실생활 심화</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>13. 13. 검색 엔진 결과 정렬</h3>
+    <p><b>핵심 개념:</b> 키워드 검색, 관련도 점수 내림차순</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class SearchEngine:
+    def __init__(self, pages):
+        self.pages = pages
+
+    def search(self, keyword):
+        result = []
+        for page in self.pages:
+            if keyword in page[&quot;제목&quot;] or keyword in page[&quot;내용&quot;]:
+                result.append(page)
+        return sorted(result, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+pages = [
+    {&quot;제목&quot;: &quot;파이썬 기초&quot;, &quot;내용&quot;: &quot;정렬과 탐색 설명&quot;, &quot;점수&quot;: 80},
+    {&quot;제목&quot;: &quot;알고리즘 심화&quot;, &quot;내용&quot;: &quot;이진 탐색과 정렬&quot;, &quot;점수&quot;: 95},
+    {&quot;제목&quot;: &quot;웹 디자인&quot;, &quot;내용&quot;: &quot;HTML CSS&quot;, &quot;점수&quot;: 70}
+]
+
+engine = SearchEngine(pages)
+
+print(engine.search(&quot;탐색&quot;))</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>[{&#x27;제목&#x27;: &#x27;알고리즘 심화&#x27;, &#x27;내용&#x27;: &#x27;이진 탐색과 정렬&#x27;, &#x27;점수&#x27;: 95}, {&#x27;제목&#x27;: &#x27;파이썬 기초&#x27;, &#x27;내용&#x27;: &#x27;정렬과 탐색 설명&#x27;, &#x27;점수&#x27;: 80}]</code></pre>
+      <div class="explain"><b>상세 설명</b><br>제목 또는 내용에 키워드가 포함된 페이지를 모은 뒤 점수 높은 순으로 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">engine.search(&#x27;탐색&#x27;)의 결과 정렬에 대한 설명으로 옳은 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q13" value="0">
+  <span class="num">1</span>
+  <span>탐색이 포함된 문서 중 점수가 높은 알고리즘 심화가 먼저 나온다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q13" value="1">
+  <span class="num">2</span>
+  <span>웹 디자인이 항상 첫 번째로 나온다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q13" value="2">
+  <span class="num">3</span>
+  <span>점수는 정렬 기준에 사용되지 않는다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q13" value="3">
+  <span class="num">4</span>
+  <span>제목에만 키워드가 있어야 검색된다.</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q13" value="4">
+  <span class="num">5</span>
+  <span>reverse=True는 낮은 점수 순 정렬이다.</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(13)">상세 풀이 보기</button>
+    <div class="solution" id="sol13">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> 제목 또는 내용에 키워드가 포함된 페이지를 모은 뒤 점수 높은 순으로 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q14">
+  <div class="card-head">
+    <span class="chip">실생활 심화</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>14. 14. 성적 데이터에서 등급별 탐색과 정렬</h3>
+    <p><b>핵심 개념:</b> 등급 추가, 조건 탐색, 점수 정렬</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class GradeAnalyzer:
+    def __init__(self, students):
+        self.students = students
+
+    def add_grade(self):
+        for student in self.students:
+            score = student[&quot;점수&quot;]
+            if score &gt;= 90:
+                student[&quot;등급&quot;] = &quot;A&quot;
+            elif score &gt;= 80:
+                student[&quot;등급&quot;] = &quot;B&quot;
+            else:
+                student[&quot;등급&quot;] = &quot;C&quot;
+        return self.students
+
+    def search_grade(self, grade):
+        return [s for s in self.students if s.get(&quot;등급&quot;) == grade]
+
+    def sort_by_score(self):
+        return sorted(self.students, key=lambda x: x[&quot;점수&quot;], reverse=True)
+
+students = [
+    {&quot;이름&quot;: &quot;김&quot;, &quot;점수&quot;: 95},
+    {&quot;이름&quot;: &quot;이&quot;, &quot;점수&quot;: 84},
+    {&quot;이름&quot;: &quot;박&quot;, &quot;점수&quot;: 76},
+    {&quot;이름&quot;: &quot;최&quot;, &quot;점수&quot;: 91}
+]
+
+analyzer = GradeAnalyzer(students)
+analyzer.add_grade()
+
+print(&quot;A등급:&quot;, analyzer.search_grade(&quot;A&quot;))
+print(&quot;점수순:&quot;, analyzer.sort_by_score())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>A등급: [{&#x27;이름&#x27;: &#x27;김&#x27;, &#x27;점수&#x27;: 95, &#x27;등급&#x27;: &#x27;A&#x27;}, {&#x27;이름&#x27;: &#x27;최&#x27;, &#x27;점수&#x27;: 91, &#x27;등급&#x27;: &#x27;A&#x27;}]
+점수순: [{&#x27;이름&#x27;: &#x27;김&#x27;, &#x27;점수&#x27;: 95, &#x27;등급&#x27;: &#x27;A&#x27;}, {&#x27;이름&#x27;: &#x27;최&#x27;, &#x27;점수&#x27;: 91, &#x27;등급&#x27;: &#x27;A&#x27;}, {&#x27;이름&#x27;: &#x27;이&#x27;, &#x27;점수&#x27;: 84, &#x27;등급&#x27;: &#x27;B&#x27;}, {&#x27;이름&#x27;: &#x27;박&#x27;, &#x27;점수&#x27;: 76, &#x27;등급&#x27;: &#x27;C&#x27;}]</code></pre>
+      <div class="explain"><b>상세 설명</b><br>add_grade()는 점수에 따라 등급을 추가합니다. search_grade(&#x27;A&#x27;)는 A등급 학생만 찾고 sort_by_score()는 점수 높은 순으로 정렬합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">search_grade(&#x27;A&#x27;)의 결과에 포함되는 학생으로 옳은 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q14" value="0">
+  <span class="num">1</span>
+  <span>김과 최</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q14" value="1">
+  <span class="num">2</span>
+  <span>이와 박</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q14" value="2">
+  <span class="num">3</span>
+  <span>박만</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q14" value="3">
+  <span class="num">4</span>
+  <span>모든 학생</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q14" value="4">
+  <span class="num">5</span>
+  <span>등급이 추가되지 않아 빈 리스트</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(14)">상세 풀이 보기</button>
+    <div class="solution" id="sol14">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> add_grade()는 점수에 따라 등급을 추가합니다. search_grade(&#x27;A&#x27;)는 A등급 학생만 찾고 sort_by_score()는 점수 높은 순으로 정렬합니다.
+    </div>
+  </div>
+</section>
+
+<section class="card" id="q15">
+  <div class="card-head">
+    <span class="chip">실생활 심화</span>
+    <span class="chip purple">심화 5지선다</span>
+    <h3>15. 15. 로그 데이터 오류 탐색과 시간 정렬</h3>
+    <p><b>핵심 개념:</b> ERROR 탐색, 시간 정렬, 최근 오류</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <div class="label">🐍 파이썬 OOP 코드</div>
+      <pre><code>class LogAnalyzer:
+    def __init__(self, logs):
+        self.logs = logs
+
+    def search_error(self):
+        return [log for log in self.logs if log[&quot;상태&quot;] == &quot;ERROR&quot;]
+
+    def sort_by_time(self):
+        return sorted(self.logs, key=lambda x: x[&quot;시간&quot;])
+
+    def latest_error(self):
+        errors = self.search_error()
+        if not errors:
+            return None
+        return sorted(errors, key=lambda x: x[&quot;시간&quot;], reverse=True)[0]
+
+logs = [
+    {&quot;시간&quot;: &quot;09:10&quot;, &quot;상태&quot;: &quot;OK&quot;, &quot;메시지&quot;: &quot;start&quot;},
+    {&quot;시간&quot;: &quot;09:15&quot;, &quot;상태&quot;: &quot;ERROR&quot;, &quot;메시지&quot;: &quot;file missing&quot;},
+    {&quot;시간&quot;: &quot;09:12&quot;, &quot;상태&quot;: &quot;OK&quot;, &quot;메시지&quot;: &quot;load&quot;},
+    {&quot;시간&quot;: &quot;09:20&quot;, &quot;상태&quot;: &quot;ERROR&quot;, &quot;메시지&quot;: &quot;timeout&quot;}
+]
+
+analyzer = LogAnalyzer(logs)
+
+print(&quot;오류 로그:&quot;, analyzer.search_error())
+print(&quot;시간순:&quot;, analyzer.sort_by_time())
+print(&quot;최근 오류:&quot;, analyzer.latest_error())</code></pre>
+    </div>
+    <div>
+      <div class="label">🖥️ 코드 출력결과</div>
+      <pre class="output"><code>오류 로그: [{&#x27;시간&#x27;: &#x27;09:15&#x27;, &#x27;상태&#x27;: &#x27;ERROR&#x27;, &#x27;메시지&#x27;: &#x27;file missing&#x27;}, {&#x27;시간&#x27;: &#x27;09:20&#x27;, &#x27;상태&#x27;: &#x27;ERROR&#x27;, &#x27;메시지&#x27;: &#x27;timeout&#x27;}]
+시간순: [{&#x27;시간&#x27;: &#x27;09:10&#x27;, &#x27;상태&#x27;: &#x27;OK&#x27;, &#x27;메시지&#x27;: &#x27;start&#x27;}, {&#x27;시간&#x27;: &#x27;09:12&#x27;, &#x27;상태&#x27;: &#x27;OK&#x27;, &#x27;메시지&#x27;: &#x27;load&#x27;}, {&#x27;시간&#x27;: &#x27;09:15&#x27;, &#x27;상태&#x27;: &#x27;ERROR&#x27;, &#x27;메시지&#x27;: &#x27;file missing&#x27;}, {&#x27;시간&#x27;: &#x27;09:20&#x27;, &#x27;상태&#x27;: &#x27;ERROR&#x27;, &#x27;메시지&#x27;: &#x27;timeout&#x27;}]
+최근 오류: {&#x27;시간&#x27;: &#x27;09:20&#x27;, &#x27;상태&#x27;: &#x27;ERROR&#x27;, &#x27;메시지&#x27;: &#x27;timeout&#x27;}</code></pre>
+      <div class="explain"><b>상세 설명</b><br>search_error()는 ERROR 로그만 찾고, sort_by_time()은 전체 로그를 시간순으로 정렬합니다. latest_error()는 가장 최근 ERROR 로그를 반환합니다.</div>
+    </div>
+  </div>
+  <div class="quiz">
+    <div class="quiz-title">🎯 코드 관련 심화형 5지선다형 문제</div>
+    <p class="question">latest_error()가 반환하는 로그의 메시지로 옳은 것은?</p>
+    <div class="choices">
+<label class="choice">
+  <input type="radio" name="q15" value="0">
+  <span class="num">1</span>
+  <span>timeout</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q15" value="1">
+  <span class="num">2</span>
+  <span>file missing</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q15" value="2">
+  <span class="num">3</span>
+  <span>start</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q15" value="3">
+  <span class="num">4</span>
+  <span>load</span>
+</label>
+<label class="choice">
+  <input type="radio" name="q15" value="4">
+  <span class="num">5</span>
+  <span>오류가 없으므로 None</span>
+</label></div>
+    <button class="solution-btn" onclick="toggleSol(15)">상세 풀이 보기</button>
+    <div class="solution" id="sol15">
+      <b>정답:</b> 1번<br>
+      <b>상세 풀이:</b> search_error()는 ERROR 로그만 찾고, sort_by_time()은 전체 로그를 시간순으로 정렬합니다. latest_error()는 가장 최근 ERROR 로그를 반환합니다.
+    </div>
+  </div>
+</section>
+
+  <footer>전북과학고등학교 정보수업 · 정렬과 탐색 × OOP 수행평가</footer>
+</main>
+</div>
+<script>
+const ANSWERS = {"q1": {"answer": 0, "title": "1. 숫자 리스트 오름차순·내림차순 정렬", "correct": "ascending()은 [1, 3, 5, 8, 9]를 반환하고 descending()은 [9, 8, 5, 3, 1]을 반환한다.", "explain": "NumberSorter는 숫자 리스트를 객체 내부에 저장하고, sorted()를 이용해 오름차순과 내림차순 결과를 반환합니다. sorted()는 원본 리스트를 직접 바꾸지 않고 새로운 정렬 리스트를 만듭니다."}, "q2": {"answer": 0, "title": "2. 문자열 알파벳순 정렬", "correct": "sort_words()의 첫 번째 값은 'apple'이다.", "explain": "문자열 리스트도 sorted()로 정렬할 수 있습니다. 기본 정렬은 사전식 순서이며 reverse=True를 사용하면 역순 정렬이 됩니다."}, "q3": {"answer": 0, "title": "3. 순차 탐색으로 값 찾기", "correct": "리스트 안에 99가 없기 때문이다.", "explain": "순차 탐색은 앞에서부터 하나씩 값을 비교합니다. target을 찾으면 해당 인덱스를 반환하고, 끝까지 찾지 못하면 -1을 반환합니다."}, "q4": {"answer": 0, "title": "4. 최댓값과 최솟값 찾기", "correct": "최솟값은 17, 최댓값은 88이다.", "explain": "min()은 가장 작은 값을, max()는 가장 큰 값을 찾습니다. 최댓값과 최솟값 찾기도 탐색의 한 형태입니다."}, "q5": {"answer": 0, "title": "5. 문자열 길이 기준 정렬", "correct": "문자열 자체가 아니라 문자열의 길이를 기준으로 정렬한다.", "explain": "key=len은 문자열의 길이를 정렬 기준으로 사용합니다. max(..., key=len)은 길이가 가장 긴 단어를 찾습니다."}, "q6": {"answer": 0, "title": "6. 학생 점수 기준 순위 정렬", "correct": "점수 95점인 이지은", "explain": "딕셔너리 리스트는 key=lambda x: x['점수']와 같이 특정 key 값을 기준으로 정렬할 수 있습니다. reverse=True이므로 높은 점수 순입니다."}, "q7": {"answer": 0, "title": "7. 이진 탐색으로 빠르게 찾기", "correct": "데이터가 정렬되어 있어야 한다.", "explain": "이진 탐색은 정렬된 데이터에서 중간값을 기준으로 탐색 범위를 절반씩 줄입니다. 찾으면 인덱스를 반환하고 없으면 -1을 반환합니다."}, "q8": {"answer": 0, "title": "8. 상품 가격 정렬과 최저가 탐색", "correct": "가격 25000원인 마우스", "explain": "상품 딕셔너리 리스트를 가격 기준으로 오름차순 정렬합니다. 정렬 결과의 첫 번째 항목이 최저가 상품입니다."}, "q9": {"answer": 0, "title": "9. 키워드 포함 도서 검색", "correct": "파이썬 알고리즘과 알고리즘 심화", "explain": "keyword in book['제목']은 제목 안에 특정 키워드가 포함되어 있는지 검사합니다. sort_by_year()는 연도 오름차순 정렬입니다."}, "q10": {"answer": 0, "title": "10. 중복 제거 후 정렬", "correct": "[1, 2, 3, 4, 5]", "explain": "set()은 중복을 제거하고 sorted()는 정렬합니다. count_unique()는 중복 제거 후 남은 값의 개수를 반환합니다."}, "q11": {"answer": 0, "title": "11. 택배 배송 우선순위 정렬", "correct": "긴급도 1로 가장 높고, 같은 긴급도 안에서 거리가 B02보다 짧기 때문이다.", "explain": "정렬 기준이 (긴급도, 거리)이므로 먼저 긴급도 오름차순, 긴급도가 같으면 거리 오름차순으로 정렬합니다."}, "q12": {"answer": 0, "title": "12. 병원 환자 대기열 정렬", "correct": "위급도는 높은 순, 도착순서는 빠른 순으로 정렬한다.", "explain": "-x['위급도']를 사용해 위급도가 높은 환자가 먼저 오게 합니다. 위급도가 같으면 도착순서가 빠른 환자가 먼저입니다."}, "q13": {"answer": 0, "title": "13. 검색 엔진 결과 정렬", "correct": "탐색이 포함된 문서 중 점수가 높은 알고리즘 심화가 먼저 나온다.", "explain": "제목 또는 내용에 키워드가 포함된 페이지를 모은 뒤 점수 높은 순으로 정렬합니다."}, "q14": {"answer": 0, "title": "14. 성적 데이터에서 등급별 탐색과 정렬", "correct": "김과 최", "explain": "add_grade()는 점수에 따라 등급을 추가합니다. search_grade('A')는 A등급 학생만 찾고 sort_by_score()는 점수 높은 순으로 정렬합니다."}, "q15": {"answer": 0, "title": "15. 로그 데이터 오류 탐색과 시간 정렬", "correct": "timeout", "explain": "search_error()는 ERROR 로그만 찾고, sort_by_time()은 전체 로그를 시간순으로 정렬합니다. latest_error()는 가장 최근 ERROR 로그를 반환합니다."}};
+const POINT = 6;
+
+function goQ(n){ document.getElementById("q"+n).scrollIntoView({behavior:"smooth", block:"start"}); }
+function toggleSol(n){ const el=document.getElementById("sol"+n); el.style.display = el.style.display==="block" ? "none" : "block"; }
+function stamp(){ const d=new Date(); const p=n=>String(n).padStart(2,"0"); return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"_"+p(d.getHours())+"-"+p(d.getMinutes())+"-"+p(d.getSeconds()); }
+
+function grade(){
+  const sid=document.getElementById("studentId").value.trim() || "학번미입력";
+  const name=document.getElementById("studentName").value.trim() || "이름미입력";
+  let score=0; let lines=[];
+  lines.push("정렬과 탐색 OOP 코드 심화형 수행평가 결과");
+  lines.push("학번: "+sid);
+  lines.push("이름: "+name);
+  lines.push("응시시각: "+stamp());
+  lines.push("총 문항: 15문항, 문항당 "+POINT+"점");
+  lines.push("========================================");
+  for(let i=1;i<=15;i++){
+    const key="q"+i;
+    const selected=document.querySelector('input[name="'+key+'"]:checked');
+    const user=selected ? Number(selected.value) : -1;
+    const correct=ANSWERS[key].answer;
+    const ok=user===correct;
+    if(ok) score += POINT;
+    lines.push("");
+    lines.push(i+"번. "+ANSWERS[key].title);
+    lines.push("나의 답: "+(user>=0 ? (user+1)+"번" : "미응답"));
+    lines.push("정답: "+(correct+1)+"번");
+    lines.push("채점: "+(ok ? "정답" : "오답"));
+    lines.push("정답 선택지: "+ANSWERS[key].correct);
+    lines.push("상세 설명: "+ANSWERS[key].explain);
+  }
+  lines.push("");
+  lines.push("========================================");
+  lines.push("총점: "+score+" / 90점");
+  document.getElementById("resultBox").innerHTML="<b>총점: "+score+" / 90점</b><br>TXT 파일이 생성됩니다.";
+  const blob=new Blob([lines.join("\n")], {type:"text/plain;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=sid+"_"+name+"_시각화_"+score+"점_"+stamp()+".txt";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+function resetAll(){
+  document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+  document.getElementById("resultBox").textContent="응답이 초기화되었습니다.";
+}
+</script>
+</body>
+</html>
