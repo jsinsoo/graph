@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>18차시 프로젝트 코드 출력 결과 서술형 평가</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Pretendard,'Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#fff7ed);color:#172033}
+.wrap{display:grid;grid-template-columns:285px 1fr;min-height:100vh}
+aside{position:sticky;top:0;height:100vh;padding:22px;background:#102a43;color:white;overflow:auto}
+aside h2{font-size:21px;margin:0 0 8px}
+aside p{color:#dbeafe;margin-top:4px}
+.profile{background:rgba(255,255,255,.1);padding:14px;border-radius:18px;margin:16px 0}
+label{display:block;font-weight:800;margin:9px 0 5px}
+input{width:100%;padding:10px;border:0;border-radius:10px;font-size:15px}
+.nav button{display:block;width:100%;margin:7px 0;padding:10px 12px;border:0;border-radius:12px;background:#e0f2fe;color:#0f172a;font-weight:800;cursor:pointer;text-align:left}
+.nav button:hover{background:#bfdbfe;transform:translateX(2px)}
+main{padding:28px;max-width:1200px}
+header{background:white;padding:28px;border-radius:24px;box-shadow:0 10px 30px rgba(15,23,42,.09);margin-bottom:20px;border-top:8px solid #2563eb}
+h1{margin:0;color:#1e3a8a}
+.sub{color:#52616b}
+.notice{background:#ecfeff;border-left:6px solid #06b6d4;padding:14px;border-radius:14px;margin-top:14px;line-height:1.7}
+.card{background:white;margin:18px 0;padding:22px;border-radius:22px;box-shadow:0 8px 22px rgba(15,23,42,.08);border-left:8px solid #f97316;scroll-margin-top:18px}
+.qhead{display:flex;gap:10px;align-items:center;font-weight:900;font-size:18px;flex-wrap:wrap}
+.badge{background:#2563eb;color:white;padding:6px 10px;border-radius:999px;font-size:14px}
+.condition{background:#eff6ff;border:1px solid #bfdbfe;padding:12px;border-radius:12px;font-weight:800;color:#1e3a8a}
+.question{background:#fff7ed;padding:12px;border-radius:12px}
+pre{background:#0b1020;color:#e5e7eb;padding:16px;border-radius:16px;overflow:auto;line-height:1.55;font-family:Consolas,'D2Coding',monospace;white-space:pre-wrap}
+textarea{width:100%;min-height:120px;padding:14px;border:2px solid #cbd5e1;border-radius:14px;font-size:15px;line-height:1.5;font-family:Consolas,'Noto Sans KR',monospace}
+.actions{position:sticky;bottom:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);padding:16px;border-radius:20px;box-shadow:0 -4px 18px rgba(15,23,42,.08);display:flex;gap:10px;flex-wrap:wrap}
+.actions button{padding:12px 16px;border:0;border-radius:14px;font-weight:900;cursor:pointer}
+.primary{background:#2563eb;color:white} .secondary{background:#f97316;color:white} .ghost{background:#e2e8f0;color:#0f172a}
+.result{margin-top:8px;font-weight:900} .ok{color:#15803d} .bad{color:#b91c1c}
+details{margin-top:12px;background:#f8fafc;border-radius:14px;padding:12px} summary{cursor:pointer;font-weight:900;color:#1d4ed8}
+.solution p{line-height:1.8} #scoreBox{font-size:18px;font-weight:900;margin:10px 0;color:#facc15}
+@media(max-width:850px){.wrap{grid-template-columns:1fr} aside{position:relative;height:auto}}
+@media print{aside,.actions{display:none} main{padding:0} .card,header{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <h2>🧩 Step18 평가</h2>
+  <p>프로젝트 코드 출력 결과 서술형</p>
+  <div class="profile">
+    <label for="studentId">학번</label><input id="studentId" placeholder=" ">
+    <label for="studentName">이름</label><input id="studentName" placeholder="호랑이">
+    <div id="scoreBox">점수: - / 100</div>
+  </div>
+  <div class="nav">
+    <button type="button" onclick="goQ(1)">문항 1</button><button type="button" onclick="goQ(2)">문항 2</button><button type="button" onclick="goQ(3)">문항 3</button><button type="button" onclick="goQ(4)">문항 4</button><button type="button" onclick="goQ(5)">문항 5</button><button type="button" onclick="goQ(6)">문항 6</button><button type="button" onclick="goQ(7)">문항 7</button><button type="button" onclick="goQ(8)">문항 8</button><button type="button" onclick="goQ(9)">문항 9</button><button type="button" onclick="goQ(10)">문항 10</button>
+  </div>
+</aside>
+<main>
+<header>
+<h1>파이썬 프로젝트 예제 코드 출력 결과 서술형 평가</h1>
+<p class="sub">각각의 코드를 먼저 읽고, 제시된 조건에 따라 실행했을 때의 출력 결과를 서술합니다.</p>
+<div class="notice">
+  파일명 산출 형식: <b>학번_이름_step18_점수_응시시각.txt</b><br>
+  랜덤, API, GUI, 입력 기반 코드는 채점이 가능하도록 각 문항에 평가 조건을 함께 제시했습니다.
+</div>
+</header>
+
+
+<article class="card" id="q1">
+  <div class="qhead"><span class="badge">문항 1</span><span>1. 숫자 맞추기 게임</span></div>
+  <p class="condition">평가 조건: secret_number가 50이고, 사용자가 50을 입력했다고 가정한다.</p>
+  <p class="question">아래 코드를 실행했을 때 나타나는 <b>출력 결과</b>를 서술하시오.</p>
+  <pre><code>import random
+
+secret_number = random.randint(1, 100)
+print(&quot;1부터 100 사이의 숫자를 맞춰보세요!&quot;)
+
+while True:
+    try:
+        guess = int(input(&quot;추측한 숫자: &quot;))
+        if guess &lt; secret_number:
+            print(&quot;더 큰 숫자입니다!&quot;)
+        elif guess &gt; secret_number:
+            print(&quot;더 작은 숫자입니다!&quot;)
+        else:
+            print(f&quot;정답입니다! 숫자는 {secret_number}였습니다.&quot;)
+            break
+    except ValueError:
+        print(&quot;숫자만 입력해주세요.&quot;)</code></pre>
+  <textarea id="ans1" placeholder="출력 결과를 여기에 서술하세요. 입력값이 있는 문제는 조건에 맞추어 작성하세요."></textarea>
+  <div class="result" id="res1"></div>
+  <details>
+    <summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b>
+      <pre>1부터 100 사이의 숫자를 맞춰보세요!
+추측한 숫자: 50
+정답입니다! 숫자는 50였습니다.</pre>
+      <b>상세 풀이</b>
+      <p>random.randint로 만든 secret_number가 50이라고 고정하면, 사용자가 50을 입력했을 때 guess와 secret_number가 같다. 따라서 else 블록이 실행되어 정답 메시지를 출력하고 break로 반복문이 종료된다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q2">
+  <div class="qhead"><span class="badge">문항 2</span><span>2. 간단한 계산기</span></div>
+  <p class="condition">평가 조건: 첫 번째 숫자 10, 연산자 +, 두 번째 숫자 20을 입력했다고 가정한다.</p>
+  <p class="question">아래 코드를 실행했을 때 나타나는 <b>출력 결과</b>를 서술하시오.</p>
+  <pre><code>def calculate(x, operator, y):
+    if operator == &#x27;+&#x27;:
+        return x + y
+    elif operator == &#x27;-&#x27;:
+        return x - y
+    elif operator == &#x27;*&#x27;:
+        return x * y
+    elif operator == &#x27;/&#x27;:
+        if y == 0:
+            return &quot;0으로 나눌 수 없습니다.&quot;
+        return x / y
+    else:
+        return &quot;잘못된 연산자입니다.&quot;
+
+num1 = float(input(&quot;첫 번째 숫자: &quot;))
+op = input(&quot;연산자 (+, -, *, /): &quot;)
+num2 = float(input(&quot;두 번째 숫자: &quot;))
+
+result = calculate(num1, op, num2)
+print(f&quot;결과: {result}&quot;)</code></pre>
+  <textarea id="ans2" placeholder="출력 결과를 여기에 서술하세요. 입력값이 있는 문제는 조건에 맞추어 작성하세요."></textarea>
+  <div class="result" id="res2"></div>
+  <details>
+    <summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b>
+      <pre>첫 번째 숫자: 10
+연산자 (+, -, *, /): +
+두 번째 숫자: 20
+결과: 30.0</pre>
+      <b>상세 풀이</b>
+      <p>input으로 받은 값은 float로 바뀌므로 10.0과 20.0이 된다. 연산자가 +이므로 calculate 함수는 x+y를 반환하고, 결과는 30.0으로 출력된다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q3">
+  <div class="qhead"><span class="badge">문항 3</span><span>3. 랜덤 비밀번호 생성기</span></div>
+  <p class="condition">평가 조건: 사용자가 비밀번호 길이로 8을 입력했다고 가정한다. 비밀번호 문자는 랜덤이므로 정확한 문자 대신 출력 형식을 서술한다.</p>
+  <p class="question">아래 코드를 실행했을 때 나타나는 <b>출력 결과</b>를 서술하시오.</p>
+  <pre><code>import random
+import string
+
+def generate_password(length=12):
+    # 대소문자, 숫자, 특수문자를 포함하는 문자셋 생성
+    characters = string.ascii_letters + string.digits + string.punctuation
+    # 무작위로 문자를 선택하여 합침
+    password = &quot;&quot;.join(random.choice(characters) for i in range(length))
+    return password
+
+pw_length = int(input(&quot;생성할 비밀번호의 길이를 입력하세요: &quot;))
+new_password = generate_password(pw_length)
+print(f&quot;생성된 비밀번호: {new_password}&quot;)</code></pre>
+  <textarea id="ans3" placeholder="출력 결과를 여기에 서술하세요. 입력값이 있는 문제는 조건에 맞추어 작성하세요."></textarea>
+  <div class="result" id="res3"></div>
+  <details>
+    <summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b>
+      <pre>생성할 비밀번호의 길이를 입력하세요: 8
+생성된 비밀번호: 길이가 8인 무작위 문자열</pre>
+      <b>상세 풀이</b>
+      <p>generate_password(8)은 대문자, 소문자, 숫자, 특수문자 중에서 8개를 무작위로 골라 이어 붙인다. random.choice를 사용하므로 실행할 때마다 실제 비밀번호 문자는 달라질 수 있다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q4">
+  <div class="qhead"><span class="badge">문항 4</span><span>4. 텍스트 파일 단어 수 세기</span></div>
+  <p class="condition">평가 조건: 코드에 있는 파일 생성 문장이 그대로 실행된다고 가정한다.</p>
+  <p class="question">아래 코드를 실행했을 때 나타나는 <b>출력 결과</b>를 서술하시오.</p>
+  <pre><code># 실행 전에 &#x27;my_text.txt&#x27; 파일을 생성해야 합니다.
+def count_words_in_file(filename):
+    try:
+        with open(filename, &#x27;r&#x27;, encoding=&#x27;utf-8&#x27;) as f:
+            content = f.read()
+            words = content.split()
+            return len(words)
+    except FileNotFoundError:
+        return f&quot;&#x27;{filename}&#x27; 파일을 찾을 수 없습니다.&quot;
+
+# 파일 생성 예시
+with open(&#x27;my_text.txt&#x27;, &#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f:
+    f.write(&quot;Life is too short, You need Python. 인수샘과 함께 공부해요.&quot;)
+
+word_count = count_words_in_file(&#x27;my_text.txt&#x27;)
+print(f&quot;파일의 단어 수: {word_count}&quot;)</code></pre>
+  <textarea id="ans4" placeholder="출력 결과를 여기에 서술하세요. 입력값이 있는 문제는 조건에 맞추어 작성하세요."></textarea>
+  <div class="result" id="res4"></div>
+  <details>
+    <summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b>
+      <pre>파일의 단어 수: 10</pre>
+      <b>상세 풀이</b>
+      <p>파일에 &#x27;Life is too short, You need Python. 인수샘과 함께 공부해요.&#x27;가 저장된다. split()은 공백 기준으로 단어를 나누며, 결과 단어 수는 10개이다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q5">
+  <div class="qhead"><span class="badge">문항 5</span><span>5. 간단한 연락처 관리</span></div>
+  <p class="condition">평가 조건: 사용자가 메뉴에서 3을 입력했다고 가정한다.</p>
+  <p class="question">아래 코드를 실행했을 때 나타나는 <b>출력 결과</b>를 서술하시오.</p>
+  <pre><code>contacts = {}
+
+def add_contact():
+    name = input(&quot;이름: &quot;)
+    phone = input(&quot;전화번호: &quot;)
+    contacts[name] = phone
+    print(f&quot;&#x27;{name}&#x27;님의 연락처가 저장되었습니다.&quot;)
+
+def search_contact():
+    name = input(&quot;검색할 이름: &quot;)
+    phone = contacts.get(name, &quot;연락처에 없습니다.&quot;)
+    print(f&quot;결과: {phone}&quot;)
+
+while True:
+    choice = input(&quot;\n1: 추가, 2: 검색, 3: 종료\n선택: &quot;)
+    if choice == &#x27;1&#x27;:
+        add_contact()
+    elif choice == &#x27;2&#x27;:
+        search_contact()
+    elif choice == &#x27;3&#x27;:
+        print(&quot;프로그램을 종료합니다.&quot;)
+        break</code></pre>
+  <textarea id="ans5" placeholder="출력 결과를 여기에 서술하세요. 입력값이 있는 문제는 조건에 맞추어 작성하세요."></textarea>
+  <div class="result" id="res5"></div>
+  <details>
+    <summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b>
+      <pre>1: 추가, 2: 검색, 3: 종료
+선택: 3
+프로그램을 종료합니다.</pre>
+      <b>상세 풀이</b>
+      <p>choice가 &#x27;3&#x27;이면 elif choice == &#x27;3&#x27; 조건이 참이 되어 종료 메시지를 출력한 뒤 break로 while 반복문을 끝낸다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q6">
+  <div class="qhead"><span class="badge">문항 6</span><span>1. 환율 정보 가져오기 (API 활용)</span></div>
+  <p class="condition">평가 조건: API 요청이 정상적으로 성공하고 KRW 환율 값을 받아왔다고 가정한다. 실제 환율 숫자는 실행 시점에 따라 달라진다.</p>
+  <p class="question">아래 코드를 실행했을 때 나타나는 <b>출력 결과</b>를 서술하시오.</p>
+  <pre><code>import requests
+
+def get_exchange_rate(base_currency=&#x27;USD&#x27;):
+    try:
+        url = f&quot;https://open.er-api.com/v6/latest/{base_currency}&quot;
+        response = requests.get(url)
+        data = response.json()
+        
+        if data[&#x27;result&#x27;] == &#x27;success&#x27;:
+            krw_rate = data[&#x27;rates&#x27;][&#x27;KRW&#x27;]
+            print(f&quot;기준 통화: {base_currency}&quot;)
+            print(f&quot;현재 원/달러 환율: 1 {base_currency} = {krw_rate:.2f} KRW&quot;)
+    except Exception as e:
+        print(f&quot;환율 정보를 가져오는 데 실패했습니다: {e}&quot;)
+
+get_exchange_rate(&#x27;USD&#x27;)</code></pre>
+  <textarea id="ans6" placeholder="출력 결과를 여기에 서술하세요. 입력값이 있는 문제는 조건에 맞추어 작성하세요."></textarea>
+  <div class="result" id="res6"></div>
+  <details>
+    <summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b>
+      <pre>기준 통화: USD
+현재 원/달러 환율: 1 USD = 실행 시점의 KRW 환율값 KRW</pre>
+      <b>상세 풀이</b>
+      <p>requests.get으로 환율 API에 요청하고, JSON의 result가 success이면 rates에서 KRW 값을 꺼낸다. 환율은 실시간 데이터이므로 숫자는 실행 시점에 따라 달라질 수 있다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q7">
+  <div class="qhead"><span class="badge">문항 7</span><span>2. 웹사이트 제목 크롤링</span></div>
+  <p class="condition">평가 조건: https://www.google.com 에 정상 접속되어 title 태그가 Google이라고 가정한다.</p>
+  <p class="question">아래 코드를 실행했을 때 나타나는 <b>출력 결과</b>를 서술하시오.</p>
+  <pre><code>import requests
+from bs4 import BeautifulSoup
+
+def get_website_title(url):
+    try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, &#x27;html.parser&#x27;)
+        title = soup.title.string
+        print(f&quot;웹사이트 &#x27;{url}&#x27;의 제목: {title.strip()}&quot;)
+    except Exception as e:
+        print(f&quot;제목을 가져오는 데 실패했습니다: {e}&quot;)
+
+get_website_title(&quot;https://www.google.com&quot;)</code></pre>
+  <textarea id="ans7" placeholder="출력 결과를 여기에 서술하세요. 입력값이 있는 문제는 조건에 맞추어 작성하세요."></textarea>
+  <div class="result" id="res7"></div>
+  <details>
+    <summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b>
+      <pre>웹사이트 &#x27;https://www.google.com&#x27;의 제목: Google</pre>
+      <b>상세 풀이</b>
+      <p>requests로 웹페이지를 가져오고 BeautifulSoup으로 HTML을 분석한다. soup.title.string은 title 태그의 문자열을 반환하므로 Google이 출력된다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q8">
+  <div class="qhead"><span class="badge">문항 8</span><span>3. QR 코드 생성기</span></div>
+  <p class="condition">평가 조건: 사용자가 QR 코드로 만들 텍스트에 https://example.com 을 입력했다고 가정한다.</p>
+  <p class="question">아래 코드를 실행했을 때 나타나는 <b>출력 결과</b>를 서술하시오.</p>
+  <pre><code>import qrcode
+
+def create_qr_code(data, filename=&quot;my_qrcode.png&quot;):
+    img = qrcode.make(data)
+    img.save(filename)
+    print(f&quot;&#x27;{data}&#x27;에 대한 QR 코드가 &#x27;{filename}&#x27;으로 저장되었습니다.&quot;)
+
+url_to_encode = input(&quot;QR 코드로 만들 URL이나 텍스트를 입력하세요: &quot;)
+create_qr_code(url_to_encode)</code></pre>
+  <textarea id="ans8" placeholder="출력 결과를 여기에 서술하세요. 입력값이 있는 문제는 조건에 맞추어 작성하세요."></textarea>
+  <div class="result" id="res8"></div>
+  <details>
+    <summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b>
+      <pre>QR 코드로 만들 URL이나 텍스트를 입력하세요: https://example.com
+&#x27;https://example.com&#x27;에 대한 QR 코드가 &#x27;my_qrcode.png&#x27;으로 저장되었습니다.</pre>
+      <b>상세 풀이</b>
+      <p>qrcode.make(data)는 입력된 문자열을 QR 코드 이미지로 만들고, img.save(filename)은 my_qrcode.png 파일로 저장한다. 이후 저장 완료 메시지가 출력된다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q9">
+  <div class="qhead"><span class="badge">문항 9</span><span>4. 파일 확장자별 정리 프로그램</span></div>
+  <p class="condition">평가 조건: organize_folder 함수는 정의만 되어 있고 실제 호출문은 없다고 가정한다.</p>
+  <p class="question">아래 코드를 실행했을 때 나타나는 <b>출력 결과</b>를 서술하시오.</p>
+  <pre><code>import os
+import shutil
+
+def organize_folder(target_dir):
+    if not os.path.exists(target_dir):
+        print(&quot;폴더가 존재하지 않습니다.&quot;)
+        return
+
+    for filename in os.listdir(target_dir):
+        filepath = os.path.join(target_dir, filename)
+        if os.path.isfile(filepath):
+            ext = filename.split(&#x27;.&#x27;)[-1]
+            ext_dir = os.path.join(target_dir, ext)
+            
+            if not os.path.exists(ext_dir):
+                os.makedirs(ext_dir)
+            
+            shutil.move(filepath, os.path.join(ext_dir, filename))
+    print(&quot;정리가 완료되었습니다.&quot;)
+
+# 사용 전 주의: 실제 존재하는 폴더 경로를 입력하세요.</code></pre>
+  <textarea id="ans9" placeholder="출력 결과를 여기에 서술하세요. 입력값이 있는 문제는 조건에 맞추어 작성하세요."></textarea>
+  <div class="result" id="res9"></div>
+  <details>
+    <summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b>
+      <pre>아무 출력도 발생하지 않는다.</pre>
+      <b>상세 풀이</b>
+      <p>코드는 organize_folder(target_dir) 함수를 정의하지만, 마지막에 함수를 호출하지 않는다. 따라서 파일 정리 동작도 실행되지 않고 print문도 실행되지 않는다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q10">
+  <div class="qhead"><span class="badge">문항 10</span><span>5. 간단한 GUI 메모장 (Tkinter)</span></div>
+  <p class="condition">평가 조건: GUI 실행이 가능한 일반 PC 환경에서 실행한다고 가정한다.</p>
+  <p class="question">아래 코드를 실행했을 때 나타나는 <b>출력 결과</b>를 서술하시오.</p>
+  <pre><code>import tkinter as tk
+from tkinter import filedialog
+
+def save_file():
+    content = text_area.get(1.0, tk.END)
+    file_path = filedialog.asksaveasfilename(defaultextension=&quot;.txt&quot;)
+    if file_path:
+        with open(file_path, &#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f:
+            f.write(content)
+
+root = tk.Tk()
+root.title(&quot;인수샘의 초간단 메모장&quot;)
+text_area = tk.Text(root)
+text_area.pack(expand=True, fill=&#x27;both&#x27;)
+
+menu = tk.Menu(root)
+root.config(menu=menu)
+file_menu = tk.Menu(menu)
+menu.add_cascade(label=&quot;파일&quot;, menu=file_menu)
+file_menu.add_command(label=&quot;저장&quot;, command=save_file)
+
+root.mainloop()</code></pre>
+  <textarea id="ans10" placeholder="출력 결과를 여기에 서술하세요. 입력값이 있는 문제는 조건에 맞추어 작성하세요."></textarea>
+  <div class="result" id="res10"></div>
+  <details>
+    <summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b>
+      <pre>제목이 &#x27;인수샘의 초간단 메모장&#x27;인 Tkinter 메모장 창이 열린다. 콘솔 출력은 없다.</pre>
+      <b>상세 풀이</b>
+      <p>tk.Tk()로 GUI 창을 만들고 root.title로 창 제목을 설정한다. Text 위젯과 메뉴를 만든 뒤 root.mainloop()가 이벤트 루프를 시작하므로 메모장 창이 열린다. print문은 없으므로 콘솔에는 출력이 없다.</p>
+    </div>
+  </details>
+</article>
+
+
+<div class="actions">
+<button class="primary" type="button" onclick="gradeAll()">✅ 채점하기</button>
+<button class="secondary" type="button" onclick="downloadTxt()">📄 TXT 산출</button>
+<button class="ghost" type="button" onclick="showAllSolutions()">📚 상세 풀이 모두 열기</button>
+<button class="ghost" type="button" onclick="window.print()">🖨️ 인쇄</button>
+</div>
+</main>
+</div>
+
+<script>
+const answers = {"1": "1부터 100 사이의 숫자를 맞춰보세요!\n추측한 숫자: 50\n정답입니다! 숫자는 50였습니다.", "2": "첫 번째 숫자: 10\n연산자 (+, -, *, /): +\n두 번째 숫자: 20\n결과: 30.0", "3": "생성할 비밀번호의 길이를 입력하세요: 8\n생성된 비밀번호: 길이가 8인 무작위 문자열", "4": "파일의 단어 수: 10", "5": "1: 추가, 2: 검색, 3: 종료\n선택: 3\n프로그램을 종료합니다.", "6": "기준 통화: USD\n현재 원/달러 환율: 1 USD = 실행 시점의 KRW 환율값 KRW", "7": "웹사이트 'https://www.google.com'의 제목: Google", "8": "QR 코드로 만들 URL이나 텍스트를 입력하세요: https://example.com\n'https://example.com'에 대한 QR 코드가 'my_qrcode.png'으로 저장되었습니다.", "9": "아무 출력도 발생하지 않는다.", "10": "제목이 '인수샘의 초간단 메모장'인 Tkinter 메모장 창이 열린다. 콘솔 출력은 없다."};
+const keywords = {"1": ["1부터 100", "추측", "정답입니다", "50"], "2": ["결과", "30.0"], "3": ["생성된 비밀번호", "8", "무작위"], "4": ["파일의 단어 수", "10"], "5": ["선택", "3", "프로그램을 종료"], "6": ["기준 통화", "USD", "현재 원/달러 환율", "KRW"], "7": ["웹사이트", "google", "제목", "Google"], "8": ["QR 코드", "https://example.com", "my_qrcode.png", "저장"], "9": ["아무", "출력", "발생하지"], "10": ["인수샘의 초간단 메모장", "창", "콘솔 출력", "없다"]};
+
+function goQ(n){
+  document.getElementById('q'+n).scrollIntoView({behavior:'smooth', block:'start'});
+}
+function norm(s){
+  return (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+}
+function gradeOne(i){
+  const user = norm(document.getElementById('ans'+i).value);
+  const keys = keywords[String(i)];
+  let hit = 0;
+  keys.forEach(k => {
+    if(user.includes(String(k).toLowerCase())) hit++;
+  });
+  return hit >= Math.min(2, keys.length);
+}
+function gradeAll(){
+  let correct = 0;
+  for(let i=1; i<=10; i++){
+    const res = document.getElementById('res'+i);
+    if(gradeOne(i)){
+      correct++;
+      res.innerHTML = '핵심 출력 요소가 포함되었습니다. +10점';
+      res.className = 'result ok';
+    } else {
+      res.innerHTML = '핵심 출력 요소가 부족합니다. 상세 풀이를 확인하세요.';
+      res.className = 'result bad';
+    }
+  }
+  const score = correct * 10;
+  document.getElementById('scoreBox').textContent = `점수: ${score} / 100`;
+  return score;
+}
+function stamp(){
+  const d = new Date();
+  const p = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+function downloadTxt(){
+  const score = gradeAll();
+  const sid = (document.getElementById('studentId').value || '학번').trim();
+  const name = (document.getElementById('studentName').value || '이름').trim();
+  let txt = `파이썬 프로젝트 코드 출력 결과 서술형 평가\n학번: ${sid}\n이름: ${name}\n점수: ${score} / 100\n응시시각: ${stamp()}\n\n`;
+  for(let i=1; i<=10; i++){
+    txt += `[문항 ${i}]\n학생 답안:\n${document.getElementById('ans'+i).value}\n\n모범 답안:\n${answers[String(i)]}\n\n`;
+  }
+  const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${sid}_${name}_step18_${score}_${stamp()}.txt`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function showAllSolutions(){
+  document.querySelectorAll('details').forEach(d => d.open = true);
+}
+</script>
+</body>
+</html>

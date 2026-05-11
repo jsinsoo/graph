@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>17차시 Matplotlib 출력 결과 서술형 평가</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Pretendard,'Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#fff7ed);color:#172033}
+.wrap{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+aside{position:sticky;top:0;height:100vh;padding:22px;background:#111827;color:white;overflow:auto}
+aside h2{font-size:21px;margin:0 0 8px}
+aside p{color:#dbeafe}
+.profile{background:rgba(255,255,255,.10);padding:14px;border-radius:18px;margin:16px 0}
+label{display:block;font-weight:800;margin:9px 0 5px}
+input{width:100%;padding:10px;border:0;border-radius:10px}
+.nav button{display:block;width:100%;margin:7px 0;padding:10px 12px;border:0;border-radius:12px;background:#e0f2fe;color:#0f172a;font-weight:800;cursor:pointer;text-align:left}
+.nav button:hover{background:#bfdbfe;transform:translateX(2px)}
+main{padding:28px;max-width:1180px}
+header{background:white;padding:28px;border-radius:24px;box-shadow:0 10px 30px rgba(15,23,42,.09);margin-bottom:20px;border-top:8px solid #2563eb}
+h1{margin:0;color:#1e3a8a}
+.sub{color:#52616b}
+.card{background:white;margin:18px 0;padding:22px;border-radius:22px;box-shadow:0 8px 22px rgba(15,23,42,.08);border-left:8px solid #f97316;scroll-margin-top:18px}
+.qhead{display:flex;gap:10px;align-items:center;font-weight:900;font-size:18px;flex-wrap:wrap}
+.badge{background:#2563eb;color:white;padding:6px 10px;border-radius:999px;font-size:14px}
+.question{background:#fff7ed;padding:12px;border-radius:12px}
+pre{background:#0b1020;color:#e5e7eb;padding:16px;border-radius:16px;overflow:auto;line-height:1.55;font-family:Consolas,monospace;white-space:pre-wrap}
+textarea{width:100%;min-height:120px;padding:14px;border:2px solid #cbd5e1;border-radius:14px;font-size:15px;line-height:1.5;font-family:Consolas,'Noto Sans KR',monospace}
+.actions{position:sticky;bottom:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);padding:16px;border-radius:20px;box-shadow:0 -4px 18px rgba(15,23,42,.08);display:flex;gap:10px;flex-wrap:wrap}
+.actions button{padding:12px 16px;border:0;border-radius:14px;font-weight:900;cursor:pointer}
+.primary{background:#2563eb;color:white} .secondary{background:#f97316;color:white} .ghost{background:#e2e8f0;color:#0f172a}
+.result{margin-top:8px;font-weight:900} .ok{color:#15803d} .bad{color:#b91c1c}
+details{margin-top:12px;background:#f8fafc;border-radius:14px;padding:12px} summary{cursor:pointer;font-weight:900;color:#1d4ed8}
+.solution p{line-height:1.8} #scoreBox{font-size:18px;font-weight:900;margin:10px 0;color:#facc15}
+.notice{background:#ecfeff;border-left:6px solid #06b6d4;padding:14px;border-radius:14px;margin-top:14px}
+@media(max-width:850px){.wrap{grid-template-columns:1fr} aside{position:relative;height:auto}}
+@media print{aside,.actions{display:none} main{padding:0} .card,header{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <h2>📊 Step17 평가</h2>
+  <p>Matplotlib 출력 결과 서술형</p>
+  <div class="profile">
+    <label for="studentId">학번</label><input id="studentId" placeholder=" ">
+    <label for="studentName">이름</label><input id="studentName" placeholder="호랑이">
+    <div id="scoreBox">점수: - / 100</div>
+  </div>
+  <div class="nav">
+    <button type="button" onclick="goQ(1)">문항 1</button><button type="button" onclick="goQ(2)">문항 2</button><button type="button" onclick="goQ(3)">문항 3</button><button type="button" onclick="goQ(4)">문항 4</button><button type="button" onclick="goQ(5)">문항 5</button><button type="button" onclick="goQ(6)">문항 6</button><button type="button" onclick="goQ(7)">문항 7</button><button type="button" onclick="goQ(8)">문항 8</button><button type="button" onclick="goQ(9)">문항 9</button><button type="button" onclick="goQ(10)">문항 10</button><button type="button" onclick="goQ(11)">문항 11</button><button type="button" onclick="goQ(12)">문항 12</button><button type="button" onclick="goQ(13)">문항 13</button><button type="button" onclick="goQ(14)">문항 14</button>
+  </div>
+</aside>
+<main>
+<header>
+<h1>17차시: Matplotlib 데이터 시각화 출력 결과 서술형 평가</h1>
+<p class="sub">코드를 읽고 실제 화면에 나타나는 그래프 또는 출력 결과를 서술합니다. 채점 후 <b>학번_이름_step17_점수_응시시각.txt</b> 파일로 저장할 수 있습니다.</p>
+<div class="notice">그래프 문항은 정답 문장을 완전히 똑같이 쓰기보다, 핵심 요소를 포함했는지 확인하는 방식으로 채점합니다.</div>
+</header>
+
+<article class="card" id="q1">
+  <div class="qhead"><span class="badge">문항 1</span><span>기본적인 선 그래프(Line Plot)</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4]
+y = [2, 4, 6, 8]
+
+plt.plot(x, y)
+plt.show()</code></pre>
+  <textarea id="ans1" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res1"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>점 (1,2), (2,4), (3,6), (4,8)을 연결한 기본 선 그래프가 나타난다.</pre>
+      <b>상세 풀이</b><p>x와 y 리스트의 같은 위치 값이 좌표가 된다. plt.plot(x, y)는 네 좌표를 선으로 연결하고, plt.show()는 그래프 창을 화면에 보여준다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q2">
+  <div class="qhead"><span class="badge">문항 2</span><span>제목과 축 레이블 추가하기</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+
+plt.rcParams[&#x27;font.family&#x27;] = &#x27;Malgun Gothic&#x27;
+
+x = [1, 2, 3, 4]
+y = [10, 20, 25, 30]
+
+plt.plot(x, y)
+plt.title(&quot;월별 성적 변화&quot;)
+plt.xlabel(&quot;월 (Month)&quot;)
+plt.ylabel(&quot;점수 (Score)&quot;)
+plt.show()</code></pre>
+  <textarea id="ans2" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res2"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>제목이 &#x27;월별 성적 변화&#x27;이고 x축 이름은 &#x27;월 (Month)&#x27;, y축 이름은 &#x27;점수 (Score)&#x27;인 선 그래프가 나타난다.</pre>
+      <b>상세 풀이</b><p>plot은 월별 점수 변화를 선으로 나타낸다. title, xlabel, ylabel은 각각 그래프 제목, x축 이름, y축 이름을 설정한다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q3">
+  <div class="qhead"><span class="badge">문항 3</span><span>선의 스타일과 색상 변경하기</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+
+plt.plot([1, 2, 3], [1, 4, 9], &#x27;ro--&#x27;)
+plt.show()
+
+plt.plot([1, 2, 3], [1, 2, 3], color=&#x27;blue&#x27;, marker=&#x27;s&#x27;, linestyle=&#x27;:&#x27;, linewidth=2)
+plt.show()</code></pre>
+  <textarea id="ans3" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res3"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>첫 번째 그래프는 빨간 원 마커와 점선으로 y값 1, 4, 9를 연결한다. 두 번째 그래프는 파란 사각형 마커와 점선으로 y값 1, 2, 3을 연결한다.</pre>
+      <b>상세 풀이</b><p>&#x27;ro--&#x27;는 red, circle marker, dashed line을 뜻한다. 두 번째 plot은 color, marker, linestyle, linewidth를 직접 지정한다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q4">
+  <div class="qhead"><span class="badge">문항 4</span><span>여러 개의 그래프와 범례</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+
+days = [1, 2, 3, 4, 5]
+temp_hong = [22, 24, 21, 25, 23]
+temp_insu = [20, 22, 25, 22, 21]
+
+plt.plot(days, temp_hong, label=&#x27;홍길동&#x27;)
+plt.plot(days, temp_insu, label=&#x27;인수샘&#x27;)
+
+plt.legend()
+plt.title(&quot;일별 체온 변화 비교&quot;)
+plt.show()</code></pre>
+  <textarea id="ans4" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res4"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>제목이 &#x27;일별 체온 변화 비교&#x27;인 그래프에 홍길동과 인수샘 두 개의 선 그래프가 함께 나타나고 범례가 표시된다.</pre>
+      <b>상세 풀이</b><p>plot을 두 번 호출했기 때문에 한 좌표 영역에 두 선이 그려진다. label 값은 legend()에 의해 범례로 표시된다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q5">
+  <div class="qhead"><span class="badge">문항 5</span><span>축 범위 지정하기</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4]
+y = [10, 20, 30, 40]
+
+plt.plot(x, y)
+plt.xlim(0, 5)
+plt.ylim(0, 50)
+plt.show()</code></pre>
+  <textarea id="ans5" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res5"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>x축 범위가 0부터 5까지, y축 범위가 0부터 50까지로 고정된 선 그래프가 나타난다.</pre>
+      <b>상세 풀이</b><p>xlim은 x축 표시 범위, ylim은 y축 표시 범위를 지정한다. 데이터는 (1,10)부터 (4,40)까지 이어진다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q6">
+  <div class="qhead"><span class="badge">문항 6</span><span>막대 그래프(Bar Chart)</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+
+categories = [&#x27;국어&#x27;, &#x27;영어&#x27;, &#x27;수학&#x27;, &#x27;과학&#x27;]
+scores = [85, 90, 78, 92]
+
+plt.bar(categories, scores, color=&#x27;skyblue&#x27;)
+plt.title(&quot;홍길동의 과목별 성적&quot;)
+plt.show()</code></pre>
+  <textarea id="ans6" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res6"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>국어 85, 영어 90, 수학 78, 과학 92를 나타내는 하늘색 막대 그래프가 나타난다.</pre>
+      <b>상세 풀이</b><p>bar는 범주형 x축과 수치형 y축을 막대로 표현한다. 가장 높은 막대는 과학 92이고 가장 낮은 막대는 수학 78이다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q7">
+  <div class="qhead"><span class="badge">문항 7</span><span>산점도(Scatter Plot)</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(0)
+x = np.random.rand(50)
+y = np.random.rand(50)
+colors = np.random.rand(50)
+area = (30 * np.random.rand(50))**2
+
+plt.scatter(x, y, s=area, c=colors, alpha=0.5)
+plt.title(&quot;무작위 분포 산점도&quot;)
+plt.show()</code></pre>
+  <textarea id="ans7" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res7"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>제목이 &#x27;무작위 분포 산점도&#x27;인 그래프에 50개의 점이 다양한 크기와 색상, 0.5 투명도로 흩어져 나타난다.</pre>
+      <b>상세 풀이</b><p>scatter는 x, y 좌표에 점을 찍는다. s는 점 크기, c는 색상 값, alpha는 투명도를 조절한다. seed를 사용해 난수 결과를 고정했다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q8">
+  <div class="qhead"><span class="badge">문항 8</span><span>히스토그램(Histogram)</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(0)
+data = np.random.randn(1000)
+
+plt.hist(data, bins=30, color=&#x27;green&#x27;, edgecolor=&#x27;black&#x27;)
+plt.title(&quot;데이터 분포 히스토그램&quot;)
+plt.show()</code></pre>
+  <textarea id="ans8" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res8"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>제목이 &#x27;데이터 분포 히스토그램&#x27;인 초록색 히스토그램이 나타나며, 검은 테두리를 가진 30개의 구간으로 데이터 분포가 표시된다.</pre>
+      <b>상세 풀이</b><p>randn은 평균 0 근처에 많이 모이는 정규분포 난수를 만든다. hist는 값의 범위를 bins 수만큼 나누어 빈도를 막대로 표현한다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q9">
+  <div class="qhead"><span class="badge">문항 9</span><span>파이 차트(Pie Chart)</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+
+labels = [&#x27;사과&#x27;, &#x27;바나나&#x27;, &#x27;딸기&#x27;, &#x27;포도&#x27;]
+sizes = [25, 35, 20, 20]
+explode = (0, 0.1, 0, 0)
+
+plt.pie(sizes, explode=explode, labels=labels, autopct=&#x27;%1.1f%%&#x27;, shadow=True)
+plt.title(&quot;좋아하는 과일 비율&quot;)
+plt.show()</code></pre>
+  <textarea id="ans9" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res9"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>사과 25.0%, 바나나 35.0%, 딸기 20.0%, 포도 20.0%의 파이 차트가 나타나며 바나나 조각만 약간 떨어져 보인다.</pre>
+      <b>상세 풀이</b><p>pie는 전체 비율을 원형 조각으로 나타낸다. explode의 두 번째 값이 0.1이므로 바나나 조각만 강조되어 분리된다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q10">
+  <div class="qhead"><span class="badge">문항 10</span><span>여러 개의 플롯 나누어 그리기</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4]
+y1 = [1, 4, 9, 16]
+y2 = [1, 2, 3, 4]
+
+fig, ax = plt.subplots(1, 2)
+
+ax[0].plot(x, y1, &#x27;r&#x27;)
+ax[0].set_title(&quot;제곱&quot;)
+
+ax[1].plot(x, y2, &#x27;g&#x27;)
+ax[1].set_title(&quot;직선&quot;)
+
+plt.tight_layout()
+plt.show()</code></pre>
+  <textarea id="ans10" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res10"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>1행 2열로 나뉜 화면에 왼쪽에는 제목이 &#x27;제곱&#x27;인 빨간 선 그래프, 오른쪽에는 제목이 &#x27;직선&#x27;인 초록 선 그래프가 나타난다.</pre>
+      <b>상세 풀이</b><p>subplots(1, 2)는 두 개의 좌표 영역을 만든다. ax[0]에는 제곱 형태 데이터, ax[1]에는 직선 형태 데이터가 그려진다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q11">
+  <div class="qhead"><span class="badge">문항 11</span><span>Pandas DataFrame과 연동</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+import pandas as pd
+
+data = {&#x27;월&#x27;: [1, 2, 3, 4, 5, 6], &#x27;매출&#x27;: [100, 120, 150, 130, 160, 180]}
+df = pd.DataFrame(data)
+
+df.plot(kind=&#x27;line&#x27;, x=&#x27;월&#x27;, y=&#x27;매출&#x27;, marker=&#x27;o&#x27;, title=&#x27;월별 매출 추이&#x27;)
+plt.grid(True)
+plt.show()</code></pre>
+  <textarea id="ans11" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res11"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>DataFrame의 월별 매출이 원형 마커가 있는 선 그래프로 나타나고, 제목은 &#x27;월별 매출 추이&#x27;이며 격자가 표시된다.</pre>
+      <b>상세 풀이</b><p>df.plot은 DataFrame 열을 바로 그래프로 그린다. x는 월, y는 매출이고 grid(True)는 배경 격자를 켠다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q12">
+  <div class="qhead"><span class="badge">문항 12</span><span>그래프에 텍스트와 화살표 추가하기</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 10, 100)
+y = x**2
+
+plt.plot(x, y)
+plt.title(&quot;Annotation Example&quot;)
+plt.text(2, 60, &quot;y = x^2&quot;, fontsize=15)
+plt.annotate(&#x27;최저점&#x27;, xy=(0, 0), xytext=(2, 20),
+             arrowprops=dict(facecolor=&#x27;black&#x27;, shrink=0.05))
+plt.show()</code></pre>
+  <textarea id="ans12" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res12"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>제목이 &#x27;Annotation Example&#x27;인 y=x² 곡선 그래프가 나타나고, 그래프 안에 &#x27;y = x^2&#x27; 텍스트와 원점 최저점을 가리키는 화살표 주석이 표시된다.</pre>
+      <b>상세 풀이</b><p>linspace는 0부터 10까지의 x값을 만들고 y=x**2로 포물선 데이터를 만든다. text와 annotate는 그래프 위에 설명을 추가한다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q13">
+  <div class="qhead"><span class="badge">문항 13</span><span>스타일 시트 적용하기</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+
+plt.style.use(&#x27;ggplot&#x27;)
+
+plt.plot([1, 2, 3, 4], [10, 20, 15, 25])
+plt.title(&quot;ggplot 스타일 적용 결과&quot;)
+plt.show()</code></pre>
+  <textarea id="ans13" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res13"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>ggplot 스타일이 적용된 선 그래프가 나타나며 제목은 &#x27;ggplot 스타일 적용 결과&#x27;이다.</pre>
+      <b>상세 풀이</b><p>style.use(&#x27;ggplot&#x27;)은 그래프의 배경, 격자, 색감 등 전체 시각 스타일을 ggplot 느낌으로 바꾼다.</p>
+    </div>
+  </details>
+</article>
+
+<article class="card" id="q14">
+  <div class="qhead"><span class="badge">문항 14</span><span>3D 산점도 그리기</span></div>
+  <p class="question">다음 코드를 실행했을 때 화면에 나타나는 <b>출력 결과 또는 그래프의 특징</b>을 서술하시오.</p>
+  <pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(0)
+fig = plt.figure()
+ax = fig.add_subplot(111, projection=&#x27;3d&#x27;)
+
+x = np.random.standard_normal(100)
+y = np.random.standard_normal(100)
+z = np.random.standard_normal(100)
+
+ax.scatter(x, y, z, c=&#x27;r&#x27;, marker=&#x27;o&#x27;)
+ax.set_title(&quot;3D 산점도 (구운몽의 연구 데이터)&quot;)
+plt.show()</code></pre>
+  <textarea id="ans14" placeholder="예: 어떤 그래프가 나타나는지, 제목/축/색/범례/데이터 특징을 서술하세요."></textarea>
+  <div class="result" id="res14"></div>
+  <details><summary>상세 풀이 보기</summary>
+    <div class="solution">
+      <b>모범 답안</b><pre>제목이 &#x27;3D 산점도 (구운몽의 연구 데이터)&#x27;인 3차원 좌표 공간에 빨간 원형 점 100개가 흩어져 나타난다.</pre>
+      <b>상세 풀이</b><p>projection=&#x27;3d&#x27;는 3차원 축을 만든다. x, y, z 세 배열이 각각 3D 좌표가 되며 scatter가 빨간 원형 점을 표시한다.</p>
+    </div>
+  </details>
+</article>
+
+<div class="actions">
+<button class="primary" type="button" onclick="gradeAll()">✅ 채점하기</button>
+<button class="secondary" type="button" onclick="downloadTxt()">📄 TXT 산출</button>
+<button class="ghost" type="button" onclick="showAllSolutions()">📚 상세 풀이 모두 열기</button>
+<button class="ghost" type="button" onclick="window.print()">🖨️ 인쇄</button>
+</div>
+</main></div>
+<script>
+const answers = {"1": "점 (1,2), (2,4), (3,6), (4,8)을 연결한 기본 선 그래프가 나타난다.", "2": "제목이 '월별 성적 변화'이고 x축 이름은 '월 (Month)', y축 이름은 '점수 (Score)'인 선 그래프가 나타난다.", "3": "첫 번째 그래프는 빨간 원 마커와 점선으로 y값 1, 4, 9를 연결한다. 두 번째 그래프는 파란 사각형 마커와 점선으로 y값 1, 2, 3을 연결한다.", "4": "제목이 '일별 체온 변화 비교'인 그래프에 홍길동과 인수샘 두 개의 선 그래프가 함께 나타나고 범례가 표시된다.", "5": "x축 범위가 0부터 5까지, y축 범위가 0부터 50까지로 고정된 선 그래프가 나타난다.", "6": "국어 85, 영어 90, 수학 78, 과학 92를 나타내는 하늘색 막대 그래프가 나타난다.", "7": "제목이 '무작위 분포 산점도'인 그래프에 50개의 점이 다양한 크기와 색상, 0.5 투명도로 흩어져 나타난다.", "8": "제목이 '데이터 분포 히스토그램'인 초록색 히스토그램이 나타나며, 검은 테두리를 가진 30개의 구간으로 데이터 분포가 표시된다.", "9": "사과 25.0%, 바나나 35.0%, 딸기 20.0%, 포도 20.0%의 파이 차트가 나타나며 바나나 조각만 약간 떨어져 보인다.", "10": "1행 2열로 나뉜 화면에 왼쪽에는 제목이 '제곱'인 빨간 선 그래프, 오른쪽에는 제목이 '직선'인 초록 선 그래프가 나타난다.", "11": "DataFrame의 월별 매출이 원형 마커가 있는 선 그래프로 나타나고, 제목은 '월별 매출 추이'이며 격자가 표시된다.", "12": "제목이 'Annotation Example'인 y=x² 곡선 그래프가 나타나고, 그래프 안에 'y = x^2' 텍스트와 원점 최저점을 가리키는 화살표 주석이 표시된다.", "13": "ggplot 스타일이 적용된 선 그래프가 나타나며 제목은 'ggplot 스타일 적용 결과'이다.", "14": "제목이 '3D 산점도 (구운몽의 연구 데이터)'인 3차원 좌표 공간에 빨간 원형 점 100개가 흩어져 나타난다."};
+const keywords = {
+"1":["선","그래프","1,2","4,8"],
+"2":["월별 성적 변화","월","점수","선"],
+"3":["빨간","원","점선","파란"],
+"4":["홍길동","인수샘","범례","체온"],
+"5":["x축","0","5","y축","50"],
+"6":["막대","국어","영어","과학"],
+"7":["산점도","50","크기","색상"],
+"8":["히스토그램","30","초록","분포"],
+"9":["파이","바나나","35","20"],
+"10":["1행 2열","제곱","직선"],
+"11":["월별 매출 추이","격자","선","매출"],
+"12":["y = x","화살표","최저점","Annotation"],
+"13":["ggplot","스타일","선"],
+"14":["3D","산점도","빨간","100"]
+};
+function goQ(n){document.getElementById('q'+n).scrollIntoView({behavior:'smooth',block:'start'});}
+function norm(s){return (s||'').toLowerCase().replace(/\s+/g,' ').trim();}
+function gradeOne(i){
+  const user = norm(document.getElementById('ans'+i).value);
+  const keys = keywords[String(i)];
+  let hit = 0;
+  keys.forEach(k => { if(user.includes(String(k).toLowerCase())) hit++; });
+  return hit >= Math.min(3, keys.length);
+}
+function gradeAll(){
+  let correct=0;
+  for(let i=1;i<=14;i++){
+    const res=document.getElementById('res'+i);
+    if(gradeOne(i)){
+      correct++;
+      res.innerHTML='핵심 요소가 포함된 답안입니다. +' + Math.round(100/14) + '점';
+      res.className='result ok';
+    } else {
+      res.innerHTML='핵심 요소가 부족합니다. 상세 풀이를 확인하세요.';
+      res.className='result bad';
+    }
+  }
+  const score=Math.round(correct*100/14);
+  document.getElementById('scoreBox').textContent=`점수: ${score} / 100`;
+  return score;
+}
+function stamp(){
+  const d=new Date(); const p=n=>String(n).padStart(2,'0');
+  return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+function downloadTxt(){
+  const score=gradeAll();
+  const sid=(document.getElementById('studentId').value||'학번').trim();
+  const name=(document.getElementById('studentName').value||'이름').trim();
+  let txt=`17차시 Matplotlib 출력 결과 서술형 평가\n학번: ${sid}\n이름: ${name}\n점수: ${score} / 100\n응시시각: ${stamp()}\n\n`;
+  for(let i=1;i<=14;i++){
+    txt += `[문항 ${i}]\n학생 답안:\n${document.getElementById('ans'+i).value}\n\n모범 답안:\n${answers[String(i)]}\n\n`;
+  }
+  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`${sid}_${name}_step17_${score}_${stamp()}.txt`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function showAllSolutions(){document.querySelectorAll('details').forEach(d=>d.open=true);}
+</script>
+</body>
+</html>

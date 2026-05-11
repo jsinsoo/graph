@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12차시 문자열 처리 출력 결과 서술형 평가</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Pretendard,'Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#f0f9ff,#fff7ed);color:#172033} .wrap{display:grid;grid-template-columns:270px 1fr;min-height:100vh} aside{position:sticky;top:0;height:100vh;padding:22px;background:#0f2742;color:white;overflow:auto} aside h2{font-size:20px;margin:0 0 12px} .profile{background:rgba(255,255,255,.12);padding:14px;border-radius:16px;margin:16px 0} label{display:block;font-weight:800;margin:8px 0 4px} input{width:100%;padding:10px;border:0;border-radius:10px} .nav button{display:block;width:100%;margin:7px 0;padding:10px;border:0;border-radius:12px;background:#dbeafe;color:#0f172a;font-weight:800;cursor:pointer;text-align:left} .nav button:hover{background:#bfdbfe;transform:translateX(2px)} main{padding:28px;max-width:1120px} header{background:white;padding:28px;border-radius:24px;box-shadow:0 10px 30px rgba(15,23,42,.09);margin-bottom:20px;border-top:8px solid #2563eb} h1{margin:0;color:#1e3a8a} .sub{color:#52616b} .card{background:white;margin:18px 0;padding:22px;border-radius:22px;box-shadow:0 8px 22px rgba(15,23,42,.08);border-left:8px solid #f97316;scroll-margin-top:18px} .qhead{display:flex;gap:10px;align-items:center;font-weight:900;font-size:18px;flex-wrap:wrap} .badge{background:#2563eb;color:white;padding:6px 10px;border-radius:999px;font-size:14px} .question{background:#fff7ed;padding:12px;border-radius:12px} pre{background:#0b1020;color:#e5e7eb;padding:16px;border-radius:16px;overflow:auto;line-height:1.55;font-family:Consolas,monospace;white-space:pre-wrap} textarea{width:100%;min-height:110px;padding:14px;border:2px solid #cbd5e1;border-radius:14px;font-size:15px;line-height:1.5;font-family:Consolas,'Noto Sans KR',monospace} .actions{position:sticky;bottom:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);padding:16px;border-radius:20px;box-shadow:0 -4px 18px rgba(15,23,42,.08);display:flex;gap:10px;flex-wrap:wrap} .actions button{padding:12px 16px;border:0;border-radius:14px;font-weight:900;cursor:pointer} .primary{background:#2563eb;color:white} .secondary{background:#f97316;color:white} .ghost{background:#e2e8f0;color:#0f172a} .result{margin-top:8px;font-weight:900} .ok{color:#15803d} .bad{color:#b91c1c} details{margin-top:12px;background:#f8fafc;border-radius:14px;padding:12px} summary{cursor:pointer;font-weight:900;color:#1d4ed8} .solution p{line-height:1.8} #scoreBox{font-size:18px;font-weight:900;margin:10px 0;color:#facc15} @media(max-width:800px){.wrap{grid-template-columns:1fr} aside{position:relative;height:auto}}
+</style></head><body><div class="wrap"><aside><h2>🧵 Step12 평가</h2><p>문자열 처리 출력 결과 서술형</p><div class="profile"><label>학번</label><input id="studentId" placeholder=" "><label>이름</label><input id="studentName" placeholder="호랑이"><div id="scoreBox">점수: - / 100</div></div><div class="nav"><button type="button" onclick="goQ(1)">문항 1</button><button type="button" onclick="goQ(2)">문항 2</button><button type="button" onclick="goQ(3)">문항 3</button><button type="button" onclick="goQ(4)">문항 4</button><button type="button" onclick="goQ(5)">문항 5</button><button type="button" onclick="goQ(6)">문항 6</button><button type="button" onclick="goQ(7)">문항 7</button><button type="button" onclick="goQ(8)">문항 8</button><button type="button" onclick="goQ(9)">문항 9</button><button type="button" onclick="goQ(10)">문항 10</button><button type="button" onclick="goQ(11)">문항 11</button><button type="button" onclick="goQ(12)">문항 12</button><button type="button" onclick="goQ(13)">문항 13</button><button type="button" onclick="goQ(14)">문항 14</button></div></aside><main><header><h1>12차시: 파이썬 문자열 처리 출력 결과 서술형 평가</h1><p class="sub">코드를 읽고 실제 출력 결과를 직접 작성합니다. 채점 후 <b>학번_이름_step12_점수_응시시각.txt</b> 파일로 결과를 저장할 수 있습니다.</p></header>
+<article class="card" id="q1">
+  <div class="qhead"><span class="badge">문항 1</span><span>기초 1 · 문자열 생성과 인덱싱</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>s1 = &#x27;Hello&#x27;
+s2 = &quot;Python&quot;
+s3 = &quot;&quot;&quot;이것은
+여러 줄에 걸친
+문자열입니다.&quot;&quot;&quot;
+
+print(s1)
+print(&quot;s2의 첫 번째 글자:&quot;, s2[0])    # &#x27;P&#x27;
+print(&quot;s2의 마지막 글자:&quot;, s2[-1])   # &#x27;n&#x27; </code></pre>
+  <textarea id="ans1" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res1"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>Hello
+s2의 첫 번째 글자: P
+s2의 마지막 글자: n</pre><b>상세 풀이</b><p>s1은 Hello이므로 그대로 출력된다. s2[0]은 첫 글자 P이고, s2[-1]은 마지막 글자 n이다. s3는 변수에 저장만 되고 print하지 않으므로 출력되지 않는다.</p></div></details>
+</article>
+<article class="card" id="q2">
+  <div class="qhead"><span class="badge">문항 2</span><span>기초 2 · 문자열 연결과 반복</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>first = &quot;파이썬은 &quot;
+second = &quot;재미있다!&quot;
+
+# 문자열 연결
+sentence = first + second
+print(sentence)
+
+# 문자열 반복
+laugh = &quot;하&quot; * 5
+print(laugh)</code></pre>
+  <textarea id="ans2" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res2"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>파이썬은 재미있다!
+하하하하하</pre><b>상세 풀이</b><p>+ 연산자는 문자열을 이어 붙인다. first 뒤에 공백이 포함되어 있어 자연스럽게 문장이 된다. 문자열에 * 5를 하면 같은 문자열이 5번 반복된다.</p></div></details>
+</article>
+<article class="card" id="q3">
+  <div class="qhead"><span class="badge">문항 3</span><span>기초 3 · 문자열 길이 구하기</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>text = &quot;안녕하세요, 인수샘입니다.&quot;
+print(f&quot;문자열 길이: {len(text)}&quot;)</code></pre>
+  <textarea id="ans3" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res3"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>문자열 길이: 13</pre><b>상세 풀이</b><p>len()은 공백과 문장부호를 포함한 문자 개수를 센다. 문자열 &#x27;안녕하세요, 인수샘입니다.&#x27;는 총 13글자이다.</p></div></details>
+</article>
+<article class="card" id="q4">
+  <div class="qhead"><span class="badge">문항 4</span><span>기초 4 · 문자열 슬라이싱</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>jumin = &quot;990101-1234567&quot;
+gender = jumin[7] # 성별 구분 숫자
+birthday = jumin[:6] # 생년월일 앞 6자리
+
+print(&quot;생년월일:&quot;, birthday)
+print(&quot;성별 코드:&quot;, gender)</code></pre>
+  <textarea id="ans4" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res4"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>생년월일: 990101
+성별 코드: 1</pre><b>상세 풀이</b><p>jumin[:6]은 인덱스 0부터 5까지의 문자열인 990101을 가져온다. jumin[7]은 하이픈 다음 첫 번째 숫자인 1이다.</p></div></details>
+</article>
+<article class="card" id="q5">
+  <div class="qhead"><span class="badge">문항 5</span><span>기초 5 · 대소문자 변환</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>word = &quot;Python is Good&quot;
+print(&quot;대문자로:&quot;, word.upper())
+print(&quot;소문자로:&quot;, word.lower())</code></pre>
+  <textarea id="ans5" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res5"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>대문자로: PYTHON IS GOOD
+소문자로: python is good</pre><b>상세 풀이</b><p>upper()는 영문자를 모두 대문자로, lower()는 모두 소문자로 바꾼 새 문자열을 반환한다.</p></div></details>
+</article>
+<article class="card" id="q6">
+  <div class="qhead"><span class="badge">문항 6</span><span>응용 1 · 문자열 나누기</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>data = &quot;홍길동,구운몽,인수샘&quot;
+names = data.split(&quot;,&quot;) # 쉼표를 기준으로 나눔
+print(names)
+
+address = &quot;서울시 강남구 역삼동&quot;
+parts = address.split() # 공백을 기준으로 나눔
+print(parts)</code></pre>
+  <textarea id="ans6" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res6"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>[&#x27;홍길동&#x27;, &#x27;구운몽&#x27;, &#x27;인수샘&#x27;]
+[&#x27;서울시&#x27;, &#x27;강남구&#x27;, &#x27;역삼동&#x27;]</pre><b>상세 풀이</b><p>split(&#x27;,&#x27;)은 쉼표를 기준으로 문자열을 나누어 리스트를 만든다. split()에 인자를 주지 않으면 공백을 기준으로 나눈다.</p></div></details>
+</article>
+<article class="card" id="q7">
+  <div class="qhead"><span class="badge">문항 7</span><span>응용 2 · 문자열 바꾸기</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>sentence = &quot;I like Java. Java is fun.&quot;
+new_sentence = sentence.replace(&quot;Java&quot;, &quot;Python&quot;)
+print(new_sentence)</code></pre>
+  <textarea id="ans7" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res7"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>I like Python. Python is fun.</pre><b>상세 풀이</b><p>replace(&#x27;Java&#x27;, &#x27;Python&#x27;)은 문자열 안의 Java를 모두 Python으로 바꾼다.</p></div></details>
+</article>
+<article class="card" id="q8">
+  <div class="qhead"><span class="badge">문항 8</span><span>응용 3 · 공백 제거하기</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>user_input = &quot;   인수샘   &quot;
+print(f&quot;원본: &#x27;{user_input}&#x27;&quot;)
+print(f&quot;제거: &#x27;{user_input.strip()}&#x27;&quot;)</code></pre>
+  <textarea id="ans8" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res8"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>원본: &#x27;   인수샘   &#x27;
+제거: &#x27;인수샘&#x27;</pre><b>상세 풀이</b><p>strip()은 문자열 양쪽의 공백을 제거한다. 원본 출력에는 따옴표 안에 앞뒤 공백이 그대로 보이고, 제거 출력에는 인수샘만 남는다.</p></div></details>
+</article>
+<article class="card" id="q9">
+  <div class="qhead"><span class="badge">문항 9</span><span>응용 4 · 문자열 포매팅</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>name = &quot;홍길동&quot;
+age = 25
+print(f&quot;제 이름은 {name}이고, 나이는 {age}세입니다.&quot;)</code></pre>
+  <textarea id="ans9" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res9"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>제 이름은 홍길동이고, 나이는 25세입니다.</pre><b>상세 풀이</b><p>f-string은 중괄호 안의 변수 값을 문자열 안에 직접 넣어 출력한다.</p></div></details>
+</article>
+<article class="card" id="q10">
+  <div class="qhead"><span class="badge">문항 10</span><span>응용 5 · 문자열 개수 세기</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>poem = &quot;동해물과 백두산이 마르고 닳도록&quot;
+print(&quot;백두산 등장 횟수:&quot;, poem.count(&quot;백두산&quot;))</code></pre>
+  <textarea id="ans10" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res10"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>백두산 등장 횟수: 1</pre><b>상세 풀이</b><p>count(&#x27;백두산&#x27;)은 해당 부분 문자열이 몇 번 등장하는지 센다. 문장에는 백두산이 한 번 등장한다.</p></div></details>
+</article>
+<article class="card" id="q11">
+  <div class="qhead"><span class="badge">문항 11</span><span>심화 1 · 리스트를 문자열로 합치기</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>words = [&quot;Life&quot;, &quot;is&quot;, &quot;too&quot;, &quot;short&quot;]
+
+# &quot; &quot; (공백)을 구분자로 하여 합치기
+sentence = &quot; &quot;.join(words)
+print(sentence)
+
+# &quot;-&quot;을 구분자로 하여 합치기
+date_parts = [&quot;2026&quot;, &quot;03&quot;, &quot;21&quot;]
+date_string = &quot;-&quot;.join(date_parts)
+print(date_string)</code></pre>
+  <textarea id="ans11" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res11"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>Life is too short
+2026-03-21</pre><b>상세 풀이</b><p>join()은 리스트의 문자열 요소들을 지정한 구분자로 연결한다. 첫 번째는 공백, 두 번째는 하이픈을 구분자로 사용한다.</p></div></details>
+</article>
+<article class="card" id="q12">
+  <div class="qhead"><span class="badge">문항 12</span><span>심화 2 · 위치 찾기</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>text = &quot;apple, banana&quot;
+
+# .find(): 찾는 문자열이 없으면 -1을 반환합니다.
+print(&quot;banana의 위치:&quot;, text.find(&quot;banana&quot;))
+print(&quot;orange의 위치:&quot;, text.find(&quot;orange&quot;)) # -1
+
+# .index(): 찾는 문자열이 없으면 ValueError 오류를 발생시킵니다.
+print(&quot;apple의 위치:&quot;, text.index(&quot;apple&quot;))
+# print(text.index(&quot;orange&quot;)) # 이 코드는 오류를 발생시킴</code></pre>
+  <textarea id="ans12" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res12"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>banana의 위치: 7
+orange의 위치: -1
+apple의 위치: 0</pre><b>상세 풀이</b><p>apple, banana에서 banana는 인덱스 7에서 시작한다. orange는 없으므로 find()가 -1을 반환한다. apple은 맨 앞에서 시작하므로 index 값은 0이다.</p></div></details>
+</article>
+<article class="card" id="q13">
+  <div class="qhead"><span class="badge">문항 13</span><span>심화 3 · 시작/끝 문자열 확인</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>filename = &quot;report.pdf&quot;
+url = &quot;https://www.google.com&quot;
+
+if filename.endswith(&quot;.pdf&quot;):
+    print(&quot;PDF 파일입니다.&quot;)
+
+if url.startswith(&quot;https://&quot;):
+    print(&quot;안전한 HTTPS 프로토콜입니다.&quot;)</code></pre>
+  <textarea id="ans13" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res13"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>PDF 파일입니다.
+안전한 HTTPS 프로토콜입니다.</pre><b>상세 풀이</b><p>filename은 .pdf로 끝나므로 첫 번째 if문이 실행된다. url은 https://로 시작하므로 두 번째 if문도 실행된다.</p></div></details>
+</article>
+<article class="card" id="q14">
+  <div class="qhead"><span class="badge">문항 14</span><span>심화 4 · 문자열 구성 확인</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>s1 = &quot;12345&quot;
+s2 = &quot;Python&quot;
+
+print(f&quot;&#x27;{s1}&#x27;는 숫자입니까? {s1.isdigit()}&quot;)
+print(f&quot;&#x27;{s2}&#x27;는 문자로만 되어 있습니까? {s2.isalpha()}&quot;)</code></pre>
+  <textarea id="ans14" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res14"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>&#x27;12345&#x27;는 숫자입니까? True
+&#x27;Python&#x27;는 문자로만 되어 있습니까? True</pre><b>상세 풀이</b><p>isdigit()은 문자열이 숫자로만 이루어졌는지 확인한다. isalpha()는 알파벳 문자로만 이루어졌는지 확인한다. 두 조건 모두 참이다.</p></div></details>
+</article><div class="actions"><button class="primary" type="button" onclick="gradeAll()">✅ 채점하기</button><button class="secondary" type="button" onclick="downloadTxt()">📄 TXT 산출</button><button class="ghost" type="button" onclick="showAllSolutions()">📚 상세 풀이 모두 열기</button><button class="ghost" type="button" onclick="window.print()">🖨️ 인쇄</button></div></main></div>
+<script>
+const answers = {"1": "Hello\ns2의 첫 번째 글자: P\ns2의 마지막 글자: n", "2": "파이썬은 재미있다!\n하하하하하", "3": "문자열 길이: 13", "4": "생년월일: 990101\n성별 코드: 1", "5": "대문자로: PYTHON IS GOOD\n소문자로: python is good", "6": "['홍길동', '구운몽', '인수샘']\n['서울시', '강남구', '역삼동']", "7": "I like Python. Python is fun.", "8": "원본: '   인수샘   '\n제거: '인수샘'", "9": "제 이름은 홍길동이고, 나이는 25세입니다.", "10": "백두산 등장 횟수: 1", "11": "Life is too short\n2026-03-21", "12": "banana의 위치: 7\norange의 위치: -1\napple의 위치: 0", "13": "PDF 파일입니다.\n안전한 HTTPS 프로토콜입니다.", "14": "'12345'는 숫자입니까? True\n'Python'는 문자로만 되어 있습니까? True"};
+const totalQuestions = 14;
+let lastScore = null;
+function norm(s){return (s || '').replace(/
+/g, '
+').replace(//g, '
+').trim().replace(/[ 	]+/g, ' ');}
+function goQ(n){const el=document.getElementById('q'+n); if(el) el.scrollIntoView({behavior:'smooth', block:'start'});}
+function gradeAll(){let correct=0; for(let i=1;i<=totalQuestions;i++){const user=norm(document.getElementById('ans'+i).value); const ans=norm(answers[String(i)]); const res=document.getElementById('res'+i); if(user===ans){correct++; res.textContent='정답입니다.'; res.className='result ok';} else {res.textContent='오답입니다. 상세 풀이를 확인하세요.'; res.className='result bad';}} lastScore=Math.round(correct*100/totalQuestions); document.getElementById('scoreBox').textContent=`점수: ${lastScore} / 100`; return lastScore;}
+function stamp(){const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;}
+function safeName(s, fallback){return (s || fallback).trim().replace(/[\/:*?"<>|]/g, '_') || fallback;}
+function downloadTxt(){const score=gradeAll(); const sid=safeName(document.getElementById('studentId').value,'학번'); const name=safeName(document.getElementById('studentName').value,'이름'); const time=stamp(); let txt=`12차시 파이썬 문자열 처리 출력 결과 서술형 평가
+학번: ${sid}
+이름: ${name}
+점수: ${score} / 100
+응시시각: ${time}
+
+`; for(let i=1;i<=totalQuestions;i++){txt+=`[문항 ${i}]
+학생 답안:
+${document.getElementById('ans'+i).value}
+
+정답:
+${answers[String(i)]}
+
+`;} const blob=new Blob([txt],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`${sid}_${name}_step12_${score}_${time}.txt`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);}
+function showAllSolutions(){document.querySelectorAll('details').forEach(d=>d.open=true);}
+</script></body></html>

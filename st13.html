@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파일 입출력 출력 결과 서술형 평가</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Pretendard,'Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#fff7ed);color:#172033}.wrap{display:grid;grid-template-columns:280px 1fr;min-height:100vh}aside{position:sticky;top:0;height:100vh;padding:22px;background:#102a43;color:white;overflow:auto}aside h2{font-size:21px;margin:0 0 8px}.profile{background:rgba(255,255,255,.12);padding:14px;border-radius:16px;margin:16px 0}label{display:block;font-weight:800;margin:8px 0 4px}input{width:100%;padding:10px;border:0;border-radius:10px}.nav button{display:block;width:100%;margin:7px 0;padding:11px;border:0;border-radius:12px;background:#e0f2fe;color:#0f172a;font-weight:800;cursor:pointer;text-align:left}.nav button:hover{background:#bae6fd;transform:translateX(2px)}main{padding:28px;max-width:1150px}header{background:white;padding:28px;border-radius:24px;box-shadow:0 10px 30px rgba(15,23,42,.09);margin-bottom:20px;border-top:8px solid #2563eb}h1{margin:0;color:#1e3a8a}.sub{color:#52616b}.card{background:white;margin:18px 0;padding:22px;border-radius:22px;box-shadow:0 8px 22px rgba(15,23,42,.08);border-left:8px solid #f97316}.qhead{display:flex;gap:10px;align-items:center;font-weight:900;font-size:18px}.badge{background:#2563eb;color:white;padding:6px 10px;border-radius:999px;font-size:14px}.question{background:#fff7ed;padding:12px;border-radius:12px}pre{background:#0b1020;color:#e5e7eb;padding:16px;border-radius:16px;overflow:auto;line-height:1.55;font-family:Consolas,monospace;white-space:pre-wrap}textarea{width:100%;min-height:115px;padding:14px;border:2px solid #cbd5e1;border-radius:14px;font-size:15px;line-height:1.5;font-family:Consolas,'Noto Sans KR',monospace}.actions{position:sticky;bottom:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);padding:16px;border-radius:20px;box-shadow:0 -4px 18px rgba(15,23,42,.08);display:flex;gap:10px;flex-wrap:wrap}.actions button{padding:12px 16px;border:0;border-radius:14px;font-weight:900;cursor:pointer}.primary{background:#2563eb;color:white}.secondary{background:#f97316;color:white}.ghost{background:#e2e8f0;color:#0f172a}.result{margin-top:8px;font-weight:900}.ok{color:#15803d}.bad{color:#b91c1c}details{margin-top:12px;background:#f8fafc;border-radius:14px;padding:12px}summary{cursor:pointer;font-weight:900;color:#1d4ed8}.solution p{line-height:1.8}#scoreBox{font-size:18px;font-weight:900;margin:10px 0;color:#facc15}.hint{font-size:13px;color:#fde68a;line-height:1.5}@media(max-width:850px){.wrap{grid-template-columns:1fr}aside{position:relative;height:auto}.actions{position:relative}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <h2>📁 Step13 평가</h2>
+  <p>파일 입출력 출력 결과 서술형</p>
+  <div class="profile">
+    <label>학번</label><input id="studentId" placeholder=" ">
+    <label>이름</label><input id="studentName" placeholder="호랑이">
+    <div id="scoreBox">점수: - / 100</div>
+    <p class="hint">※ 채점 후 TXT 산출 시<br>학번_이름_step13_점수_응시시각.txt</p>
+  </div>
+  <div class="nav" id="nav"></div>
+</aside>
+<main>
+<header>
+<h1>13차시: 파이썬 파일 입출력(File I/O) 출력 결과 서술형 평가</h1>
+<p class="sub">코드를 읽고 실제 출력 결과를 직접 작성합니다. 일부 파일 예제는 앞 문항에서 파일이 생성되었다고 가정합니다.</p>
+</header>
+<div id="questions"></div>
+<div class="actions">
+<button class="primary" onclick="gradeAll()">✅ 채점하기</button>
+<button class="secondary" onclick="downloadTxt()">📄 TXT 산출</button>
+<button class="ghost" onclick="showAllSolutions()">📚 상세 풀이 모두 열기</button>
+<button class="ghost" onclick="window.print()">🖨️ 인쇄</button>
+</div>
+</main></div>
+<script>
+const data=[
+{t:'새 파일 생성 및 내용 쓰기',code:`with open('hello.txt', 'w', encoding='utf-8') as f:
+    f.write("안녕하세요, 파일 입출력의 세계에 오신 것을 환영합니다.\\n")
+    f.write("이것은 두 번째 줄입니다.")
+
+print("hello.txt 파일이 생성되고 내용이 작성되었습니다.")`,ans:`hello.txt 파일이 생성되고 내용이 작성되었습니다.`,sol:`with open(..., 'w')는 hello.txt 파일을 새로 만들거나 기존 내용을 덮어쓴다. f.write()는 파일에 내용을 저장할 뿐 화면에는 출력하지 않는다. 화면에 보이는 것은 마지막 print() 한 줄뿐이다.`},
+{t:'파일 내용 전체 읽기',code:`try:
+    with open('hello.txt', 'r', encoding='utf-8') as f:
+        content = f.read()
+        print("--- 파일 내용 ---")
+        print(content)
+except FileNotFoundError:
+    print("파일을 찾을 수 없습니다. 먼저 파일을 생성해 주세요.")`,ans:`--- 파일 내용 ---
+안녕하세요, 파일 입출력의 세계에 오신 것을 환영합니다.
+이것은 두 번째 줄입니다.`,sol:`1번 문항에서 hello.txt가 생성되었다고 보면 except는 실행되지 않는다. f.read()가 파일 전체 내용을 문자열로 읽고, 먼저 구분선이 출력된 뒤 파일 내용 두 줄이 출력된다.`},
+{t:'파일을 한 줄씩 읽기',code:`with open('hello.txt', 'r', encoding='utf-8') as f:
+    lines = f.readlines()
+    for index, line in enumerate(lines):
+        print(f"{index + 1}번째 줄: {line.strip()}")`,ans:`1번째 줄: 안녕하세요, 파일 입출력의 세계에 오신 것을 환영합니다.
+2번째 줄: 이것은 두 번째 줄입니다.`,sol:`readlines()는 파일의 각 줄을 리스트로 가져온다. enumerate(lines)는 0부터 인덱스를 붙이므로 출력할 때 index+1을 사용한다. strip()은 각 줄 끝의 줄바꿈을 제거한다.`},
+{t:'기존 파일에 내용 추가하기',code:`with open('hello.txt', 'a', encoding='utf-8') as f:
+    f.write("\\n새로운 줄이 추가되었습니다.")
+
+print("내용 추가가 완료되었습니다.")`,ans:`내용 추가가 완료되었습니다.`,sol:`'a' 모드는 기존 파일 뒤에 내용을 덧붙인다. f.write()는 파일에 쓰는 동작이고 화면 출력이 아니다. 화면에는 print()의 문장만 출력된다.`},
+{t:'반복문을 이용해 한 줄씩 읽기',code:`with open('hello.txt', 'r', encoding='utf-8') as f:
+    print("--- 반복문으로 읽기 ---")
+    for line in f:
+        print(line, end="")`,ans:`--- 반복문으로 읽기 ---
+안녕하세요, 파일 입출력의 세계에 오신 것을 환영합니다.
+이것은 두 번째 줄입니다.
+새로운 줄이 추가되었습니다.`,sol:`4번 문항에서 hello.txt에 세 번째 줄이 추가되었다고 본다. 파일 객체를 반복하면 한 줄씩 읽는다. 각 line에는 줄바꿈이 이미 포함될 수 있으므로 print(line, end='')로 중복 줄바꿈을 막는다.`},
+{t:'사용자 입력을 파일로 저장하기',code:`filename = 'user_data.txt'
+print(f"'{filename}'에 저장할 내용을 입력하세요. '그만'을 입력하면 종료됩니다.")
+
+with open(filename, 'w', encoding='utf-8') as f:
+    while True:
+        user_input = input("> ")
+        if user_input == '그만':
+            break
+        f.write(user_input + "\\n")
+
+print(f"내용이 '{filename}'에 성공적으로 저장되었습니다.")`,ans:`'user_data.txt'에 저장할 내용을 입력하세요. '그만'을 입력하면 종료됩니다.
+내용이 'user_data.txt'에 성공적으로 저장되었습니다.`,sol:`이 코드는 사용자 입력이 필요한 예제이다. 입력 프롬프트(> )는 환경에 따라 화면에 보일 수 있지만, 평가에서는 print()로 출력되는 두 문장을 정답으로 본다. 사용자가 '그만'을 입력하면 반복문이 종료되고 저장 완료 문장이 출력된다.`},
+{t:'파일 존재 여부 확인 후 처리',code:`import os
+
+target_file = 'important_note.txt'
+
+if os.path.exists(target_file):
+    with open(target_file, 'r', encoding='utf-8') as f:
+        print(f"파일 내용: {f.read()}")
+else:
+    print(f"'{target_file}' 파일이 존재하지 않습니다. 새로 생성합니다.")
+    with open(target_file, 'w', encoding='utf-8') as f:
+        f.write("이것은 중요한 메모입니다.")`,ans:`'important_note.txt' 파일이 존재하지 않습니다. 새로 생성합니다.`,sol:`important_note.txt가 처음에는 없다고 가정한다. os.path.exists(target_file)이 False이므로 else 블록이 실행되고, 파일이 없다는 안내 문장이 출력된 뒤 새 파일을 만든다.`},
+{t:'이미지 파일 복사',code:`source_image = 'source_image.jpg'
+dest_image = 'copied_image.jpg'
+
+try:
+    with open(source_image, 'rb') as f_in:
+        with open(dest_image, 'wb') as f_out:
+            f_out.write(f_in.read())
+    print(f"이미지 파일 복사 완료: '{dest_image}'")
+except FileNotFoundError:
+    print(f"'{source_image}' 파일을 찾을 수 없습니다.")`,ans:`'source_image.jpg' 파일을 찾을 수 없습니다.`,sol:`같은 폴더에 source_image.jpg가 없다고 가정한다. open(source_image, 'rb')에서 FileNotFoundError가 발생하므로 except 블록이 실행되어 파일을 찾을 수 없다는 문장이 출력된다.`},
+{t:'특정 위치에서 읽고 쓰기',code:`with open('seek_test.txt', 'w', encoding='utf-8') as f:
+    f.write("0123456789abcdef")
+
+with open('seek_test.txt', 'r+', encoding='utf-8') as f:
+    f.seek(10)
+    data = f.read(4)
+    print(f"10번 위치에서 읽은 데이터: {data}")
+
+    print(f"현재 커서 위치: {f.tell()}")
+
+    f.seek(0)
+    f.write("Hello")`,ans:`10번 위치에서 읽은 데이터: abcd
+현재 커서 위치: 14`,sol:`문자열 0123456789abcdef에서 10번 위치의 문자는 a이다. f.read(4)는 a,b,c,d 네 글자를 읽으므로 abcd가 된다. 10번 위치에서 4글자를 읽었으므로 현재 커서 위치는 14이다. 마지막 f.write('Hello')는 파일에 쓰는 동작이며 출력은 아니다.`},
+{t:'파일 내 특정 단어 치환하기',code:`def replace_in_file(filename, old_word, new_word):
+    try:
+        with open(filename, 'r', encoding='utf-8') as f:
+            content = f.read()
+        new_content = content.replace(old_word, new_word)
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        print(f"'{old_word}'가 '{new_word}'로 변경되었습니다.")
+    except FileNotFoundError:
+        print("파일이 없습니다.")
+
+replace_in_file('hello.txt', '홍길동', '인수샘')`,ans:`'홍길동'가 '인수샘'로 변경되었습니다.`,sol:`hello.txt 파일이 존재한다고 가정한다. 파일 내용을 읽은 뒤 replace(old_word, new_word)를 실행한다. 실제로 '홍길동'이 없더라도 replace 결과는 원본과 같을 뿐 오류는 나지 않는다. 따라서 변경 완료 문장이 출력된다.`}
+];
+const nav=document.getElementById('nav');const qs=document.getElementById('questions');
+data.forEach((q,idx)=>{const n=idx+1;nav.insertAdjacentHTML('beforeend',`<button type="button" onclick="goQ(${n})">문항 ${n}</button>`);qs.insertAdjacentHTML('beforeend',`<article class="card" id="q${n}"><div class="qhead"><span class="badge">문항 ${n}</span><span>${q.t}</span></div><p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p><pre><code>${escapeHtml(q.code)}</code></pre><textarea id="ans${n}" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea><div class="result" id="res${n}"></div><details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>${escapeHtml(q.ans)}</pre><b>상세 풀이</b><p>${q.sol}</p></div></details></article>`)});
+let lastScore=null;
+function escapeHtml(s){return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;')}
+function norm(s){return (s||'').replace(/\r\n/g,'\n').trim().replace(/[ \t]+/g,' ')}
+function goQ(n){document.getElementById('q'+n).scrollIntoView({behavior:'smooth',block:'start'})}
+function gradeAll(){let correct=0;data.forEach((q,idx)=>{const n=idx+1;const user=norm(document.getElementById('ans'+n).value);const ans=norm(q.ans);const res=document.getElementById('res'+n);if(user===ans){correct++;res.innerHTML='정답입니다. +' + (100/data.length).toFixed(1).replace('.0','') + '점';res.className='result ok'}else{res.innerHTML='오답입니다. 상세 풀이를 확인하세요.';res.className='result bad'}});lastScore=Math.round(correct*(100/data.length));document.getElementById('scoreBox').textContent=`점수: ${lastScore} / 100`;return lastScore}
+function stamp(){const d=new Date();const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`}
+function downloadTxt(){const score=gradeAll();const sid=(document.getElementById('studentId').value||'학번').trim();const name=(document.getElementById('studentName').value||'이름').trim();const time=stamp();let txt=`13차시 파이썬 파일 입출력 출력 결과 서술형 평가\n학번: ${sid}\n이름: ${name}\n점수: ${score} / 100\n응시시각: ${time}\n\n`;data.forEach((q,idx)=>{const n=idx+1;txt+=`[문항 ${n}] ${q.t}\n학생 답안:\n${document.getElementById('ans'+n).value}\n\n정답:\n${q.ans}\n\n상세 풀이:\n${q.sol}\n\n`});const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${sid}_${name}_step13_${score}_${time}.txt`;a.click();URL.revokeObjectURL(a.href)}
+function showAllSolutions(){document.querySelectorAll('details').forEach(d=>d.open=true)}
+</script>
+</body>
+</html>

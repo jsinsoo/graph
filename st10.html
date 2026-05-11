@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10차시 딕셔너리 출력 결과 서술형 평가</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Pretendard,'Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#fff7ed);color:#172033} .wrap{display:grid;grid-template-columns:260px 1fr;min-height:100vh} aside{position:sticky;top:0;height:100vh;padding:22px;background:#102a43;color:white;overflow:auto} aside h2{font-size:20px;margin:0 0 12px} .profile{background:rgba(255,255,255,.1);padding:14px;border-radius:16px;margin:16px 0} label{display:block;font-weight:700;margin:8px 0 4px} input{width:100%;padding:10px;border:0;border-radius:10px} .nav button{display:block;width:100%;margin:7px 0;padding:10px;border:0;border-radius:12px;background:#e0f2fe;color:#0f172a;font-weight:700;cursor:pointer;text-align:left} main{padding:28px;max-width:1100px} header{background:white;padding:28px;border-radius:24px;box-shadow:0 10px 30px rgba(15,23,42,.09);margin-bottom:20px;border-top:8px solid #2563eb} h1{margin:0;color:#1e3a8a} .sub{color:#52616b} .card{background:white;margin:18px 0;padding:22px;border-radius:22px;box-shadow:0 8px 22px rgba(15,23,42,.08);border-left:8px solid #f97316} .qhead{display:flex;gap:10px;align-items:center;font-weight:900;font-size:18px} .badge{background:#2563eb;color:white;padding:6px 10px;border-radius:999px;font-size:14px} .question{background:#fff7ed;padding:12px;border-radius:12px} pre{background:#0b1020;color:#e5e7eb;padding:16px;border-radius:16px;overflow:auto;line-height:1.55;font-family:Consolas,monospace;white-space:pre-wrap} textarea{width:100%;min-height:110px;padding:14px;border:2px solid #cbd5e1;border-radius:14px;font-size:15px;line-height:1.5;font-family:Consolas,'Noto Sans KR',monospace} .actions{position:sticky;bottom:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);padding:16px;border-radius:20px;box-shadow:0 -4px 18px rgba(15,23,42,.08);display:flex;gap:10px;flex-wrap:wrap} .actions button,.download{padding:12px 16px;border:0;border-radius:14px;font-weight:900;cursor:pointer;text-decoration:none} .primary{background:#2563eb;color:white} .secondary{background:#f97316;color:white} .ghost{background:#e2e8f0;color:#0f172a} .result{margin-top:8px;font-weight:900} .ok{color:#15803d} .bad{color:#b91c1c} details{margin-top:12px;background:#f8fafc;border-radius:14px;padding:12px} summary{cursor:pointer;font-weight:900;color:#1d4ed8} .solution p{line-height:1.8} #scoreBox{font-size:18px;font-weight:900;margin:10px 0;color:#facc15} @media(max-width:800px){.wrap{grid-template-columns:1fr} aside{position:relative;height:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <h2>📘 Step10 평가</h2>
+  <p>딕셔너리 출력 결과 서술형</p>
+  <div class="profile">
+    <label>학번</label><input id="studentId" placeholder=" ">
+    <label>이름</label><input id="studentName" placeholder="호랑이">
+    <div id="scoreBox">점수: - / 100</div>
+  </div>
+  <div class="nav"><button onclick="goQ(1)">문항 1</button><button onclick="goQ(2)">문항 2</button><button onclick="goQ(3)">문항 3</button><button onclick="goQ(4)">문항 4</button><button onclick="goQ(5)">문항 5</button><button onclick="goQ(6)">문항 6</button><button onclick="goQ(7)">문항 7</button><button onclick="goQ(8)">문항 8</button><button onclick="goQ(9)">문항 9</button><button onclick="goQ(10)">문항 10</button></div>
+</aside>
+<main>
+<header>
+<h1>10차시: 파이썬 딕셔너리(Dictionary) 출력 결과 서술형 평가</h1>
+<p class="sub">코드를 읽고 실제 출력 결과를 직접 작성합니다. 채점 후 <b>학번_이름_step10_점수_응시시각.txt</b> 파일로 결과를 저장할 수 있습니다.</p>
+</header>
+
+<article class="card" id="q1">
+  <div class="qhead"><span class="badge">문항 1</span><span>기초 1 · 딕셔너리 생성 및 값 접근</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>student = {
+    &quot;name&quot;: &quot;홍길동&quot;,
+    &quot;id&quot;: 202301,
+    &quot;major&quot;: &quot;컴퓨터공학&quot;
+}
+
+# &#x27;name&#x27; 키를 이용해 값에 접근
+print(f&quot;학생 이름: {student[&#x27;name&#x27;]}&quot;)
+
+# get() 메서드 활용 (키가 없어도 오류 없이 기본값 반환 가능)
+print(f&quot;학생 학년: {student.get(&#x27;grade&#x27;, &#x27;정보 없음&#x27;)}&quot;)</code></pre>
+  <textarea id="ans1" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res1"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>학생 이름: 홍길동
+학생 학년: 정보 없음</pre><b>상세 풀이</b><p>student[&#x27;name&#x27;]은 name 키의 값인 홍길동을 출력한다. grade 키는 없으므로 get(&#x27;grade&#x27;,&#x27;정보 없음&#x27;)은 오류 대신 기본값 정보 없음을 반환한다.</p></div></details>
+</article>
+
+<article class="card" id="q2">
+  <div class="qhead"><span class="badge">문항 2</span><span>기초 2 · 새 키-값 쌍 추가 및 수정</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>person = {}
+
+# 데이터 추가
+person[&#x27;name&#x27;] = &#x27;인수샘&#x27;
+person[&#x27;age&#x27;] = 30
+print(f&quot;추가 후: {person}&quot;)
+
+# 기존 값 수정
+person[&#x27;age&#x27;] = 31
+print(f&quot;수정 후: {person}&quot;)</code></pre>
+  <textarea id="ans2" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res2"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>추가 후: {&#x27;name&#x27;: &#x27;인수샘&#x27;, &#x27;age&#x27;: 30}
+수정 후: {&#x27;name&#x27;: &#x27;인수샘&#x27;, &#x27;age&#x27;: 31}</pre><b>상세 풀이</b><p>처음에는 빈 딕셔너리이다. name과 age를 추가하면 두 쌍이 저장된다. 이후 age 키에 31을 다시 대입하므로 기존 30이 31로 바뀐다.</p></div></details>
+</article>
+
+<article class="card" id="q3">
+  <div class="qhead"><span class="badge">문항 3</span><span>기초 3 · 딕셔너리 요소 삭제</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>car = {&quot;brand&quot;: &quot;현대&quot;, &quot;model&quot;: &quot;아이오닉&quot;, &quot;year&quot;: 2024}
+
+# &#x27;year&#x27; 키와 해당 값 삭제
+del car[&#x27;year&#x27;]
+print(f&quot;del 후: {car}&quot;)
+
+# pop()을 사용하여 값을 꺼내오면서 삭제
+model_name = car.pop(&#x27;model&#x27;)
+print(f&quot;삭제된 모델: {model_name}, 현재 딕셔너리: {car}&quot;)</code></pre>
+  <textarea id="ans3" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res3"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>del 후: {&#x27;brand&#x27;: &#x27;현대&#x27;, &#x27;model&#x27;: &#x27;아이오닉&#x27;}
+삭제된 모델: 아이오닉, 현재 딕셔너리: {&#x27;brand&#x27;: &#x27;현대&#x27;}</pre><b>상세 풀이</b><p>del car[&#x27;year&#x27;]로 year 항목이 삭제된다. pop(&#x27;model&#x27;)은 model 값을 꺼내 model_name에 저장하고 동시에 딕셔너리에서 model 항목을 제거한다.</p></div></details>
+</article>
+
+<article class="card" id="q4">
+  <div class="qhead"><span class="badge">문항 4</span><span>기초 4 · 모든 키와 값 순회</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>inventory = {&quot;apple&quot;: 10, &quot;banana&quot;: 5, &quot;cherry&quot;: 20}
+
+print(f&quot;모든 품목: {list(inventory.keys())}&quot;)
+print(f&quot;모든 수량: {list(inventory.values())}&quot;)
+
+# 키와 값을 동시에 순회
+for item, count in inventory.items():
+    print(f&quot;{item}의 재고는 {count}개입니다.&quot;)</code></pre>
+  <textarea id="ans4" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res4"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>모든 품목: [&#x27;apple&#x27;, &#x27;banana&#x27;, &#x27;cherry&#x27;]
+모든 수량: [10, 5, 20]
+apple의 재고는 10개입니다.
+banana의 재고는 5개입니다.
+cherry의 재고는 20개입니다.</pre><b>상세 풀이</b><p>keys()는 키 목록, values()는 값 목록을 반환한다. Python 3.7 이상에서는 입력 순서가 유지되므로 apple, banana, cherry 순서로 items() 반복문이 실행된다.</p></div></details>
+</article>
+
+<article class="card" id="q5">
+  <div class="qhead"><span class="badge">문항 5</span><span>기초 5 · 딕셔너리 비우기 및 확인</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>user = {&quot;id&quot;: &quot;user01&quot;, &quot;status&quot;: &quot;active&quot;}
+
+print(&quot;status 키가 있나요?&quot;, &#x27;status&#x27; in user)
+
+user.clear()
+print(f&quot;비운 후 결과: {user}&quot;)</code></pre>
+  <textarea id="ans5" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res5"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>status 키가 있나요? True
+비운 후 결과: {}</pre><b>상세 풀이</b><p>&#x27;status&#x27; in user는 status 키가 존재하므로 True이다. clear()는 딕셔너리 안의 모든 키-값 쌍을 삭제해 빈 딕셔너리 {}가 된다.</p></div></details>
+</article>
+
+<article class="card" id="q6">
+  <div class="qhead"><span class="badge">문항 6</span><span>응용 1 · 딕셔너리 컴프리헨션</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>users = [&quot;인수샘&quot;, &quot;홍길동&quot;, &quot;구운몽&quot;]
+# 이름의 길이를 값으로 갖는 딕셔너리 생성
+name_lengths = {name: len(name) for name in users}
+
+print(f&quot;이름 길이 정보: {name_lengths}&quot;)</code></pre>
+  <textarea id="ans6" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res6"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>이름 길이 정보: {&#x27;인수샘&#x27;: 3, &#x27;홍길동&#x27;: 3, &#x27;구운몽&#x27;: 3}</pre><b>상세 풀이</b><p>딕셔너리 컴프리헨션은 users의 각 이름을 키로, len(name)을 값으로 저장한다. 세 이름은 모두 세 글자이므로 값은 모두 3이다.</p></div></details>
+</article>
+
+<article class="card" id="q7">
+  <div class="qhead"><span class="badge">문항 7</span><span>응용 2 · 딕셔너리 정렬</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>scores = {&quot;수학&quot;: 100, &quot;영어&quot;: 80, &quot;국어&quot;: 95, &quot;과학&quot;: 85}
+
+# 값을 기준으로 내림차순 정렬 (람다 함수 활용)
+sorted_scores = sorted(scores.items(), key=lambda item: item[1], reverse=True)
+
+print(f&quot;점수 내림차순 정렬: {sorted_scores}&quot;)</code></pre>
+  <textarea id="ans7" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res7"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>점수 내림차순 정렬: [(&#x27;수학&#x27;, 100), (&#x27;국어&#x27;, 95), (&#x27;과학&#x27;, 85), (&#x27;영어&#x27;, 80)]</pre><b>상세 풀이</b><p>scores.items()는 (과목, 점수) 쌍을 만든다. key=lambda item: item[1]은 점수를 기준으로 정렬하게 하며 reverse=True라서 큰 점수부터 배치된다.</p></div></details>
+</article>
+
+<article class="card" id="q8">
+  <div class="qhead"><span class="badge">문항 8</span><span>응용 3 · 복잡한 데이터 구조화</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>api_response = {
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;count&quot;: 2,
+    &quot;data&quot;: [
+        {&quot;id&quot;: 101, &quot;name&quot;: &quot;상품A&quot;, &quot;tags&quot;: [&quot;전자기기&quot;, &quot;컴퓨터&quot;]},
+        {&quot;id&quot;: 102, &quot;name&quot;: &quot;상품B&quot;, &quot;tags&quot;: [&quot;가구&quot;, &quot;인테리어&quot;]}
+    ]
+}
+
+# 첫 번째 상품의 두 번째 태그 가져오기
+first_product_second_tag = api_response[&quot;data&quot;][0][&quot;tags&quot;][1]
+print(f&quot;첫 번째 상품의 두 번째 태그: {first_product_second_tag}&quot;)</code></pre>
+  <textarea id="ans8" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res8"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>첫 번째 상품의 두 번째 태그: 컴퓨터</pre><b>상세 풀이</b><p>api_response[&#x27;data&#x27;]는 상품 딕셔너리들의 리스트이다. [0]은 첫 번째 상품, [&#x27;tags&#x27;]는 태그 리스트, [1]은 두 번째 태그인 컴퓨터를 뜻한다.</p></div></details>
+</article>
+
+<article class="card" id="q9">
+  <div class="qhead"><span class="badge">문항 9</span><span>응용 4 · setdefault() 메서드 활용</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>students = [(&#x27;John&#x27;, &#x27;A&#x27;), (&#x27;Jane&#x27;, &#x27;B&#x27;), (&#x27;Dave&#x27;, &#x27;A&#x27;), (&#x27;Sarah&#x27;, &#x27;C&#x27;)]
+grades = {}
+
+for name, grade in students:
+    # 해당 성적(grade) 리스트가 없으면 빈 리스트를 만들고 이름을 추가
+    grades.setdefault(grade, []).append(name)
+
+print(f&quot;성적별 학생 분류: {grades}&quot;)</code></pre>
+  <textarea id="ans9" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res9"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>성적별 학생 분류: {&#x27;A&#x27;: [&#x27;John&#x27;, &#x27;Dave&#x27;], &#x27;B&#x27;: [&#x27;Jane&#x27;], &#x27;C&#x27;: [&#x27;Sarah&#x27;]}</pre><b>상세 풀이</b><p>setdefault(grade, [])는 grade 키가 없으면 빈 리스트를 만든다. 그 리스트에 학생 이름을 append하므로 같은 성적끼리 학생 이름이 묶인다.</p></div></details>
+</article>
+
+<article class="card" id="q10">
+  <div class="qhead"><span class="badge">문항 10</span><span>심화 1 · 두 딕셔너리 병합</span></div>
+  <p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p>
+  <pre><code>base_info = {&quot;name&quot;: &quot;구운몽&quot;, &quot;age&quot;: 25}
+extra_info = {&quot;major&quot;: &quot;국문학&quot;, &quot;city&quot;: &quot;서울&quot;}
+
+# 병합 연산자 | 사용
+full_profile = base_info | extra_info
+print(f&quot;병합된 프로필: {full_profile}&quot;)
+
+# 업데이트 연산자 |= 사용 (원본 수정)
+base_info |= {&quot;status&quot;: &quot;졸업&quot;}
+print(f&quot;업데이트된 원본: {base_info}&quot;)</code></pre>
+  <textarea id="ans10" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res10"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>병합된 프로필: {&#x27;name&#x27;: &#x27;구운몽&#x27;, &#x27;age&#x27;: 25, &#x27;major&#x27;: &#x27;국문학&#x27;, &#x27;city&#x27;: &#x27;서울&#x27;}
+업데이트된 원본: {&#x27;name&#x27;: &#x27;구운몽&#x27;, &#x27;age&#x27;: 25, &#x27;status&#x27;: &#x27;졸업&#x27;}</pre><b>상세 풀이</b><p>| 연산자는 두 딕셔너리를 합쳐 새 딕셔너리 full_profile을 만든다. |= 연산자는 base_info 자체에 status 항목을 추가하여 원본을 직접 수정한다.</p></div></details>
+</article>
+<div class="actions">
+<button class="primary" onclick="gradeAll()">✅ 채점하기</button>
+<button class="secondary" onclick="downloadTxt()">📄 TXT 산출</button>
+<button class="ghost" onclick="showAllSolutions()">📚 상세 풀이 모두 열기</button>
+<button class="ghost" onclick="window.print()">🖨️ 인쇄</button>
+</div>
+</main></div>
+<script>
+const answers = {"1": "학생 이름: 홍길동\n학생 학년: 정보 없음", "2": "추가 후: {'name': '인수샘', 'age': 30}\n수정 후: {'name': '인수샘', 'age': 31}", "3": "del 후: {'brand': '현대', 'model': '아이오닉'}\n삭제된 모델: 아이오닉, 현재 딕셔너리: {'brand': '현대'}", "4": "모든 품목: ['apple', 'banana', 'cherry']\n모든 수량: [10, 5, 20]\napple의 재고는 10개입니다.\nbanana의 재고는 5개입니다.\ncherry의 재고는 20개입니다.", "5": "status 키가 있나요? True\n비운 후 결과: {}", "6": "이름 길이 정보: {'인수샘': 3, '홍길동': 3, '구운몽': 3}", "7": "점수 내림차순 정렬: [('수학', 100), ('국어', 95), ('과학', 85), ('영어', 80)]", "8": "첫 번째 상품의 두 번째 태그: 컴퓨터", "9": "성적별 학생 분류: {'A': ['John', 'Dave'], 'B': ['Jane'], 'C': ['Sarah']}", "10": "병합된 프로필: {'name': '구운몽', 'age': 25, 'major': '국문학', 'city': '서울'}\n업데이트된 원본: {'name': '구운몽', 'age': 25, 'status': '졸업'}"};
+let lastScore = null;
+function norm(s){
+  return (s || '')
+    .replace(/\r/g, '')
+    .trim()
+    .replace(/[ \t]+/g, ' ');
+}
+function goQ(n){
+  const target = document.getElementById('q' + n);
+  if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+}
+function gradeAll(){let correct=0; for(let i=1;i<=10;i++){const user=norm(document.getElementById('ans'+i).value); const ans=norm(answers[String(i)]); const res=document.getElementById('res'+i); if(user===ans){correct++; res.innerHTML='정답입니다. +10점'; res.className='result ok';} else {res.innerHTML='오답입니다. 상세 풀이를 확인하세요.'; res.className='result bad';}} lastScore=correct*10; document.getElementById('scoreBox').textContent=`점수: ${lastScore} / 100`; return lastScore;}
+function stamp(){const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;}
+function downloadTxt(){const score=gradeAll(); const sid=(document.getElementById('studentId').value||'학번').trim(); const name=(document.getElementById('studentName').value||'이름').trim(); let txt=`10차시 파이썬 딕셔너리 출력 결과 서술형 평가
+학번: ${sid}
+이름: ${name}
+점수: ${score} / 100
+응시시각: ${stamp()}
+
+`; for(let i=1;i<=10;i++){txt+=`[문항 ${i}]
+학생 답안:
+${document.getElementById('ans'+i).value}
+
+정답:
+${answers[String(i)]}
+
+`;} const blob=new Blob([txt],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`${sid}_${name}_step10_${score}_${stamp()}.txt`; a.click(); URL.revokeObjectURL(a.href);}
+function showAllSolutions(){document.querySelectorAll('details').forEach(d=>d.open=true)}
+</script>
+</body>
+</html>

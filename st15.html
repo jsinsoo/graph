@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15차시 Pandas 출력 결과 서술형 평가</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Pretendard,'Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#eff6ff,#f8fafc 45%,#fff7ed);color:#172033} .wrap{display:grid;grid-template-columns:280px 1fr;min-height:100vh} aside{position:sticky;top:0;height:100vh;padding:22px;background:#0f172a;color:white;overflow:auto} aside h2{font-size:20px;margin:0 0 8px} aside p{color:#cbd5e1;margin-top:0} .profile{background:rgba(255,255,255,.1);padding:14px;border-radius:16px;margin:16px 0} label{display:block;font-weight:800;margin:8px 0 4px} input{width:100%;padding:10px;border:0;border-radius:10px} .nav button{display:block;width:100%;margin:7px 0;padding:10px 12px;border:0;border-radius:12px;background:#dbeafe;color:#0f172a;font-weight:800;cursor:pointer;text-align:left} .nav button:hover{background:#93c5fd;transform:translateX(2px)} main{padding:28px;max-width:1120px} header{background:white;padding:28px;border-radius:24px;box-shadow:0 10px 30px rgba(15,23,42,.09);margin-bottom:20px;border-top:8px solid #2563eb} h1{margin:0;color:#1e3a8a} .sub{color:#52616b} .card{background:white;margin:18px 0;padding:22px;border-radius:22px;box-shadow:0 8px 22px rgba(15,23,42,.08);border-left:8px solid #f97316;scroll-margin-top:18px} .qhead{display:flex;gap:10px;align-items:center;font-weight:900;font-size:18px;flex-wrap:wrap} .badge{background:#2563eb;color:white;padding:6px 10px;border-radius:999px;font-size:14px} .question{background:#fff7ed;padding:12px;border-radius:12px} pre{background:#0b1020;color:#e5e7eb;padding:16px;border-radius:16px;overflow:auto;line-height:1.55;font-family:Consolas,'D2Coding',monospace;white-space:pre-wrap} textarea{width:100%;min-height:120px;padding:14px;border:2px solid #cbd5e1;border-radius:14px;font-size:15px;line-height:1.5;font-family:Consolas,'Noto Sans KR',monospace} .actions{position:sticky;bottom:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);padding:16px;border-radius:20px;box-shadow:0 -4px 18px rgba(15,23,42,.08);display:flex;gap:10px;flex-wrap:wrap} .actions button{padding:12px 16px;border:0;border-radius:14px;font-weight:900;cursor:pointer} .primary{background:#2563eb;color:white} .secondary{background:#f97316;color:white} .ghost{background:#e2e8f0;color:#0f172a} .result{margin-top:8px;font-weight:900} .ok{color:#15803d} .bad{color:#b91c1c} details{margin-top:12px;background:#f8fafc;border-radius:14px;padding:12px} summary{cursor:pointer;font-weight:900;color:#1d4ed8} #scoreBox{font-size:18px;font-weight:900;margin:10px 0;color:#fde68a} .tip{font-size:13px;color:#cbd5e1} @media(max-width:820px){.wrap{grid-template-columns:1fr} aside{position:relative;height:auto} main{padding:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <h2>🐼 Step15 평가</h2>
+  <p>Pandas 출력 결과 서술형</p>
+  <div class="profile">
+    <label for="studentId">학번</label><input id="studentId" placeholder=" ">
+    <label for="studentName">이름</label><input id="studentName" placeholder="호랑이">
+    <div id="scoreBox">점수: - / 100</div>
+  </div>
+  <div class="tip">문항 번호를 누르면 해당 문제로 이동합니다.</div>
+  <div class="nav"><button type="button" onclick="goQ(1)">문항 1</button><button type="button" onclick="goQ(2)">문항 2</button><button type="button" onclick="goQ(3)">문항 3</button><button type="button" onclick="goQ(4)">문항 4</button><button type="button" onclick="goQ(5)">문항 5</button><button type="button" onclick="goQ(6)">문항 6</button><button type="button" onclick="goQ(7)">문항 7</button><button type="button" onclick="goQ(8)">문항 8</button><button type="button" onclick="goQ(9)">문항 9</button><button type="button" onclick="goQ(10)">문항 10</button><button type="button" onclick="goQ(11)">문항 11</button><button type="button" onclick="goQ(12)">문항 12</button><button type="button" onclick="goQ(13)">문항 13</button><button type="button" onclick="goQ(14)">문항 14</button></div>
+</aside>
+<main>
+<header>
+<h1>15차시: Pandas 데이터 분석 출력 결과 서술형 평가</h1>
+<p class="sub">코드를 읽고 실제 출력 결과를 작성합니다. 채점 후 <b>학번_이름_step15_점수_응시시각.txt</b> 파일로 결과를 저장할 수 있습니다.</p>
+</header>
+<article class="card" id="q1">
+  <div class="qhead"><span class="badge">문항 1</span><span>기초 1 · Series 생성하기</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+s = pd.Series([10, 20, 30, 40], index=[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;])
+
+print(&quot;--- Pandas Series ---&quot;)
+print(s)
+print(&quot;
+인덱스 &#x27;c&#x27;의 값:&quot;, s[&#x27;c&#x27;])</code></pre>
+  <textarea id="ans1" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res1"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>--- Pandas Series ---
+a    10
+b    20
+c    30
+d    40
+dtype: int64
+
+인덱스 &#x27;c&#x27;의 값: 30</pre><b>상세 풀이</b><p>pd.Series는 1차원 자료구조이다. 인덱스 a,b,c,d에 각각 10,20,30,40이 대응된다. 마지막 print는 c 인덱스의 값 30을 출력한다.</p></div></details>
+</article><article class="card" id="q2">
+  <div class="qhead"><span class="badge">문항 2</span><span>기초 2 · DataFrame 생성하기</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+data = {
+    &#x27;이름&#x27;: [&#x27;인수샘&#x27;, &#x27;홍길동&#x27;, &#x27;구운몽&#x27;],
+    &#x27;나이&#x27;: [30, 25, 28],
+    &#x27;도시&#x27;: [&#x27;서울&#x27;, &#x27;부산&#x27;, &#x27;광주&#x27;]
+}
+
+df = pd.DataFrame(data)
+print(&quot;--- Pandas DataFrame ---&quot;)
+print(df)</code></pre>
+  <textarea id="ans2" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res2"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>--- Pandas DataFrame ---
+    이름  나이  도시
+0  인수샘  30  서울
+1  홍길동  25  부산
+2  구운몽  28  광주</pre><b>상세 풀이</b><p>딕셔너리의 키는 열 이름이 되고 리스트의 값들은 행 데이터가 된다. Pandas는 기본 인덱스 0,1,2를 자동으로 붙인다.</p></div></details>
+</article><article class="card" id="q3">
+  <div class="qhead"><span class="badge">문항 3</span><span>기초 3 · 특정 열 선택하기</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+data = {
+    &#x27;이름&#x27;: [&#x27;인수샘&#x27;, &#x27;홍길동&#x27;, &#x27;구운몽&#x27;],
+    &#x27;나이&#x27;: [30, 25, 28],
+    &#x27;도시&#x27;: [&#x27;서울&#x27;, &#x27;부산&#x27;, &#x27;광주&#x27;]
+}
+df = pd.DataFrame(data)
+
+names = df[&#x27;이름&#x27;]
+print(&quot;이름 열만 추출:&quot;)
+print(names)
+
+subset = df[[&#x27;이름&#x27;, &#x27;도시&#x27;]]
+print(&quot;
+이름과 도시 열 추출:&quot;)
+print(subset)</code></pre>
+  <textarea id="ans3" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res3"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>이름 열만 추출:
+0    인수샘
+1    홍길동
+2    구운몽
+Name: 이름, dtype: object
+
+이름과 도시 열 추출:
+    이름  도시
+0  인수샘  서울
+1  홍길동  부산
+2  구운몽  광주</pre><b>상세 풀이</b><p>df[&#x27;이름&#x27;]은 Series 형태로 한 열만 가져온다. df[[&#x27;이름&#x27;,&#x27;도시&#x27;]]는 리스트로 여러 열을 지정했으므로 DataFrame 형태로 출력된다.</p></div></details>
+</article><article class="card" id="q4">
+  <div class="qhead"><span class="badge">문항 4</span><span>기초 4 · 조건에 맞는 행 필터링</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+data = {
+    &#x27;이름&#x27;: [&#x27;인수샘&#x27;, &#x27;홍길동&#x27;, &#x27;구운몽&#x27;],
+    &#x27;나이&#x27;: [30, 25, 28],
+    &#x27;도시&#x27;: [&#x27;서울&#x27;, &#x27;부산&#x27;, &#x27;광주&#x27;]
+}
+df = pd.DataFrame(data)
+
+older_than_27 = df[df[&#x27;나이&#x27;] &gt;= 27]
+print(&quot;27세 이상인 사람:&quot;)
+print(older_than_27)</code></pre>
+  <textarea id="ans4" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res4"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>27세 이상인 사람:
+    이름  나이  도시
+0  인수샘  30  서울
+2  구운몽  28  광주</pre><b>상세 풀이</b><p>df[&#x27;나이&#x27;] &gt;= 27 조건이 True인 행만 남는다. 홍길동은 25세이므로 제외되고 인수샘과 구운몽만 출력된다.</p></div></details>
+</article><article class="card" id="q5">
+  <div class="qhead"><span class="badge">문항 5</span><span>기초 5 · 데이터 요약 통계 확인</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+data = {
+    &#x27;이름&#x27;: [&#x27;인수샘&#x27;, &#x27;홍길동&#x27;, &#x27;구운몽&#x27;],
+    &#x27;나이&#x27;: [30, 25, 28],
+    &#x27;도시&#x27;: [&#x27;서울&#x27;, &#x27;부산&#x27;, &#x27;광주&#x27;]
+}
+df = pd.DataFrame(data)
+
+print(&quot;데이터 요약 정보:&quot;)
+print(df.describe())</code></pre>
+  <textarea id="ans5" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res5"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>데이터 요약 정보:
+              나이
+count   3.000000
+mean   27.666667
+std     2.516611
+min    25.000000
+25%    26.500000
+50%    28.000000
+75%    29.000000
+max    30.000000</pre><b>상세 풀이</b><p>describe()는 수치형 열인 나이에 대해 개수, 평균, 표준편차, 최솟값, 사분위수, 최댓값을 계산한다.</p></div></details>
+</article><article class="card" id="q6">
+  <div class="qhead"><span class="badge">문항 6</span><span>응용 1 · 새로운 열 추가 및 계산</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+data = {
+    &#x27;이름&#x27;: [&#x27;인수샘&#x27;, &#x27;홍길동&#x27;, &#x27;구운몽&#x27;],
+    &#x27;나이&#x27;: [30, 25, 28],
+    &#x27;도시&#x27;: [&#x27;서울&#x27;, &#x27;부산&#x27;, &#x27;광주&#x27;]
+}
+df = pd.DataFrame(data)
+
+df[&#x27;내년나이&#x27;] = df[&#x27;나이&#x27;] + 1
+print(df)</code></pre>
+  <textarea id="ans6" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res6"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>    이름  나이  도시  내년나이
+0  인수샘  30  서울    31
+1  홍길동  25  부산    26
+2  구운몽  28  광주    29</pre><b>상세 풀이</b><p>df[&#x27;나이&#x27;] + 1은 나이 열의 모든 값에 1을 더한다. 그 결과가 새 열 내년나이에 저장된다.</p></div></details>
+</article><article class="card" id="q7">
+  <div class="qhead"><span class="badge">문항 7</span><span>응용 2 · 결측치 처리하기</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+import numpy as np
+
+data = {
+    &#x27;이름&#x27;: [&#x27;인수샘&#x27;, &#x27;홍길동&#x27;, &#x27;구운몽&#x27;],
+    &#x27;나이&#x27;: [30, 25, 28],
+    &#x27;도시&#x27;: [&#x27;서울&#x27;, &#x27;부산&#x27;, &#x27;광주&#x27;]
+}
+df = pd.DataFrame(data)
+df[&#x27;내년나이&#x27;] = df[&#x27;나이&#x27;] + 1
+
+df.loc[1, &#x27;도시&#x27;] = np.nan
+print(&quot;--- 결측치 발생 ---&quot;)
+print(df)
+
+df_filled = df.fillna(&#x27;알 수 없음&#x27;)
+print(&quot;
+--- 결측치 채우기 결과 ---&quot;)
+print(df_filled)</code></pre>
+  <textarea id="ans7" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res7"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>--- 결측치 발생 ---
+    이름  나이   도시  내년나이
+0  인수샘  30   서울    31
+1  홍길동  25  NaN    26
+2  구운몽  28   광주    29
+
+--- 결측치 채우기 결과 ---
+    이름  나이     도시  내년나이
+0  인수샘  30     서울    31
+1  홍길동  25  알 수 없음    26
+2  구운몽  28     광주    29</pre><b>상세 풀이</b><p>loc[1,&#x27;도시&#x27;]는 인덱스 1인 홍길동의 도시 값을 결측치 NaN으로 바꾼다. fillna(&#x27;알 수 없음&#x27;)은 NaN을 지정한 문자열로 대체한다.</p></div></details>
+</article><article class="card" id="q8">
+  <div class="qhead"><span class="badge">문항 8</span><span>응용 3 · 데이터 그룹화 및 집계</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+data = {
+    &#x27;부서&#x27;: [&#x27;개발&#x27;, &#x27;기획&#x27;, &#x27;개발&#x27;, &#x27;기획&#x27;, &#x27;인사&#x27;],
+    &#x27;급여&#x27;: [5000, 4000, 5500, 4200, 3800]
+}
+emp_df = pd.DataFrame(data)
+
+dept_avg = emp_df.groupby(&#x27;부서&#x27;)[&#x27;급여&#x27;].mean()
+print(&quot;부서별 평균 급여:&quot;)
+print(dept_avg)</code></pre>
+  <textarea id="ans8" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res8"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>부서별 평균 급여:
+부서
+개발    5250.0
+기획    4100.0
+인사    3800.0
+Name: 급여, dtype: float64</pre><b>상세 풀이</b><p>groupby로 부서별로 행을 묶고 급여의 평균을 구한다. 개발은 5000과 5500의 평균 5250.0, 기획은 4000과 4200의 평균 4100.0이다.</p></div></details>
+</article><article class="card" id="q9">
+  <div class="qhead"><span class="badge">문항 9</span><span>응용 4 · 데이터 합치기</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+df1 = pd.DataFrame({&#x27;이름&#x27;: [&#x27;인수샘&#x27;, &#x27;홍길동&#x27;], &#x27;성적&#x27;: [90, 80]})
+df2 = pd.DataFrame({&#x27;이름&#x27;: [&#x27;인수샘&#x27;, &#x27;홍길동&#x27;], &#x27;출석&#x27;: [100, 95]})
+
+merged = pd.merge(df1, df2, on=&#x27;이름&#x27;)
+print(&quot;데이터 병합 결과:&quot;)
+print(merged)</code></pre>
+  <textarea id="ans9" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res9"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>데이터 병합 결과:
+    이름  성적   출석
+0  인수샘  90  100
+1  홍길동  80   95</pre><b>상세 풀이</b><p>pd.merge(..., on=&#x27;이름&#x27;)은 이름 열을 기준으로 두 DataFrame을 합친다. 성적과 출석 열이 같은 행에 나란히 붙는다.</p></div></details>
+</article><article class="card" id="q10">
+  <div class="qhead"><span class="badge">문항 10</span><span>응용 5 · CSV 파일 읽기 및 저장</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+data = {
+    &#x27;이름&#x27;: [&#x27;인수샘&#x27;, &#x27;홍길동&#x27;, &#x27;구운몽&#x27;],
+    &#x27;나이&#x27;: [30, 25, 28],
+    &#x27;도시&#x27;: [&#x27;서울&#x27;, &#x27;부산&#x27;, &#x27;광주&#x27;]
+}
+df = pd.DataFrame(data)
+df[&#x27;내년나이&#x27;] = df[&#x27;나이&#x27;] + 1
+
+df.to_csv(&#x27;my_data.csv&#x27;, index=False, encoding=&#x27;utf-8-sig&#x27;)
+
+new_df = pd.read_csv(&#x27;my_data.csv&#x27;)
+print(&quot;불러온 데이터:&quot;)
+print(new_df.head())</code></pre>
+  <textarea id="ans10" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res10"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>불러온 데이터:
+    이름  나이  도시  내년나이
+0  인수샘  30  서울    31
+1  홍길동  25  부산    26
+2  구운몽  28  광주    29</pre><b>상세 풀이</b><p>to_csv는 DataFrame을 CSV 파일로 저장한다. index=False라서 별도 인덱스 열은 저장하지 않는다. read_csv로 다시 읽으면 원래 데이터가 출력된다.</p></div></details>
+</article><article class="card" id="q11">
+  <div class="qhead"><span class="badge">문항 11</span><span>심화 1 · 피벗 테이블</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+data = {
+    &#x27;날짜&#x27;: [&#x27;1일&#x27;, &#x27;1일&#x27;, &#x27;2일&#x27;, &#x27;2일&#x27;],
+    &#x27;도시&#x27;: [&#x27;서울&#x27;, &#x27;부산&#x27;, &#x27;서울&#x27;, &#x27;부산&#x27;],
+    &#x27;온도&#x27;: [25, 28, 26, 29]
+}
+df = pd.DataFrame(data)
+
+pivot = df.pivot_table(index=&#x27;도시&#x27;, columns=&#x27;날짜&#x27;, values=&#x27;온도&#x27;)
+print(&quot;피벗 테이블 결과:&quot;)
+print(pivot)</code></pre>
+  <textarea id="ans11" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res11"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>피벗 테이블 결과:
+날짜  1일  2일
+도시        
+부산  28  29
+서울  25  26</pre><b>상세 풀이</b><p>pivot_table은 도시를 행, 날짜를 열로 재구성하고 각 칸에 온도 값을 넣는다. 출력 시 열 이름 축에 날짜, 행 이름 축에 도시가 표시된다.</p></div></details>
+</article><article class="card" id="q12">
+  <div class="qhead"><span class="badge">문항 12</span><span>심화 2 · apply 함수 적용</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+df = pd.DataFrame({&#x27;점수1&#x27;: [80, 90, 70], &#x27;점수2&#x27;: [85, 95, 75]})
+
+df[&#x27;최고점수&#x27;] = df.apply(lambda row: max(row[&#x27;점수1&#x27;], row[&#x27;점수2&#x27;]), axis=1)
+df[&#x27;평균점수&#x27;] = df.apply(lambda row: (row[&#x27;점수1&#x27;] + row[&#x27;점수2&#x27;]) / 2, axis=1)
+print(df)</code></pre>
+  <textarea id="ans12" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res12"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>   점수1  점수2  최고점수  평균점수
+0   80   85    85  82.5
+1   90   95    95  92.5
+2   70   75    75  72.5</pre><b>상세 풀이</b><p>axis=1은 행 단위로 함수를 적용한다. 각 행에서 두 점수 중 큰 값을 최고점수로, 두 점수의 평균을 평균점수로 계산한다.</p></div></details>
+</article><article class="card" id="q13">
+  <div class="qhead"><span class="badge">문항 13</span><span>심화 3 · 고유값 확인 및 빈도수 세기</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+survey = pd.Series([&#x27;좋음&#x27;, &#x27;보통&#x27;, &#x27;좋음&#x27;, &#x27;나쁨&#x27;, &#x27;좋음&#x27;, &#x27;보통&#x27;])
+
+print(&quot;고유값 종류:&quot;, survey.unique())
+print(&quot;
+값별 빈도수:&quot;)
+print(survey.value_counts())</code></pre>
+  <textarea id="ans13" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res13"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>고유값 종류: [&#x27;좋음&#x27; &#x27;보통&#x27; &#x27;나쁨&#x27;]
+
+값별 빈도수:
+좋음    3
+보통    2
+나쁨    1
+Name: count, dtype: int64</pre><b>상세 풀이</b><p>unique()는 중복을 제거한 값의 종류를 처음 등장 순서대로 보여준다. value_counts()는 각 값이 몇 번 등장했는지 빈도수를 계산한다.</p></div></details>
+</article><article class="card" id="q14">
+  <div class="qhead"><span class="badge">문항 14</span><span>심화 4 · 인덱스 초기화 및 정렬</span></div>
+  <p class="question">다음 Pandas 코드를 실행했을 때의 <b>출력 결과를 줄바꿈과 공백까지 고려하여</b> 서술하시오.</p>
+  <pre><code>import pandas as pd
+
+df = pd.DataFrame({&#x27;점수&#x27;: [70, 95, 80]}, index=[&#x27;다&#x27;, &#x27;가&#x27;, &#x27;나&#x27;])
+
+print(&quot;인덱스 정렬:&quot;)
+print(df.sort_index())
+
+print(&quot;
+점수 기준 내림차순 정렬:&quot;)
+print(df.sort_values(by=&#x27;점수&#x27;, ascending=False))</code></pre>
+  <textarea id="ans14" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea>
+  <div class="result" id="res14"></div>
+  <details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>인덱스 정렬:
+   점수
+가  95
+나  80
+다  70
+
+점수 기준 내림차순 정렬:
+   점수
+가  95
+나  80
+다  70</pre><b>상세 풀이</b><p>sort_index()는 인덱스 가나다순으로 정렬한다. sort_values(by=&quot;점수&quot;, ascending=False)는 점수 값을 기준으로 큰 값부터 정렬한다.</p></div></details>
+</article>
+<div class="actions">
+<button class="primary" type="button" onclick="gradeAll()">✅ 채점하기</button>
+<button class="secondary" type="button" onclick="downloadTxt()">📄 TXT 산출</button>
+<button class="ghost" type="button" onclick="showAllSolutions()">📚 상세 풀이 모두 열기</button>
+<button class="ghost" type="button" onclick="window.print()">🖨️ 인쇄</button>
+</div>
+</main></div>
+<script>
+const answers = {"1": "--- Pandas Series ---\na    10\nb    20\nc    30\nd    40\ndtype: int64\n\n인덱스 'c'의 값: 30", "2": "--- Pandas DataFrame ---\n    이름  나이  도시\n0  인수샘  30  서울\n1  홍길동  25  부산\n2  구운몽  28  광주", "3": "이름 열만 추출:\n0    인수샘\n1    홍길동\n2    구운몽\nName: 이름, dtype: object\n\n이름과 도시 열 추출:\n    이름  도시\n0  인수샘  서울\n1  홍길동  부산\n2  구운몽  광주", "4": "27세 이상인 사람:\n    이름  나이  도시\n0  인수샘  30  서울\n2  구운몽  28  광주", "5": "데이터 요약 정보:\n              나이\ncount   3.000000\nmean   27.666667\nstd     2.516611\nmin    25.000000\n25%    26.500000\n50%    28.000000\n75%    29.000000\nmax    30.000000", "6": "    이름  나이  도시  내년나이\n0  인수샘  30  서울    31\n1  홍길동  25  부산    26\n2  구운몽  28  광주    29", "7": "--- 결측치 발생 ---\n    이름  나이   도시  내년나이\n0  인수샘  30   서울    31\n1  홍길동  25  NaN    26\n2  구운몽  28   광주    29\n\n--- 결측치 채우기 결과 ---\n    이름  나이     도시  내년나이\n0  인수샘  30     서울    31\n1  홍길동  25  알 수 없음    26\n2  구운몽  28     광주    29", "8": "부서별 평균 급여:\n부서\n개발    5250.0\n기획    4100.0\n인사    3800.0\nName: 급여, dtype: float64", "9": "데이터 병합 결과:\n    이름  성적   출석\n0  인수샘  90  100\n1  홍길동  80   95", "10": "불러온 데이터:\n    이름  나이  도시  내년나이\n0  인수샘  30  서울    31\n1  홍길동  25  부산    26\n2  구운몽  28  광주    29", "11": "피벗 테이블 결과:\n날짜  1일  2일\n도시        \n부산  28  29\n서울  25  26", "12": "   점수1  점수2  최고점수  평균점수\n0   80   85    85  82.5\n1   90   95    95  92.5\n2   70   75    75  72.5", "13": "고유값 종류: ['좋음' '보통' '나쁨']\n\n값별 빈도수:\n좋음    3\n보통    2\n나쁨    1\nName: count, dtype: int64", "14": "인덱스 정렬:\n   점수\n가  95\n나  80\n다  70\n\n점수 기준 내림차순 정렬:\n   점수\n가  95\n나  80\n다  70"};
+const totalQuestions = 14;
+let lastScore = null;
+function norm(s){
+  return String(s || '').replace(/
+/g, '
+').replace(//g, '
+').trim().replace(/[ 	]+/g, ' ');
+}
+function goQ(n){
+  const el = document.getElementById('q' + n);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+function gradeAll(){
+  let correct = 0;
+  for(let i=1;i<=totalQuestions;i++){
+    const user = norm(document.getElementById('ans'+i).value);
+    const ans = norm(answers[String(i)]);
+    const res = document.getElementById('res'+i);
+    if(user === ans){
+      correct++;
+      res.textContent = '정답입니다.';
+      res.className = 'result ok';
+    } else {
+      res.textContent = '오답입니다. 상세 풀이를 확인하세요.';
+      res.className = 'result bad';
+    }
+  }
+  lastScore = Math.round(correct / totalQuestions * 100);
+  document.getElementById('scoreBox').textContent = `점수: ${lastScore} / 100`;
+  return lastScore;
+}
+function stamp(){
+  const d = new Date();
+  const p = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+function downloadTxt(){
+  const score = gradeAll();
+  const sid = (document.getElementById('studentId').value || '학번').trim();
+  const name = (document.getElementById('studentName').value || '이름').trim();
+  const time = stamp();
+  let txt = `15차시 Pandas 데이터 분석 출력 결과 서술형 평가
+학번: ${sid}
+이름: ${name}
+점수: ${score} / 100
+응시시각: ${time}
+
+`;
+  for(let i=1;i<=totalQuestions;i++){
+    txt += `[문항 ${i}]
+학생 답안:
+${document.getElementById('ans'+i).value}
+
+정답:
+${answers[String(i)]}
+
+`;
+  }
+  const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${sid}_${name}_step15_${score}_${time}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+}
+function showAllSolutions(){
+  document.querySelectorAll('details').forEach(d => d.open = true);
+}
+</script>
+</body>
+</html>

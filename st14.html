@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>14차시 OOP 출력 결과 서술형 평가</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Pretendard,'Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#fff7ed);color:#172033}.wrap{display:grid;grid-template-columns:280px 1fr;min-height:100vh}aside{position:sticky;top:0;height:100vh;padding:22px;background:#102a43;color:white;overflow:auto}aside h2{font-size:20px;margin:0 0 12px}.profile{background:rgba(255,255,255,.1);padding:14px;border-radius:16px;margin:16px 0}label{display:block;font-weight:700;margin:8px 0 4px}input{width:100%;padding:10px;border:0;border-radius:10px}.nav button{display:block;width:100%;margin:7px 0;padding:10px;border:0;border-radius:12px;background:#e0f2fe;color:#0f172a;font-weight:800;cursor:pointer;text-align:left}main{padding:28px;max-width:1120px}header{background:white;padding:28px;border-radius:24px;box-shadow:0 10px 30px rgba(15,23,42,.09);margin-bottom:20px;border-top:8px solid #2563eb}h1{margin:0;color:#1e3a8a}.sub{color:#52616b}.card{background:white;margin:18px 0;padding:22px;border-radius:22px;box-shadow:0 8px 22px rgba(15,23,42,.08);border-left:8px solid #f97316}.qhead{display:flex;gap:10px;align-items:center;font-weight:900;font-size:18px}.badge{background:#2563eb;color:white;padding:6px 10px;border-radius:999px;font-size:14px}.question{background:#fff7ed;padding:12px;border-radius:12px}pre{background:#0b1020;color:#e5e7eb;padding:16px;border-radius:16px;overflow:auto;line-height:1.55;font-family:Consolas,monospace;white-space:pre-wrap}textarea{width:100%;min-height:115px;padding:14px;border:2px solid #cbd5e1;border-radius:14px;font-size:15px;line-height:1.5;font-family:Consolas,'Noto Sans KR',monospace}.actions{position:sticky;bottom:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);padding:16px;border-radius:20px;box-shadow:0 -4px 18px rgba(15,23,42,.08);display:flex;gap:10px;flex-wrap:wrap}.actions button{padding:12px 16px;border:0;border-radius:14px;font-weight:900;cursor:pointer}.primary{background:#2563eb;color:white}.secondary{background:#f97316;color:white}.ghost{background:#e2e8f0;color:#0f172a}.result{margin-top:8px;font-weight:900}.ok{color:#15803d}.bad{color:#b91c1c}details{margin-top:12px;background:#f8fafc;border-radius:14px;padding:12px}summary{cursor:pointer;font-weight:900;color:#1d4ed8}.solution p{line-height:1.8}#scoreBox{font-size:18px;font-weight:900;margin:10px 0;color:#facc15}@media(max-width:850px){.wrap{grid-template-columns:1fr}aside{position:relative;height:auto}}
+</style>
+</head>
+<body>
+<div class="wrap"><aside><h2>📘 Step14 평가</h2><p>OOP 출력 결과 서술형</p><div class="profile"><label>학번</label><input id="studentId" placeholder=" "><label>이름</label><input id="studentName" placeholder="호랑이"><div id="scoreBox">점수: - / 100</div></div><div class="nav" id="nav"></div></aside><main><header><h1>14차시: 객체지향 프로그래밍(OOP) 출력 결과 서술형 평가</h1><p class="sub">코드를 읽고 실제 출력 결과를 직접 작성합니다. 채점 후 <b>학번_이름_step14_점수_응시시각.txt</b> 파일로 결과를 저장할 수 있습니다.</p></header><div id="questions"></div><div class="actions"><button class="primary" onclick="gradeAll()">✅ 채점하기</button><button class="secondary" onclick="downloadTxt()">📄 TXT 산출</button><button class="ghost" onclick="showAllSolutions()">📚 상세 풀이 모두 열기</button><button class="ghost" onclick="window.print()">🖨️ 인쇄</button></div></main></div>
+<script>
+const items=[
+{t:'기초 1 · 클래스와 객체 생성',c:`class Person:
+    species = "호모 사피엔스"
+
+    def say_hello(self):
+        print("안녕하세요!")
+
+p1 = Person()
+print(p1.species)
+p1.say_hello()`,a:`호모 사피엔스
+안녕하세요!`,s:'Person 객체 p1을 만들면 클래스 변수 species를 사용할 수 있다. print(p1.species)는 호모 사피엔스를 출력하고, p1.say_hello()는 메서드 안의 print문을 실행한다.'},
+{t:'기초 2 · 생성자 메서드 __init__',c:`class Student:
+    def __init__(self, name, major):
+        self.name = name
+        self.major = major
+
+    def introduce(self):
+        print(f"저는 {self.major}을 전공하는 {self.name}입니다.")
+
+s1 = Student("홍길동", "컴퓨터공학")
+s2 = Student("인수샘", "데이터사이언스")
+
+s1.introduce()
+s2.introduce()`,a:`저는 컴퓨터공학을 전공하는 홍길동입니다.
+저는 데이터사이언스을 전공하는 인수샘입니다.`,s:'__init__은 객체 생성 시 name과 major를 저장한다. introduce()는 각 객체가 가진 전공과 이름을 f-string으로 출력한다.'},
+{t:'기초 3 · 클래스 변수와 인스턴스 변수',c:`class Dog:
+    kind = "강아지"
+
+    def __init__(self, name):
+        self.name = name
+
+d1 = Dog("바둑이")
+d2 = Dog("초코")
+
+print(f"{d1.name}는 {d1.kind}")
+print(f"{d2.name}는 {d2.kind}")`,a:`바둑이는 강아지
+초코는 강아지`,s:'kind는 모든 Dog 객체가 공유하는 클래스 변수이고, name은 객체마다 다른 인스턴스 변수이다.'},
+{t:'기초 4 · 메서드 안에서 다른 메서드 호출',c:`class Calculator:
+    def add(self, a, b):
+        return a + b
+
+    def add_and_print(self, a, b):
+        result = self.add(a, b)
+        print(f"결과값은 {result}입니다.")
+
+calc = Calculator()
+calc.add_and_print(10, 20)`,a:`결과값은 30입니다.`,s:'add(10, 20)은 30을 반환한다. add_and_print는 그 값을 result에 저장한 뒤 문장으로 출력한다.'},
+{t:'기초 5 · 정보 은닉 기초',c:`class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance
+
+    def deposit(self, amount):
+        self.__balance += amount
+        print(f"{amount}원 입금 완료")
+
+    def get_balance(self):
+        return self.__balance
+
+account = BankAccount(1000)
+account.deposit(500)
+print(f"현재 잔액: {account.get_balance()}원")`,a:`500원 입금 완료
+현재 잔액: 1500원`,s:'초기 잔액은 1000원이다. deposit(500)으로 500원이 더해져 1500원이 되고, 입금 완료 문장과 현재 잔액이 차례로 출력된다.'},
+{t:'응용 1 · 상속',c:`class Animal:
+    def eat(self):
+        print("음식을 먹습니다.")
+
+class Cat(Animal):
+    def meow(self):
+        print("야옹!")
+
+my_cat = Cat()
+my_cat.eat()
+my_cat.meow()`,a:`음식을 먹습니다.
+야옹!`,s:'Cat은 Animal을 상속받았으므로 부모의 eat() 메서드를 사용할 수 있고, 자기 자신의 meow()도 사용할 수 있다.'},
+{t:'응용 2 · 메서드 오버라이딩',c:`class Bird:
+    def fly(self):
+        print("하늘을 납니다.")
+
+class Penguin(Bird):
+    def fly(self):
+        print("펭귄은 날 수 없어 헤엄을 칩니다.")
+
+p = Penguin()
+p.fly()`,a:`펭귄은 날 수 없어 헤엄을 칩니다.`,s:'Penguin 클래스에서 fly()를 다시 정의했으므로 부모 Bird의 fly()가 아니라 자식 클래스의 fly()가 실행된다.'},
+{t:'응용 3 · super()를 이용한 부모 호출',c:`class Person:
+    def __init__(self, name):
+        self.name = name
+
+class Employee(Person):
+    def __init__(self, name, salary):
+        super().__init__(name)
+        self.salary = salary
+
+emp = Employee("구운몽", 5000)
+print(f"이름: {emp.name}, 급여: {emp.salary}")`,a:`이름: 구운몽, 급여: 5000`,s:'super().__init__(name)은 부모 Person의 생성자를 호출하여 name을 저장한다. Employee 생성자에서는 salary도 추가로 저장한다.'},
+{t:'응용 4 · 클래스 메서드와 정적 메서드',c:`class Date:
+    def __init__(self, year, month, day):
+        self.year, self.month, self.day = year, month, day
+
+    @staticmethod
+    def is_leap_year(year):
+        return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+    @classmethod
+    def from_string(cls, date_str):
+        year, month, day = map(int, date_str.split('-'))
+        return cls(year, month, day)
+
+print(f"2024년은 윤년인가? {Date.is_leap_year(2024)}")
+d = Date.from_string("2024-12-25")
+print(f"생성된 날짜: {d.year}년 {d.month}월 {d.day}일")`,a:`2024년은 윤년인가? True
+생성된 날짜: 2024년 12월 25일`,s:'2024는 4로 나누어떨어지고 100으로는 나누어떨어지지 않으므로 윤년이다. from_string은 문자열을 분리하여 Date 객체를 만든다.'},
+{t:'응용 5 · 다형성',c:`class Dog:
+    def speak(self): return "멍멍!"
+
+class Cat:
+    def speak(self): return "야옹~"
+
+class Sheep:
+    def speak(self): return "매에~"
+
+def make_animal_sound(animal):
+    print(animal.speak())
+
+animals = [Dog(), Cat(), Sheep()]
+for a in animals:
+    make_animal_sound(a)`,a:`멍멍!
+야옹~
+매에~`,s:'서로 다른 클래스의 객체이지만 모두 speak() 메서드를 가지고 있다. 반복문에서 각 객체의 speak()가 실행되어 서로 다른 소리가 출력된다.'},
+{t:'심화 1 · 추상 기본 클래스 ABC',c:`from abc import ABC, abstractmethod
+
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+    
+    def area(self):
+        return 3.14 * (self.radius ** 2)
+
+class Square(Shape):
+    def __init__(self, side):
+        self.side = side
+    
+    def area(self):
+        return self.side * self.side
+
+shapes = [Circle(5), Square(4)]
+for s in shapes:
+    print(f"도형의 넓이: {s.area()}")`,a:`도형의 넓이: 78.5
+도형의 넓이: 16`,s:'Circle(5)의 넓이는 3.14×25=78.5이고, Square(4)의 넓이는 4×4=16이다. 두 클래스 모두 추상 메서드 area()를 구현했기 때문에 객체 생성이 가능하다.'}
+];
+const nav=document.getElementById('nav'), qs=document.getElementById('questions');
+items.forEach((it,idx)=>{const n=idx+1;nav.insertAdjacentHTML('beforeend',`<button onclick="goQ(${n})">문항 ${n}</button>`);qs.insertAdjacentHTML('beforeend',`<article class="card" id="q${n}"><div class="qhead"><span class="badge">문항 ${n}</span><span>${it.t}</span></div><p class="question">다음 파이썬 코드를 실행했을 때의 <b>출력 결과를 줄바꿈까지 고려하여</b> 서술하시오.</p><pre><code>${esc(it.c)}</code></pre><textarea id="ans${n}" placeholder="출력 결과를 여기에 입력하세요. 여러 줄 출력이면 줄바꿈하여 입력하세요."></textarea><div class="result" id="res${n}"></div><details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>${esc(it.a)}</pre><b>상세 풀이</b><p>${it.s}</p></div></details></article>`)});
+let lastScore=null;
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function norm(s){return (s||'').replace(/\r\n/g,'\n').replace(/\r/g,'\n').trim().replace(/[ \t]+/g,' ')}
+function goQ(n){document.getElementById('q'+n).scrollIntoView({behavior:'smooth',block:'start'})}
+function gradeAll(){let correct=0;for(let i=1;i<=items.length;i++){const user=norm(document.getElementById('ans'+i).value);const ans=norm(items[i-1].a);const res=document.getElementById('res'+i);if(user===ans){correct++;res.innerHTML='정답입니다.';res.className='result ok'}else{res.innerHTML='오답입니다. 상세 풀이를 확인하세요.';res.className='result bad'}}lastScore=Math.round(correct*(100/items.length));document.getElementById('scoreBox').textContent=`점수: ${lastScore} / 100`;return lastScore}
+function stamp(){const d=new Date();const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`}
+function downloadTxt(){const score=gradeAll();const sid=(document.getElementById('studentId').value||'학번').trim();const name=(document.getElementById('studentName').value||'이름').trim();let txt=`14차시 파이썬 OOP 출력 결과 서술형 평가\n학번: ${sid}\n이름: ${name}\n점수: ${score} / 100\n응시시각: ${stamp()}\n\n`;for(let i=1;i<=items.length;i++){txt+=`[문항 ${i}] ${items[i-1].t}\n학생 답안:\n${document.getElementById('ans'+i).value}\n\n정답:\n${items[i-1].a}\n\n상세 풀이:\n${items[i-1].s}\n\n`}const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${sid}_${name}_step14_${score}_${stamp()}.txt`;a.click();URL.revokeObjectURL(a.href)}
+function showAllSolutions(){document.querySelectorAll('details').forEach(d=>d.open=true)}
+</script>
+</body>
+</html>

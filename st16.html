@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>16차시 Numpy 출력 결과 서술형 평가</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Pretendard,'Noto Sans KR',Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#f7fff0);color:#172033}
+.wrap{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+aside{position:sticky;top:0;height:100vh;padding:22px;background:#102a43;color:white;overflow:auto}
+aside h2{font-size:21px;margin:0 0 8px}.small{font-size:13px;color:#cbd5e1;line-height:1.5}
+.profile{background:rgba(255,255,255,.1);padding:14px;border-radius:16px;margin:16px 0}
+label{display:block;font-weight:800;margin:8px 0 4px} input{width:100%;padding:10px;border:0;border-radius:10px}
+.nav button{display:block;width:100%;margin:7px 0;padding:10px;border:0;border-radius:12px;background:#dbeafe;color:#0f172a;font-weight:800;cursor:pointer;text-align:left}
+.nav button:hover{background:#bfdbfe;transform:translateX(2px)}
+main{padding:28px;max-width:1150px} header{background:white;padding:28px;border-radius:24px;box-shadow:0 10px 30px rgba(15,23,42,.09);margin-bottom:20px;border-top:8px solid #2563eb}
+h1{margin:0;color:#1e3a8a}.sub{color:#52616b;line-height:1.8}
+.card{background:white;margin:18px 0;padding:22px;border-radius:22px;box-shadow:0 8px 22px rgba(15,23,42,.08);border-left:8px solid #16a34a;scroll-margin-top:18px}
+.qhead{display:flex;gap:10px;align-items:center;font-weight:900;font-size:18px}.badge{background:#2563eb;color:white;padding:6px 10px;border-radius:999px;font-size:14px}
+.question{background:#f0fdf4;padding:12px;border-radius:12px;line-height:1.7}
+pre{background:#0b1020;color:#e5e7eb;padding:16px;border-radius:16px;overflow:auto;line-height:1.55;font-family:Consolas,'D2Coding',monospace;white-space:pre-wrap}
+textarea{width:100%;min-height:120px;padding:14px;border:2px solid #cbd5e1;border-radius:14px;font-size:15px;line-height:1.5;font-family:Consolas,'Noto Sans KR',monospace}
+.actions{position:sticky;bottom:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);padding:16px;border-radius:20px;box-shadow:0 -4px 18px rgba(15,23,42,.08);display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.actions button{padding:12px 16px;border:0;border-radius:14px;font-weight:900;cursor:pointer}.primary{background:#2563eb;color:white}.secondary{background:#16a34a;color:white}.ghost{background:#e2e8f0;color:#0f172a}
+.result{margin-top:8px;font-weight:900}.ok{color:#15803d}.bad{color:#b91c1c}
+details{margin-top:12px;background:#f8fafc;border-radius:14px;padding:12px} summary{cursor:pointer;font-weight:900;color:#1d4ed8}.solution p{line-height:1.8}
+#scoreBox{font-size:18px;font-weight:900;margin:10px 0;color:#facc15}.hint{background:#fff7ed;border-left:5px solid #fb923c;padding:12px;border-radius:12px;margin-top:12px}
+@media(max-width:850px){.wrap{grid-template-columns:1fr} aside{position:relative;height:auto}.nav{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.nav button{margin:0}}
+@media print{aside,.actions{display:none}.wrap{display:block}main{max-width:none;padding:0}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <h2>📊 Step16 평가</h2>
+  <p class="small">Numpy 출력 결과 서술형<br>문항 버튼을 누르면 해당 문제로 이동합니다.</p>
+  <div class="profile">
+    <label>학번</label><input id="studentId" placeholder=" ">
+    <label>이름</label><input id="studentName" placeholder="호랑이">
+    <div id="scoreBox">점수: - / 100</div>
+  </div>
+  <div class="nav">
+    <button onclick="goQ(1)">문항 1 · 배열 생성</button>
+    <button onclick="goQ(2)">문항 2 · 속성 확인</button>
+    <button onclick="goQ(3)">문항 3 · arange/linspace</button>
+    <button onclick="goQ(4)">문항 4 · 산술 연산</button>
+    <button onclick="goQ(5)">문항 5 · 통계 함수</button>
+    <button onclick="goQ(6)">문항 6 · reshape</button>
+    <button onclick="goQ(7)">문항 7 · 슬라이싱</button>
+    <button onclick="goQ(8)">문항 8 · 불리언 인덱싱</button>
+    <button onclick="goQ(9)">문항 9 · 배열 합치기</button>
+    <button onclick="goQ(10)">문항 10 · 난수</button>
+    <button onclick="goQ(11)">문항 11 · 브로드캐스팅</button>
+    <button onclick="goQ(12)">문항 12 · 행렬 곱셈</button>
+    <button onclick="goQ(13)">문항 13 · np.where</button>
+  </div>
+</aside>
+<main>
+<header>
+<h1>16차시: Numpy 데이터 분석 출력 결과 서술형 평가</h1>
+<p class="sub">각 코드를 읽고 실제 출력 결과를 작성하세요. 채점 후 <b>학번_이름_step16_점수_응시시각.txt</b> 파일로 결과를 저장할 수 있습니다.</p>
+<div class="hint">※ 배열 출력은 공백 차이가 생길 수 있어 채점 시 여러 공백은 하나로 정규화됩니다. 줄바꿈과 핵심 값은 정확히 작성하세요.</div>
+</header>
+
+<article class="card" id="q1"><div class="qhead"><span class="badge">문항 1</span><span>Numpy 배열 생성</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+
+arr1d = np.array([1, 2, 3, 4, 5])
+print("--- 1차원 배열 ---")
+print(arr1d)
+
+arr2d = np.array([[1, 2, 3], [4, 5, 6]])
+print("\n--- 2차원 배열 ---")
+print(arr2d)</code></pre>
+<textarea id="ans1"></textarea><div class="result" id="res1"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>--- 1차원 배열 ---
+[1 2 3 4 5]
+
+--- 2차원 배열 ---
+[[1 2 3]
+ [4 5 6]]</pre><p>1차원 배열은 대괄호 한 겹으로 출력되고, 2차원 배열은 행 단위로 줄이 나뉘어 출력된다. print("\n...") 때문에 중간에 빈 줄이 생긴다.</p></div></details></article>
+
+<article class="card" id="q2"><div class="qhead"><span class="badge">문항 2</span><span>배열의 속성 확인</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+print("배열의 모양(행, 열):", arr.shape)
+print("배열의 차원:", arr.ndim)
+print("데이터 타입:", arr.dtype)</code></pre>
+<textarea id="ans2"></textarea><div class="result" id="res2"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>배열의 모양(행, 열): (2, 3)
+배열의 차원: 2
+데이터 타입: int64</pre><p>배열은 2행 3열이므로 shape는 (2, 3)이다. 중첩 리스트로 만든 2차원 배열이라 ndim은 2이다. 정수 배열의 dtype은 일반적인 64비트 환경에서 int64로 표시된다.</p></div></details></article>
+
+<article class="card" id="q3"><div class="qhead"><span class="badge">문항 3</span><span>arange와 linspace</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+
+a = np.arange(10)
+print("arange(10):", a)
+
+b = np.linspace(0, 1, 5)
+print("linspace(0, 1, 5):", b)</code></pre>
+<textarea id="ans3"></textarea><div class="result" id="res3"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>arange(10): [0 1 2 3 4 5 6 7 8 9]
+linspace(0, 1, 5): [0.   0.25 0.5  0.75 1.  ]</pre><p>np.arange(10)은 0부터 9까지 정수를 만든다. np.linspace(0, 1, 5)는 0과 1을 포함하여 같은 간격의 실수 5개를 만든다.</p></div></details></article>
+
+<article class="card" id="q4"><div class="qhead"><span class="badge">문항 4</span><span>배열의 산술 연산</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+x = np.array([1, 2, 3])
+y = np.array([4, 5, 6])
+
+print("덧셈:", x + y)
+print("곱셈:", x * y)
+print("제곱:", x ** 2)</code></pre>
+<textarea id="ans4"></textarea><div class="result" id="res4"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>덧셈: [5 7 9]
+곱셈: [ 4 10 18]
+제곱: [1 4 9]</pre><p>Numpy 배열 연산은 같은 위치의 원소끼리 수행된다. 따라서 덧셈은 [1+4, 2+5, 3+6], 곱셈은 [1×4, 2×5, 3×6]이다.</p></div></details></article>
+
+<article class="card" id="q5"><div class="qhead"><span class="badge">문항 5</span><span>통계 함수 활용</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+arr = np.array([[1, 2], [3, 4]])
+
+print("전체 합계:", np.sum(arr))
+print("열 기준 평균 (axis=0):", np.mean(arr, axis=0))
+print("행 기준 최댓값 (axis=1):", np.max(arr, axis=1))</code></pre>
+<textarea id="ans5"></textarea><div class="result" id="res5"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>전체 합계: 10
+열 기준 평균 (axis=0): [2. 3.]
+행 기준 최댓값 (axis=1): [2 4]</pre><p>전체 합은 1+2+3+4=10이다. axis=0은 열 방향 평균이므로 [1,3]의 평균 2, [2,4]의 평균 3이다. axis=1은 각 행에서 최댓값을 구한다.</p></div></details></article>
+
+<article class="card" id="q6"><div class="qhead"><span class="badge">문항 6</span><span>reshape</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+arr = np.arange(12)
+reshaped = arr.reshape(3, 4)
+
+print("--- 원본 (1D) ---")
+print(arr)
+print("\n--- 변경 후 (3x4) ---")
+print(reshaped)</code></pre>
+<textarea id="ans6"></textarea><div class="result" id="res6"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>--- 원본 (1D) ---
+[ 0  1  2  3  4  5  6  7  8  9 10 11]
+
+--- 변경 후 (3x4) ---
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]</pre><p>np.arange(12)는 0부터 11까지의 12개 원소를 만든다. reshape(3, 4)는 이를 3행 4열 배열로 재배치한다.</p></div></details></article>
+
+<article class="card" id="q7"><div class="qhead"><span class="badge">문항 7</span><span>인덱싱과 슬라이싱</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+arr = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+print("2행 3열 요소:", arr[1, 2])
+print("첫 번째 열:", arr[:, 0])
+print("부분 행렬:\n", arr[:2, :2])</code></pre>
+<textarea id="ans7"></textarea><div class="result" id="res7"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>2행 3열 요소: 6
+첫 번째 열: [1 4 7]
+부분 행렬:
+ [[1 2]
+ [4 5]]</pre><p>arr[1,2]는 0부터 세는 인덱스 기준으로 두 번째 행, 세 번째 열의 값인 6이다. arr[:,0]은 모든 행의 첫 번째 열이다. arr[:2,:2]는 위쪽 2행과 왼쪽 2열을 자른다.</p></div></details></article>
+
+<article class="card" id="q8"><div class="qhead"><span class="badge">문항 8</span><span>불리언 인덱싱</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+scores = np.array([85, 92, 78, 65, 89, 95])
+high_scores = scores[scores >= 80]
+
+print("80점 이상 점수:", high_scores)
+print("인수샘의 점수는 90점 이상인가?", scores[1] >= 90)</code></pre>
+<textarea id="ans8"></textarea><div class="result" id="res8"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>80점 이상 점수: [85 92 89 95]
+인수샘의 점수는 90점 이상인가? True</pre><p>80점 이상인 값만 추출하면 85, 92, 89, 95이다. scores[1]은 92이고 90 이상이므로 True가 출력된다.</p></div></details></article>
+
+<article class="card" id="q9"><div class="qhead"><span class="badge">문항 9</span><span>배열 합치기</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+
+print("수직 합치기:\n", np.vstack((a, b)))
+print("수평 합치기:", np.hstack((a, b)))</code></pre>
+<textarea id="ans9"></textarea><div class="result" id="res9"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>수직 합치기:
+ [[1 2 3]
+ [4 5 6]]
+수평 합치기: [1 2 3 4 5 6]</pre><p>vstack은 두 1차원 배열을 위아래로 쌓아 2행 배열을 만든다. hstack은 두 배열을 옆으로 이어 붙여 1차원 배열을 만든다.</p></div></details></article>
+
+<article class="card" id="q10"><div class="qhead"><span class="badge">문항 10</span><span>난수 생성</span></div>
+<p class="question">다음 코드는 평가를 위해 seed를 고정했습니다. 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+np.random.seed(0)
+
+print("균등 난수:", np.random.rand(5).round(3))
+print("정규 분포 난수:\n", np.random.randn(2, 3).round(3))
+print("정수 난수 (홍길동의 행운번호):", np.random.randint(1, 46, 6))</code></pre>
+<textarea id="ans10"></textarea><div class="result" id="res10"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>균등 난수: [0.549 0.715 0.603 0.545 0.424]
+정규 분포 난수:
+ [[-0.843  1.97   1.266]
+ [-0.506  2.545  1.081]]
+정수 난수 (홍길동의 행운번호): [39 40 24 25 18 38]</pre><p>np.random.seed(0)을 사용하면 난수의 순서가 고정된다. round(3)을 적용했으므로 소수 셋째 자리까지 반올림된 배열이 출력된다.</p></div></details></article>
+
+<article class="card" id="q11"><div class="qhead"><span class="badge">문항 11</span><span>브로드캐스팅</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+scalar = 10
+vector = np.array([10, 20, 30])
+
+print("스칼라 덧셈:\n", arr + scalar)
+print("\n벡터 덧셈:\n", arr + vector)</code></pre>
+<textarea id="ans11"></textarea><div class="result" id="res11"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>스칼라 덧셈:
+ [[11 12 13]
+ [14 15 16]]
+
+벡터 덧셈:
+ [[11 22 33]
+ [14 25 36]]</pre><p>스칼라 10은 모든 원소에 더해진다. vector [10,20,30]은 각 행에 자동으로 맞춰져 열별로 더해진다.</p></div></details></article>
+
+<article class="card" id="q12"><div class="qhead"><span class="badge">문항 12</span><span>행렬 곱셈</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+mat1 = np.array([[1, 2], [3, 4]])
+mat2 = np.array([[5, 6], [7, 8]])
+
+result = mat1 @ mat2
+print("행렬 곱셈 결과 (@):\n", result)
+
+result_dot = np.dot(mat1, mat2)
+print("\n행렬 곱셈 결과 (dot):\n", result_dot)</code></pre>
+<textarea id="ans12"></textarea><div class="result" id="res12"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>행렬 곱셈 결과 (@):
+ [[19 22]
+ [43 50]]
+
+행렬 곱셈 결과 (dot):
+ [[19 22]
+ [43 50]]</pre><p>행렬 곱셈은 행과 열을 곱해 더한다. 첫 원소는 1×5+2×7=19이다. @와 np.dot은 이 경우 같은 결과를 낸다.</p></div></details></article>
+
+<article class="card" id="q13"><div class="qhead"><span class="badge">문항 13</span><span>np.where 조건부 값 할당</span></div>
+<p class="question">다음 코드를 실행했을 때의 출력 결과를 쓰시오.</p>
+<pre><code>import numpy as np
+arr = np.array([-2, -1, 0, 1, 2])
+
+result = np.where(arr > 0, '양수', '음수')
+
+print("원본 배열:", arr)
+print("변환 결과:", result)
+
+cleaned = np.where(arr < 0, 0, arr)
+print("정제된 데이터 (음수 제거):", cleaned)</code></pre>
+<textarea id="ans13"></textarea><div class="result" id="res13"></div>
+<details><summary>상세 풀이 보기</summary><div class="solution"><b>정답 출력</b><pre>원본 배열: [-2 -1  0  1  2]
+변환 결과: ['음수' '음수' '음수' '양수' '양수']
+정제된 데이터 (음수 제거): [0 0 0 1 2]</pre><p>arr > 0 조건이 참이면 '양수', 거짓이면 '음수'가 선택된다. 0은 0보다 크지 않으므로 음수 쪽으로 분류된다. arr < 0인 값은 0으로 바뀐다.</p></div></details></article>
+
+<div class="actions">
+<button class="primary" onclick="gradeAll()">✅ 채점하기</button>
+<button class="secondary" onclick="downloadTxt()">📄 TXT 산출</button>
+<button class="ghost" onclick="showAllSolutions()">📚 상세 풀이 모두 열기</button>
+<button class="ghost" onclick="window.print()">🖨️ 인쇄</button>
+</div>
+</main>
+</div>
+<script>
+const answers = {
+1:`--- 1차원 배열 ---
+[1 2 3 4 5]
+
+--- 2차원 배열 ---
+[[1 2 3]
+ [4 5 6]]`,
+2:`배열의 모양(행, 열): (2, 3)
+배열의 차원: 2
+데이터 타입: int64`,
+3:`arange(10): [0 1 2 3 4 5 6 7 8 9]
+linspace(0, 1, 5): [0.   0.25 0.5  0.75 1.  ]`,
+4:`덧셈: [5 7 9]
+곱셈: [ 4 10 18]
+제곱: [1 4 9]`,
+5:`전체 합계: 10
+열 기준 평균 (axis=0): [2. 3.]
+행 기준 최댓값 (axis=1): [2 4]`,
+6:`--- 원본 (1D) ---
+[ 0  1  2  3  4  5  6  7  8  9 10 11]
+
+--- 변경 후 (3x4) ---
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]`,
+7:`2행 3열 요소: 6
+첫 번째 열: [1 4 7]
+부분 행렬:
+ [[1 2]
+ [4 5]]`,
+8:`80점 이상 점수: [85 92 89 95]
+인수샘의 점수는 90점 이상인가? True`,
+9:`수직 합치기:
+ [[1 2 3]
+ [4 5 6]]
+수평 합치기: [1 2 3 4 5 6]`,
+10:`균등 난수: [0.549 0.715 0.603 0.545 0.424]
+정규 분포 난수:
+ [[-0.843  1.97   1.266]
+ [-0.506  2.545  1.081]]
+정수 난수 (홍길동의 행운번호): [39 40 24 25 18 38]`,
+11:`스칼라 덧셈:
+ [[11 12 13]
+ [14 15 16]]
+
+벡터 덧셈:
+ [[11 22 33]
+ [14 25 36]]`,
+12:`행렬 곱셈 결과 (@):
+ [[19 22]
+ [43 50]]
+
+행렬 곱셈 결과 (dot):
+ [[19 22]
+ [43 50]]`,
+13:`원본 배열: [-2 -1  0  1  2]
+변환 결과: ['음수' '음수' '음수' '양수' '양수']
+정제된 데이터 (음수 제거): [0 0 0 1 2]`
+};
+let lastScore = null;
+function norm(s){return (s||'').replace(/\r\n/g,'\n').replace(/\r/g,'\n').trim().replace(/[ \t]+/g,' ');} 
+function goQ(n){const el=document.getElementById('q'+n); if(el) el.scrollIntoView({behavior:'smooth',block:'start'});} 
+function gradeAll(){let correct=0; const per=100/Object.keys(answers).length; for(let i=1;i<=13;i++){const user=norm(document.getElementById('ans'+i).value); const ans=norm(answers[i]); const res=document.getElementById('res'+i); if(user===ans){correct++; res.innerHTML='정답입니다.'; res.className='result ok';} else {res.innerHTML='오답입니다. 상세 풀이를 확인하세요.'; res.className='result bad';}} lastScore=Math.round(correct*per); document.getElementById('scoreBox').textContent=`점수: ${lastScore} / 100`; return lastScore;}
+function stamp(){const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;}
+function downloadTxt(){const score=gradeAll(); const sid=(document.getElementById('studentId').value||'학번').trim(); const name=(document.getElementById('studentName').value||'이름').trim(); const now=stamp(); let txt=`16차시 Numpy 출력 결과 서술형 평가\n학번: ${sid}\n이름: ${name}\n점수: ${score} / 100\n응시시각: ${now}\n\n`; for(let i=1;i<=13;i++){txt+=`[문항 ${i}]\n학생 답안:\n${document.getElementById('ans'+i).value}\n\n정답:\n${answers[i]}\n\n`; } const blob=new Blob([txt],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`${sid}_${name}_step16_${score}_${now}.txt`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);}
+function showAllSolutions(){document.querySelectorAll('details').forEach(d=>d.open=true);}
+</script>
+</body>
+</html>
